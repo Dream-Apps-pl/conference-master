@@ -23,9 +23,10 @@ Map<String, dynamic> _$OrganizersToJson(Organizers instance) =>
       'items': instance.items,
     };
 
-OrganizerFields _$OrganizerFieldsFromJson(Map json) => OrganizerFields(
-      SystemFields.fromJson(Map<String, dynamic>.from(json['sys'] as Map)),
-      Organizer.fromJson(json['fields'] as Map),
+OrganizerFields _$OrganizerFieldsFromJson(Map<String, dynamic> json) =>
+    OrganizerFields(
+      SystemFields.fromJson(json['sys'] as Map<String, dynamic>),
+      Organizer.fromJson(json['fields'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$OrganizerFieldsToJson(OrganizerFields instance) =>

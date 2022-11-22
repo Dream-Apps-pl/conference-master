@@ -23,10 +23,7 @@ class Sponsors extends EntryCollection<SponsorFields> {
   Map<String, dynamic> toJson() => _$SponsorsToJson(this);
 }
 
-@JsonSerializable(
-  explicitToJson: true,
-  anyMap: true,
-)
+@JsonSerializable(explicitToJson: true)
 class SponsorFields extends Entry<Sponsor> {
   SponsorFields(SystemFields sys, Sponsor fields)
       : super(fields: fields, sys: sys);
@@ -36,10 +33,7 @@ class SponsorFields extends Entry<Sponsor> {
   Map<String, dynamic> toJson() => _$SponsorFieldsToJson(this);
 }
 
-@JsonSerializable(
-  explicitToJson: true,
-  anyMap: true,
-)
+@JsonSerializable(explicitToJson: true)
 class Sponsor extends Equatable {
   @JsonKey(name: 'nazwaFirmy')
   final String name;

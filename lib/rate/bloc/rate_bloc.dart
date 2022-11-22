@@ -12,7 +12,7 @@ class RateBloc extends Bloc<RateEvent, RateState> {
 
   final RatingsRepository _ratingsRepository;
 
-  RemoteConfig _config;
+  RemoteConfigSettings _config;
 
   double _rating;
   double get rating => _rating;

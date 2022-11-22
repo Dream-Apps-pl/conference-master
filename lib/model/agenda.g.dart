@@ -22,9 +22,9 @@ Map<String, dynamic> _$AgendaToJson(Agenda instance) => <String, dynamic>{
       'items': instance.items,
     };
 
-AgendaFields _$AgendaFieldsFromJson(Map json) => AgendaFields(
-      SystemFields.fromJson(Map<String, dynamic>.from(json['sys'] as Map)),
-      Fields.fromJson(json['fields'] as Map),
+AgendaFields _$AgendaFieldsFromJson(Map<String, dynamic> json) => AgendaFields(
+      SystemFields.fromJson(json['sys'] as Map<String, dynamic>),
+      Fields.fromJson(json['fields'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$AgendaFieldsToJson(AgendaFields instance) =>
@@ -33,13 +33,13 @@ Map<String, dynamic> _$AgendaFieldsToJson(AgendaFields instance) =>
       'fields': instance.fields?.toJson(),
     };
 
-Fields _$FieldsFromJson(Map json) => Fields(
+Fields _$FieldsFromJson(Map<String, dynamic> json) => Fields(
       Fields._dayFromJson(json['day'] as String),
       json['time'] as String,
       json['title'] as String,
       $enumDecode(_$TalkTypeEnumMap, json['type']),
-      ContentfulSpeaker.fromJson(json['speaker'] as Map),
-      ContentfulSpeaker.fromJson(json['secondSpeaked'] as Map),
+      ContentfulSpeaker.fromJson(json['speaker'] as Map<String, dynamic>),
+      ContentfulSpeaker.fromJson(json['secondSpeaked'] as Map<String, dynamic>),
       _storeDocumentAsString(json['description'] as Map),
     );
 
@@ -59,9 +59,10 @@ const _$TalkTypeEnumMap = {
   TalkType.other: 'other',
 };
 
-ContentfulSpeaker _$ContentfulSpeakerFromJson(Map json) => ContentfulSpeaker(
-      SystemFields.fromJson(Map<String, dynamic>.from(json['sys'] as Map)),
-      ContentfulSpeakerFields.fromJson(json['fields'] as Map),
+ContentfulSpeaker _$ContentfulSpeakerFromJson(Map<String, dynamic> json) =>
+    ContentfulSpeaker(
+      SystemFields.fromJson(json['sys'] as Map<String, dynamic>),
+      ContentfulSpeakerFields.fromJson(json['fields'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$ContentfulSpeakerToJson(ContentfulSpeaker instance) =>
@@ -70,11 +71,12 @@ Map<String, dynamic> _$ContentfulSpeakerToJson(ContentfulSpeaker instance) =>
       'fields': instance.fields?.toJson(),
     };
 
-ContentfulSpeakerFields _$ContentfulSpeakerFieldsFromJson(Map json) =>
+ContentfulSpeakerFields _$ContentfulSpeakerFieldsFromJson(
+        Map<String, dynamic> json) =>
     ContentfulSpeakerFields(
       json['name'] as String,
       json['twitter'] as String,
-      Asset.fromJson(Map<String, dynamic>.from(json['picture'] as Map)),
+      Asset.fromJson(json['picture'] as Map<String, dynamic>),
       json['topic'] as String,
       _documentFromJson(json['bio'] as Map),
       _documentFromJson(json['longBio'] as Map),

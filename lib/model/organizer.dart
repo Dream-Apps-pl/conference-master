@@ -26,10 +26,7 @@ class Organizers extends EntryCollection<OrganizerFields> {
   Map<String, dynamic> toJson() => _$OrganizersToJson(this);
 }
 
-@JsonSerializable(
-  explicitToJson: true,
-  anyMap: true,
-)
+@JsonSerializable(explicitToJson: true)
 class OrganizerFields extends Entry<Organizer> {
   OrganizerFields(SystemFields sys, Organizer fields)
       : super(fields: fields, sys: sys);
@@ -80,7 +77,6 @@ class Organizer extends Equatable implements Comparable<Organizer> {
 String _storeDocumentAsString(Map doc) {
   return jsonEncode(doc);
 }
-
 
 Document? _documentFromJson(Map json) {
   return Document.fromJson(json);

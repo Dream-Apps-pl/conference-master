@@ -29,10 +29,7 @@ class Agenda extends EntryCollection<AgendaFields> {
   Map<String, dynamic> toJson() => _$AgendaToJson(this);
 }
 
-@JsonSerializable(
-  explicitToJson: true,
-  anyMap: true,
-)
+@JsonSerializable(explicitToJson: true)
 class AgendaFields extends Entry<Fields> {
   AgendaFields(SystemFields sys, Fields fields)
       : super(fields: fields, sys: sys);
@@ -55,10 +52,7 @@ Document _documentFromJson(Map json) {
   return Document.fromJson(json)!;
 }
 
-@JsonSerializable(
-  explicitToJson: true,
-  anyMap: true,
-)
+@JsonSerializable(explicitToJson: true)
 class Fields extends Equatable {
   @JsonKey(fromJson: _dayFromJson, toJson: _dayToJson)
   final Day day;
@@ -118,10 +112,7 @@ String _storeDocumentAsString(Map doc) {
   return jsonEncode(doc);
 }
 
-@JsonSerializable(
-  explicitToJson: true,
-  anyMap: true,
-)
+@JsonSerializable(explicitToJson: true)
 class ContentfulSpeaker extends Entry<ContentfulSpeakerFields> {
   ContentfulSpeaker(SystemFields sys, ContentfulSpeakerFields fields)
       : super(sys: sys, fields: fields);
@@ -131,10 +122,7 @@ class ContentfulSpeaker extends Entry<ContentfulSpeakerFields> {
   Map<String, dynamic> toJson() => _$ContentfulSpeakerToJson(this);
 }
 
-@JsonSerializable(
-  explicitToJson: true,
-  anyMap: true,
-)
+@JsonSerializable(explicitToJson: true)
 class ContentfulSpeakerFields extends Equatable {
   final String name;
   final String twitter;

@@ -22,9 +22,10 @@ Map<String, dynamic> _$SponsorsToJson(Sponsors instance) => <String, dynamic>{
       'items': instance.items,
     };
 
-SponsorFields _$SponsorFieldsFromJson(Map json) => SponsorFields(
-      SystemFields.fromJson(Map<String, dynamic>.from(json['sys'] as Map)),
-      Sponsor.fromJson(json['fields'] as Map),
+SponsorFields _$SponsorFieldsFromJson(Map<String, dynamic> json) =>
+    SponsorFields(
+      SystemFields.fromJson(json['sys'] as Map<String, dynamic>),
+      Sponsor.fromJson(json['fields'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$SponsorFieldsToJson(SponsorFields instance) =>
@@ -33,9 +34,9 @@ Map<String, dynamic> _$SponsorFieldsToJson(SponsorFields instance) =>
       'fields': instance.fields?.toJson(),
     };
 
-Sponsor _$SponsorFromJson(Map json) => Sponsor(
+Sponsor _$SponsorFromJson(Map<String, dynamic> json) => Sponsor(
       json['nazwaFirmy'] as String,
-      Asset.fromJson(Map<String, dynamic>.from(json['logo'] as Map)),
+      Asset.fromJson(json['logo'] as Map<String, dynamic>),
       json['linkDoStronySponsora'] as String,
       $enumDecode(_$SponsorLevelEnumMap, json['poziomSponsoringu']),
     );
