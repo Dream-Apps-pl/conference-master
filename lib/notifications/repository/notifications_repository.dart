@@ -8,12 +8,12 @@ class FirestoreNotificationsRepository {
   final CollectionReference _notificationsCollection;
   // final Firestore _firestore;
 
-  FirestoreNotificationsRepository(Firestore firestore)
+  FirestoreNotificationsRepository(FirebaseFirestore firestore)
       : _notificationsCollection = firestore.collection('notifications');
 
   Stream<List<AppNotification>> notifications() {
     return _notificationsCollection.snapshots().map((snapshot) {
-      final list = snapshot.documents.map(_getNotifications).toList();
+      final list = snapshot.docs.map(_getNotifications).toList();
       list..sort();
       return list;
     });
@@ -21,7 +21,7 @@ class FirestoreNotificationsRepository {
 
   AppNotification _getNotifications(DocumentSnapshot doc) {
     try {
-      return AppNotification.fromJson(doc.data);
+      return AppNotification.fromJson(doc.data() as Map<String, dynamic>);
     } catch (e, s) {
       logger.errorException(e, s);
       return AppNotification('', DateTime.now(), '', false, '');
@@ -33,6 +33,6 @@ class FirestoreNotificationsRepository {
   }
 
   Future<void> removeNotification(String notificationId) async {
-    await _notificationsCollection.document(notificationId).delete();
+    await _notificationsCollection.doc(notificationId).delete();
   }
 }

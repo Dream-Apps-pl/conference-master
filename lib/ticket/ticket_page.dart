@@ -5,7 +5,6 @@ import 'package:conferenceapp/model/ticket.dart';
 import 'package:conferenceapp/model/user.dart';
 import 'package:conferenceapp/profile/user_repository.dart';
 import 'package:conferenceapp/ticket/bloc/bloc.dart';
-import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:line_icons/line_icons.dart';
@@ -23,14 +22,14 @@ class TicketPage extends StatefulWidget {
 }
 
 class _TicketPageState extends State<TicketPage> {
-  TextEditingController orderController;
-  TextEditingController emailController;
-  TextEditingController ticketController;
-  TextEditingController personalEmailController;
-  FocusNode orderNode;
-  FocusNode emailNode;
-  FocusNode ticketNode;
-  FocusNode personalEmailNode;
+  late TextEditingController orderController;
+  late TextEditingController emailController;
+  late TextEditingController ticketController;
+  late TextEditingController personalEmailController;
+  late FocusNode orderNode;
+  late FocusNode emailNode;
+  late FocusNode ticketNode;
+  late FocusNode personalEmailNode;
 
   bool verifyByOrderNumber = false;
   bool verifyByTicketNumber = false;
@@ -143,7 +142,7 @@ class _TicketPageState extends State<TicketPage> {
                   keyboardType: TextInputType.visiblePassword,
                   textCapitalization: TextCapitalization.characters,
                   additionalValidator: (value) {
-                    if (!value.startsWith('OT') && !value.startsWith('ot')) {
+                    if (!value!.startsWith('OT') && !value.startsWith('ot')) {
                       return 'Order number should start with OT';
                     }
                     return null;
@@ -174,21 +173,19 @@ class _TicketPageState extends State<TicketPage> {
               //   focusNode: personalEmailNode,
               //   keyboardType: TextInputType.emailAddress,
               // ),
-              if (state is TicketErrorState)
-                Text('We have some problems 😅'),
+              if (state is TicketErrorState) Text('We have some problems 😅'),
               if (!(state is TicketAddedState))
                 SaveTicketButton(
                   enabled: formValid,
                   onSave: onSave,
                 ),
-              if (!(state is TicketAddedState))
-                AddTicketEmailInfo(),
+              if (!(state is TicketAddedState)) AddTicketEmailInfo(),
 
               if (state is TicketAddedState && state.ticket.orderId.isNotEmpty)
                 Padding(
                   padding: const EdgeInsets.all(4.0),
                   child: Text(
-                    'Order number: ${state.ticket.orderId ?? na}',
+                    'Order number: ${state.ticket.orderId}',
                     textAlign: TextAlign.center,
                   ),
                 ),
@@ -196,16 +193,16 @@ class _TicketPageState extends State<TicketPage> {
                 Padding(
                   padding: const EdgeInsets.all(4.0),
                   child: Text(
-                    'Ticket number: ${state.ticket.ticketId ?? na}',
+                    'Ticket number: ${state.ticket.ticketId}',
                     textAlign: TextAlign.center,
                   ),
                 ),
 
-              if (state is TicketAddedState)
-                ConferenceInfo(),
+              if (state is TicketAddedState) ConferenceInfo(),
               if (state is TicketAddedState && !(state is TicketValidatedState))
-                FlatButton(
-                  textColor: Colors.red,
+                TextButton(
+                  style: TextButton.styleFrom(
+                      textStyle: TextStyle(color: Colors.red)),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     mainAxisSize: MainAxisSize.min,
@@ -265,7 +262,7 @@ class _TicketPageState extends State<TicketPage> {
   }
 
   void validate(String value) {
-    final valid = _formKey.currentState.validate();
+    final valid = _formKey.currentState!.validate();
     setState(() {
       formValid = valid;
     });
@@ -274,11 +271,11 @@ class _TicketPageState extends State<TicketPage> {
 
 class NoQrCode extends StatelessWidget {
   const NoQrCode({
-    Key key,
+    Key? key,
     this.onTap,
   }) : super(key: key);
 
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -296,8 +293,8 @@ class NoQrCode extends StatelessWidget {
 
 class QrCode extends StatelessWidget {
   const QrCode({
-    Key key,
-    @required this.ticketData,
+    Key? key,
+    required this.ticketData,
     this.validated = false,
   }) : super(key: key);
 
@@ -316,7 +313,7 @@ class QrCode extends StatelessWidget {
                 ticketData.orderId.length > 0 ? ticketData.orderId : '_';
             final ticketId =
                 ticketData.ticketId.length > 0 ? ticketData.ticketId : '_';
-            final qrData = '${user.userId} $orderId $ticketId';
+            final qrData = '${user!.userId} $orderId $ticketId';
             return Container(
               height: 260,
               width: 260,
@@ -338,7 +335,7 @@ class QrCode extends StatelessWidget {
 }
 
 class TicketPageWrapper extends StatelessWidget {
-  const TicketPageWrapper({Key key, this.children}) : super(key: key);
+  const TicketPageWrapper({Key? key, required this.children}) : super(key: key);
   final List<Widget> children;
 
   @override

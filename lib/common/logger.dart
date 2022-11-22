@@ -6,45 +6,45 @@ class Logger {
   bool printToConsole = false;
 
   void info(String message) {
-    final className = Trace.current().frames[1].member.split(".")[0];
-    final methodName = Trace.current().frames[1].member.split(".")[1];
+    final className = Trace.current().frames[1].member?.split(".")[0];
+    final methodName = Trace.current().frames[1].member?.split(".")[1];
     if (printToConsole) debugPrint(message);
-    FlutterBugfender.l(message,
-        logLevel: LogLevel.Info,
-        tag: className,
-        methodName: methodName,
-        className: className);
+    FlutterBugfender.sendLog(
+        text: message,
+        level: LogLevel.info,
+        tag: className!,
+        method: methodName!);
   }
 
   void error(String message) {
-    final className = Trace.current().frames[1].member.split(".")[0];
-    final methodName = Trace.current().frames[1].member.split(".")[1];
+    final className = Trace.current().frames[1].member?.split(".")[0];
+    final methodName = Trace.current().frames[1].member?.split(".")[1];
     if (printToConsole) debugPrint(message);
-    FlutterBugfender.l(message,
-        logLevel: LogLevel.Error,
-        tag: className,
-        methodName: methodName,
-        className: className);
+    FlutterBugfender.sendLog(
+        text: message,
+        level: LogLevel.error,
+        tag: className!,
+        method: methodName!);
     FlutterBugfender.forceSendOnce();
   }
 
-  void errorException(Object e, [StackTrace s]) {
+  void errorException(Object e, [StackTrace? s]) {
     if (printToConsole) print(e);
-    if (printToConsole && s != null) print(s);
+    if (printToConsole) print(s);
 
     FlutterBugfender.error('Exception: $e.\nStacktrace: $s');
     FlutterBugfender.forceSendOnce();
   }
 
   void warn(String message) {
-    final className = Trace.current().frames[1].member.split(".")[0];
-    final methodName = Trace.current().frames[1].member.split(".")[1];
+    final className = Trace.current().frames[1].member?.split(".")[0];
+    final methodName = Trace.current().frames[1].member?.split(".")[1];
     if (printToConsole) debugPrint(message);
-    FlutterBugfender.l(message,
-        logLevel: LogLevel.Warning,
-        tag: className,
-        methodName: methodName,
-        className: className);
+    FlutterBugfender.sendLog(
+        text: message,
+        level: LogLevel.warning,
+        tag: className!,
+        method: methodName!);
     FlutterBugfender.forceSendOnce();
   }
 

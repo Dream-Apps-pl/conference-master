@@ -9,7 +9,7 @@ class TicketsList extends StatelessWidget {
     this.list,
     this.isAdmin,
     this.filter, {
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   final AsyncSnapshot<QuerySnapshot> list;
@@ -18,19 +18,19 @@ class TicketsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final filteredList = list.data.documents
+    final filteredList = list.data!.docs
         .where((n) => n['orderId'].toString().contains(filter.toUpperCase()))
-        ?.toList();
+        .toList();
 
     return StreamBuilder<DocumentSnapshot>(
-      stream: Firestore.instance.document('tickets/tickets').snapshots(),
+      stream: FirebaseFirestore.instance.doc('tickets/tickets').snapshots(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          final List ticketCollection = snapshot.data['tickets'];
+          final List ticketCollection = snapshot.data!['tickets'];
           return ListView.builder(
-            itemCount: filteredList?.length,
+            itemCount: filteredList.length,
             itemBuilder: (ctx, indx) {
-              final doc = filteredList[indx].data;
+              final doc = filteredList[indx];
               final DateTime date = doc['updated'].toDate();
               final ticket = ticketCollection
                   .firstWhere((n) => n['ticketId'] == doc['ticketId']);
@@ -41,9 +41,9 @@ class TicketsList extends StatelessWidget {
                 trailing: isAdmin.hasData && isAdmin.data == true
                     ? IconButton(
                         icon: Icon(LineIcons.trash),
-                        onPressed: () async => await Firestore.instance
+                        onPressed: () async => await FirebaseFirestore.instance
                             .collection('tickets_checked')
-                            .document(doc['ticketId'])
+                            .doc(doc['ticketId'])
                             .delete(),
                       )
                     : null,

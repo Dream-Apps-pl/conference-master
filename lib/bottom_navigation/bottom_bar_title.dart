@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 class BottomBarTitle extends StatelessWidget {
   const BottomBarTitle({
-    Key key,
-    @required this.title,
-    @required this.showTitle,
+    Key? key,
+    required this.title,
+    required this.showTitle,
   }) : super(key: key);
 
   final String title;

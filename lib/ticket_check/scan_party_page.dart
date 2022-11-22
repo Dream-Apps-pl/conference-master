@@ -7,7 +7,7 @@ import 'package:vibration/vibration.dart';
 class ScanPartyPage extends StatelessWidget {
   final List<QrCameraDescription> cameras;
 
-  const ScanPartyPage({Key key, this.cameras}) : super(key: key);
+  const ScanPartyPage({Key? key, required this.cameras}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,15 +25,15 @@ class ScanPartyPage extends StatelessWidget {
 class ScanPartyPageContent extends StatefulWidget {
   final List<QrCameraDescription> cameras;
 
-  const ScanPartyPageContent({Key key, this.cameras}) : super(key: key);
+  const ScanPartyPageContent({Key? key, required this.cameras}) : super(key: key);
   @override
   _ScanPartyPageContentState createState() => _ScanPartyPageContentState();
 }
 
 class _ScanPartyPageContentState extends State<ScanPartyPageContent> {
-  QRReaderController controller;
+  late QRReaderController controller;
   bool scanning = true;
-  final collection = Firestore.instance.collection('party');
+  final collection = FirebaseFirestore.instance.collection('party');
 
   @override
   void initState() {
@@ -53,7 +53,7 @@ class _ScanPartyPageContentState extends State<ScanPartyPageContent> {
             stream: collection.snapshots(),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                final List array = snapshot.data.documents;
+                final List array = snapshot.data!.docs.toList();
                 final length = array.length;
                 return Positioned(
                   top: 0,
@@ -85,7 +85,7 @@ class _ScanPartyPageContentState extends State<ScanPartyPageContent> {
               right: 0,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: RaisedButton(
+                child: ElevatedButton(
                   onPressed: startScanning,
                   child: Text('Scan again'),
                 ),
@@ -160,15 +160,15 @@ class _ScanPartyPageContentState extends State<ScanPartyPageContent> {
           values[1].contains('OT') ? values[1].substring(2) : values[1];
       final ticketId = values[2];
 
-      final doc = await collection.document('$id').get();
-      if (doc?.exists == true) {
+      final doc = await collection.doc('$id').get();
+      if (doc.exists == true) {
         showInSnackBar('Uczestnik już skanował bilet na imprezę');
       }
 
       final matchingTickets = await getMatchingTickets(orderId, ticketId);
 
       if (matchingTickets.length > 0) {
-        final newDoc = await collection.document('$id').setData(
+        final newDoc = await collection.doc('$id').set(
           {
             'updated': Timestamp.now(),
             'orderId': values[1],
@@ -204,8 +204,8 @@ class _ScanPartyPageContentState extends State<ScanPartyPageContent> {
   }
 
   void showInSnackBar(String message, [Color color = Colors.green]) {
-    Scaffold.of(context).hideCurrentSnackBar();
-    Scaffold.of(context).showSnackBar(SnackBar(
+    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       content: Text(message),
       behavior: SnackBarBehavior.floating,
       backgroundColor: color,
@@ -230,9 +230,9 @@ class _ScanPartyPageContentState extends State<ScanPartyPageContent> {
 
   Future<List> getTicketsCollection() async {
     final tickets =
-        await Firestore.instance.document('tickets/tickets').snapshots().first;
+        await FirebaseFirestore.instance.doc('tickets/tickets').snapshots().first;
 
-    final List ticketCollection = tickets.data['tickets'];
+    final List ticketCollection = tickets.data()!['tickets'];
     return ticketCollection;
   }
 }

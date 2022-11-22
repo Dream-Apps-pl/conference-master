@@ -1,8 +1,8 @@
 import 'package:conferenceapp/common/logger.dart';
 import 'package:conferenceapp/ticket_check/bloc/bloc.dart';
 import 'package:conferenceapp/ticket_check/users_list.dart';
-import 'package:flutter/material.dart';
 import 'package:fast_qr_reader_view/fast_qr_reader_view.dart';
+import 'package:flutter/material.dart';
 
 import 'manual_ticket_check_page.dart';
 import 'scan_party_page.dart';
@@ -26,7 +26,7 @@ class _TicketCheckPageState extends State<TicketCheckPage> {
               child: Text(
                   'Aby zeskanować bilet naciśnij "Skanuj bilety", a następnie skieruj aparat na kod QR na ekranie telefonu uczestnika.'),
             ),
-            RaisedButton(
+            ElevatedButton(
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
@@ -60,7 +60,7 @@ class _TicketCheckPageState extends State<TicketCheckPage> {
             SizedBox(
               height: 30,
             ),
-            RaisedButton(
+            ElevatedButton(
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
@@ -89,7 +89,7 @@ class _TicketCheckPageState extends State<TicketCheckPage> {
             SizedBox(
               height: 30,
             ),
-            RaisedButton(
+            ElevatedButton(
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
@@ -119,7 +119,7 @@ class _TicketCheckPageState extends State<TicketCheckPage> {
             SizedBox(
               height: 10,
             ),
-            RaisedButton(
+            ElevatedButton(
               child: Text('Przeglądaj sprawdzone'),
               onPressed: () async {
                 try {

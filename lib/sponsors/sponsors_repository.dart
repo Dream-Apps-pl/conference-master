@@ -13,7 +13,7 @@ class SponsorsRepository {
       return sponsors;
     } catch (e) {
       logger.errorException(e);
-      return List<Sponsor>();
+      return <Sponsor>[];
     }
   }
 }

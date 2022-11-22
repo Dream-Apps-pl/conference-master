@@ -20,10 +20,10 @@ class BarcodeDetectorPainter extends CustomPainter {
 
     Rect scaleRect(Barcode barcode) {
       return Rect.fromLTRB(
-        barcode.boundingBox.left * scaleX,
-        barcode.boundingBox.top * scaleY,
-        barcode.boundingBox.right * scaleX,
-        barcode.boundingBox.bottom * scaleY,
+        barcode.boundingBox!.left * scaleX,
+        barcode.boundingBox!.top * scaleY,
+        barcode.boundingBox!.right * scaleX,
+        barcode.boundingBox!.bottom * scaleY,
       );
     }
 
@@ -57,10 +57,10 @@ class TextDetectorPainter extends CustomPainter {
 
     RRect scaleRect(TextContainer container) {
       return RRect.fromLTRBAndCorners(
-        container.boundingBox.left * scaleX,
-        container.boundingBox.top * scaleY,
-        container.boundingBox.right * scaleX,
-        container.boundingBox.bottom * scaleY,
+        container.boundingBox!.left * scaleX,
+        container.boundingBox!.top * scaleY,
+        container.boundingBox!.right * scaleX,
+        container.boundingBox!.bottom * scaleY,
         topLeft: Radius.circular(6.0),
         topRight: Radius.circular(6.0),
         bottomLeft: Radius.circular(6.0),
@@ -77,7 +77,7 @@ class TextDetectorPainter extends CustomPainter {
     for (TextBlock block in visionText.blocks) {
       for (TextLine line in block.lines) {
         for (TextElement element in line.elements) {
-          paint.color = element.text.length > 7 && element.text.length < 11
+          paint.color = element.text!.length > 7 && element.text!.length < 11
               ? Colors.blue.withOpacity(0.7)
               : Colors.deepOrange.withOpacity(0.7);
           canvas.drawRRect(scaleRect(element), paint);

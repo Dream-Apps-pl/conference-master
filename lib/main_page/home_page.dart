@@ -1,7 +1,5 @@
 import 'package:conferenceapp/admin/admin_page.dart';
 import 'package:conferenceapp/agenda/agenda_page.dart';
-import 'package:conferenceapp/utils/analytics.dart';
-import 'package:conferenceapp/bottom_navigation/bottom_bar_title.dart';
 import 'package:conferenceapp/common/appbar.dart';
 import 'package:conferenceapp/common/logger.dart';
 import 'package:conferenceapp/force_update/force_update.dart';
@@ -18,14 +16,15 @@ import 'package:conferenceapp/profile/profile_page.dart';
 import 'package:conferenceapp/search/search_results_page.dart';
 import 'package:conferenceapp/talk/talk_page.dart';
 import 'package:conferenceapp/ticket_check/ticket_check_page.dart';
+import 'package:conferenceapp/utils/analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:line_icons/line_icons.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({Key key, this.title}) : super(key: key);
+  HomePage({Key? key, this.title}) : super(key: key);
 
-  final String title;
+  final String? title;
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -124,7 +123,7 @@ class _HomePageState extends State<HomePage> {
       // if admin logs out we can't remain on admin page
       currentIndex: _adminAwareIndex(_currentIndex, isAdmin, isTicketer),
       onTap: (index) {
-        analytics.setCurrentScreen(
+        analytics?.setCurrentScreen(
           screenName: '/home/${_tabs[index]}',
           screenClassOverride: '${_tabs[index]}',
         );
@@ -150,49 +149,31 @@ class _HomePageState extends State<HomePage> {
             height: itemHeight,
             child: Icon(LineIcons.calendar),
           ),
-          title: BottomBarTitle(
-            title: 'Agenda',
-            showTitle: _currentIndex != agenda,
-          ),
+          label: _currentIndex != agenda ? 'Agenda' : null,
         ),
         BottomNavigationBarItem(
-          icon: Icon(LineIcons.calendar_check_o),
-          title: BottomBarTitle(
-            title: 'My Schedule',
-            showTitle: _currentIndex != mySchedule,
-          ),
+          icon: Icon(LineIcons.calendarCheck),
+          label: _currentIndex != mySchedule ? 'My Schedule' : null,
         ),
         BottomNavigationBarItem(
           icon: NotificationIndicator(
             child: Icon(LineIcons.bell),
           ),
-          title: BottomBarTitle(
-            title: 'Notifications',
-            showTitle: _currentIndex != notifications,
-          ),
+          label: _currentIndex != notifications ? 'Notifications' : null,
         ),
         BottomNavigationBarItem(
           icon: Icon(LineIcons.cog),
-          title: BottomBarTitle(
-            title: 'Settings',
-            showTitle: _currentIndex != profile,
-          ),
+          label: _currentIndex != profile ? 'Settings' : null,
         ),
         if (isTicketer == true)
           BottomNavigationBarItem(
-            icon: Icon(LineIcons.ticket),
-            title: BottomBarTitle(
-              title: 'Bilety',
-              showTitle: _currentIndex != ticketer,
-            ),
+            icon: Icon(LineIcons.alternateTicket),
+            label: _currentIndex != ticketer ? 'Bilety' : null,
           ),
         if (isAdmin == true)
           BottomNavigationBarItem(
-            icon: Icon(LineIcons.shield),
-            title: BottomBarTitle(
-              title: 'Admin',
-              showTitle: _currentIndex != admin,
-            ),
+            icon: Icon(LineIcons.userShield),
+            label: _currentIndex != admin ? 'Admin' : null,
           ),
       ],
     );
@@ -203,7 +184,7 @@ class _HomePageState extends State<HomePage> {
       final res =
           await Navigator.push<Talk>(context, _buildSearchPage(context));
       if (res != null) {
-        analytics.logEvent(
+        analytics?.logEvent(
           name: 'search_completed',
           parameters: {
             'selected_talk_id': res.id,
@@ -229,10 +210,7 @@ class _HomePageState extends State<HomePage> {
 
   _buildSearchPage(BuildContext context) {
     return MaterialPageRoute<Talk>(
-      settings: RouteSettings(
-        name: 'search',
-        isInitialRoute: false,
-      ),
+      settings: RouteSettings(name: 'search'),
       builder: (BuildContext context) => SearchResultsPage(),
     );
   }
@@ -269,7 +247,7 @@ class _HomePageState extends State<HomePage> {
 class NotificationIndicator extends StatelessWidget {
   final Widget child;
 
-  const NotificationIndicator({Key key, this.child}) : super(key: key);
+  const NotificationIndicator({Key? key, required this.child}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     final notif =

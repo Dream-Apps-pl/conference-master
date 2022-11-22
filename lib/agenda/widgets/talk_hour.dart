@@ -4,8 +4,8 @@ import 'package:intl/intl.dart';
 
 class CompactLeftTalkContainer extends StatelessWidget {
   const CompactLeftTalkContainer({
-    Key key,
-    @required this.talk,
+    Key? key,
+    required this.talk,
   }) : super(key: key);
 
   final Talk talk;

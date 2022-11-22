@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 
 class ScanTicketCard extends StatelessWidget {
   const ScanTicketCard({
-    Key key,
-    this.title,
-    this.value,
-    this.hint,
+    Key? key,
+    required this.title,
+    required this.value,
+    required this.hint,
   }) : super(key: key);
 
   final String title;

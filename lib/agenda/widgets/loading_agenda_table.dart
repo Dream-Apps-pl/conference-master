@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class LoadingAgendaTable extends StatelessWidget {
   const LoadingAgendaTable({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override

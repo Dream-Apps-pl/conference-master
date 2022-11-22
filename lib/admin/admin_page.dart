@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:conferenceapp/common/europe_text_field.dart';
@@ -16,7 +17,7 @@ import 'package:line_icons/line_icons.dart';
 
 class AdminPage extends StatelessWidget {
   const AdminPage({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -29,11 +30,11 @@ class AdminPage extends StatelessWidget {
               title: Text('Load tickets from csv'),
               subtitle: Text(
                   'Select attendees.csv from Eventil to upload into Firestore. Will overwrite the existing database.'),
-              trailing: Icon(LineIcons.file_text),
+              trailing: Icon(LineIcons.file),
               onTap: () async {
                 final res = await handleCsvTickets();
                 if (res == false) {
-                  Scaffold.of(context).showSnackBar(
+                  ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text('Error during loading of the tickets.'),
                       behavior: SnackBarBehavior.floating,
@@ -52,12 +53,12 @@ class AdminPage extends StatelessWidget {
             ListTile(
               title: Text('Create new ticketer'),
               subtitle: Text('This allows to create new ticketer'),
-              trailing: Icon(LineIcons.smile_o),
+              trailing: Icon(LineIcons.smilingFace),
               onTap: () async => await handleCreateNewUser(context),
             ),
             ListTile(
               title: Text('Logout'),
-              trailing: Icon(LineIcons.sign_out),
+              trailing: Icon(LineIcons.sign),
               onTap: () async => await handleLogout(context),
             ),
             Spacer(),
@@ -77,7 +78,7 @@ class AdminPage extends StatelessWidget {
           RepositoryProvider.of<FirestoreNotificationsRepository>(context);
       notifRepository.addNotification(notification);
       await Future.delayed(Duration(milliseconds: 500));
-      Scaffold.of(context).showSnackBar(SnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(
             'Notification will be sent to the users and visible in Notifications panel'),
       ));
@@ -98,12 +99,12 @@ class AdminPage extends StatelessWidget {
 
   Future<bool> handleCsvTickets() async {
     try {
-      var file =
-          await FilePicker.getFile(type: FileType.ANY, fileExtension: 'csv');
+      var file = await FilePicker.platform
+          .pickFiles(type: FileType.any, allowedExtensions: ['csv']);
 
       if (file == null) return false;
-
-      final yourString = await file.readAsString();
+      File fileData = File(file.files.first.path!);
+      final yourString = await fileData.readAsString();
       var d = new FirstOccurrenceSettingsDetector(
         eols: ['\r\n', '\n'],
         textDelimiters: ['"', "'"],
@@ -114,13 +115,12 @@ class AdminPage extends StatelessWidget {
         csvSettingsDetector: d,
       );
 
-      final tickets = List<Map>();
+      final tickets = <Map>[];
       for (var att in rowsAsListOfValues.skip(1)) {
         final name = att[1];
         final name64 = base64.encode(utf8.encode(name));
         final email = att[2];
         final email64 = base64.encode(utf8.encode(email));
-        final twitter = att[3];
         final ticketId = att[5].toString().toLowerCase();
         final orderId = att[15].toString().toUpperCase();
         final type = att[4];
@@ -135,15 +135,15 @@ class AdminPage extends StatelessWidget {
         tickets.add(ticket);
       }
 
-      final ticketDoc = Firestore.instance.document('/tickets/tickets');
+      final ticketDoc = FirebaseFirestore.instance.doc('/tickets/tickets');
 
-      Firestore.instance.runTransaction((Transaction tx) async {
+      FirebaseFirestore.instance.runTransaction((Transaction tx) async {
         DocumentSnapshot ticketsSnapshot = await tx.get(ticketDoc);
         if (!ticketsSnapshot.exists) {
-          await tx.set(ticketDoc, {});
+          tx.set(ticketDoc, {});
         }
         if (ticketsSnapshot.exists) {
-          await tx.set(ticketDoc, <String, dynamic>{
+          tx.set(ticketDoc, <String, dynamic>{
             'tickets': tickets,
           });
         }
@@ -158,7 +158,7 @@ class AdminPage extends StatelessWidget {
 
 class SignupDialog extends StatefulWidget {
   const SignupDialog({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -166,8 +166,8 @@ class SignupDialog extends StatefulWidget {
 }
 
 class _SignupDialogDialogState extends State<SignupDialog> {
-  String email;
-  String password;
+  late String email;
+  late String password;
 
   @override
   Widget build(BuildContext context) {
@@ -190,25 +190,25 @@ class _SignupDialogDialogState extends State<SignupDialog> {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            FlatButton(
+            TextButton(
               onPressed: () async {
                 try {
                   final doc =
-                      Firestore.instance.collection('ticketers').document();
-                  await doc.setData({'email': email});
+                      FirebaseFirestore.instance.collection('ticketers').doc();
+                  await doc.set({'email': email});
                 } catch (e) {
                   logger.errorException(e);
                 }
                 Navigator.pop(context);
               },
               child: Text('Register'),
-              color: Colors.green,
+              style: TextButton.styleFrom(backgroundColor: Colors.green),
             ),
             SizedBox(width: 16),
-            FlatButton(
+            TextButton(
               onPressed: () => Navigator.pop(context),
               child: Text('Close'),
-              color: Colors.red,
+              style: TextButton.styleFrom(backgroundColor: Colors.red),
             ),
           ],
         ),
@@ -219,7 +219,7 @@ class _SignupDialogDialogState extends State<SignupDialog> {
 
 class NotificationDialog extends StatefulWidget {
   const NotificationDialog({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -227,11 +227,11 @@ class NotificationDialog extends StatefulWidget {
 }
 
 class _NotificationDialogState extends State<NotificationDialog> {
-  String title;
-  String content;
+  late String title;
+  late String content;
   DateTime dateTime = DateTime.now();
   bool important = false;
-  String url;
+  late String url;
 
   @override
   Widget build(BuildContext context) {
@@ -293,19 +293,19 @@ class _NotificationDialogState extends State<NotificationDialog> {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            FlatButton(
+            TextButton(
               onPressed: () => Navigator.pop<AppNotification>(
                 context,
                 AppNotification(title, dateTime, content, important, url),
               ),
               child: Text('Save'),
-              color: Colors.green,
+              style: TextButton.styleFrom(backgroundColor: Colors.green),
             ),
             SizedBox(width: 16),
-            FlatButton(
+            TextButton(
               onPressed: () => Navigator.pop(context),
               child: Text('Close'),
-              color: Colors.red,
+              style: TextButton.styleFrom(backgroundColor: Colors.red),
             ),
           ],
         ),

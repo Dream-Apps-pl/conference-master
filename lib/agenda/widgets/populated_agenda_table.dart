@@ -14,7 +14,7 @@ class PopulatedAgendaTable extends StatefulWidget {
     this.rooms,
     this.pageController, {
     this.skipWidgetPreload = false,
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   final Map<int, List<Talk>> talks;
@@ -27,7 +27,7 @@ class PopulatedAgendaTable extends StatefulWidget {
 }
 
 class _PopulatedAgendaTableState extends State<PopulatedAgendaTable> {
-  Completer<void> _refreshCompleter;
+  late Completer<void> _refreshCompleter;
 
   @override
   void initState() {
@@ -40,7 +40,7 @@ class _PopulatedAgendaTableState extends State<PopulatedAgendaTable> {
     return BlocListener<AgendaBloc, AgendaState>(
       listener: (context, state) {
         if (state is PopulatedAgendaState) {
-          _refreshCompleter?.complete();
+          _refreshCompleter.complete();
           _refreshCompleter = Completer();
         }
       },
@@ -54,7 +54,7 @@ class _PopulatedAgendaTableState extends State<PopulatedAgendaTable> {
               return _refreshCompleter.future;
             },
             child: widget.talks[0] != null
-                ? PopulatedAgendaDayList(widget.talks[0], widget.rooms)
+                ? PopulatedAgendaDayList(widget.talks[0]!, widget.rooms)
                 : EmptyPopulated(),
           ),
           RefreshIndicator(
@@ -63,7 +63,7 @@ class _PopulatedAgendaTableState extends State<PopulatedAgendaTable> {
               return _refreshCompleter.future;
             },
             child: widget.talks[1] != null
-                ? PopulatedAgendaDayList(widget.talks[1], widget.rooms)
+                ? PopulatedAgendaDayList(widget.talks[1]!, widget.rooms)
                 : EmptyPopulated(),
           ),
         ],
@@ -74,7 +74,7 @@ class _PopulatedAgendaTableState extends State<PopulatedAgendaTable> {
 
 class EmptyPopulated extends StatelessWidget {
   const EmptyPopulated({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override

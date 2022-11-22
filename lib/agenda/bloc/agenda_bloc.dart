@@ -34,7 +34,7 @@ class AgendaBloc extends Bloc<AgendaEvent, AgendaState> {
 
   Stream<AgendaState> mapInitToState(InitAgenda event) async* {
     yield LoadingAgendaState();
-    talksSubscription?.cancel();
+    talksSubscription.cancel();
     talksSubscription = talksRepository.talks().listen(
           (talks) => add(AgendaUpdated(talks)),
         );
@@ -55,7 +55,7 @@ class AgendaBloc extends Bloc<AgendaEvent, AgendaState> {
 
   @override
   Future<void> close() {
-    talksSubscription?.cancel();
+    talksSubscription.cancel();
     return super.close();
   }
 }

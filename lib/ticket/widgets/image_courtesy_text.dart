@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class ImageLicenseText extends StatelessWidget {
   const ImageLicenseText({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -12,7 +12,7 @@ class ImageLicenseText extends StatelessWidget {
         'Image courtesy of https://undraw.co/',
         textAlign: TextAlign.center,
         style: TextStyle(
-          color: Theme.of(context).textTheme.body1.color.withOpacity(0.5),
+          color: Theme.of(context).textTheme.bodyText1!.color!.withOpacity(0.5),
         ),
       ),
     );

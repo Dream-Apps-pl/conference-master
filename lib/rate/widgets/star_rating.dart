@@ -6,19 +6,19 @@ class StarRating extends StatelessWidget {
   final double rating;
 
   const StarRating(
-      {Key key, @required this.onRatingChanged, @required this.rating})
+      {Key? key, required this.onRatingChanged, required this.rating})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return SmoothStarRating(
       allowHalfRating: false,
-      onRatingChanged: onRatingChanged,
+      onRated: onRatingChanged,
       starCount: 5,
       rating: rating,
       size: 40.0,
-      color: Theme.of(context).accentColor,
-      borderColor: Theme.of(context).accentColor,
+      color: Theme.of(context).primaryColor,
+      borderColor: Theme.of(context).primaryColor,
       spacing: 0.0,
     );
   }

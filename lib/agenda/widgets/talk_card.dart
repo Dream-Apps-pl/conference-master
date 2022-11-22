@@ -8,12 +8,12 @@ import 'talk_card_widgets/talk_title.dart';
 
 class TalkCard extends StatelessWidget {
   const TalkCard({
-    Key key,
-    this.talk,
-    this.isFavorite,
-    this.first,
+    Key? key,
+    required this.talk,
+    required this.isFavorite,
+    required this.first,
     this.compact = false,
-    this.onTap,
+    required this.onTap,
   }) : super(key: key);
 
   final Talk talk;
@@ -70,7 +70,7 @@ class TalkCard extends StatelessWidget {
 }
 
 class TalkCardDecoration extends StatelessWidget {
-  const TalkCardDecoration({Key key, this.child}) : super(key: key);
+  const TalkCardDecoration({Key? key, required this.child}) : super(key: key);
 
   final Widget child;
 

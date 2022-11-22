@@ -6,9 +6,9 @@ import 'package:flutter/material.dart';
 
 class RoomIndicator extends StatelessWidget {
   const RoomIndicator({
-    Key key,
-    @required this.compact,
-    @required this.talk,
+    Key? key,
+    required this.compact,
+    required this.talk,
   }) : super(key: key);
 
   final bool compact;
@@ -32,8 +32,8 @@ class RoomIndicator extends StatelessWidget {
 class _Triangle extends StatelessWidget {
   const _Triangle(
     this.room, {
-    Key key,
-    this.color,
+    Key? key,
+    required this.color,
   }) : super(key: key);
 
   final Room room;

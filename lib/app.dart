@@ -22,7 +22,7 @@ import 'package:conferenceapp/talk/talk_page.dart';
 import 'package:conferenceapp/ticket/bloc/bloc.dart';
 import 'package:conferenceapp/ticket/repository/ticket_repository.dart';
 import 'package:conferenceapp/utils/contentful_client.dart';
-import 'package:dynamic_theme/dynamic_theme.dart';
+import 'package:dynamic_themes/dynamic_themes.dart';
 import 'package:feature_discovery/feature_discovery.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -34,17 +34,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:snapfeed/snapfeed.dart';
 
 import 'config.dart';
 import 'utils/analytics.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({
-    Key key,
-    this.title,
-    this.sharedPreferences,
-    this.firebaseMessaging,
+    Key? key,
+    required this.title,
+    required this.sharedPreferences,
+    required this.firebaseMessaging,
   }) : super(key: key);
 
   final String title;

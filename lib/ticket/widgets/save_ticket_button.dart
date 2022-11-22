@@ -3,9 +3,9 @@ import 'package:line_icons/line_icons.dart';
 
 class SaveTicketButton extends StatelessWidget {
   const SaveTicketButton({
-    Key key,
-    this.enabled,
-    this.onSave,
+    Key? key,
+    required this.enabled,
+    required this.onSave,
   }) : super(key: key);
 
   final bool enabled;
@@ -13,8 +13,8 @@ class SaveTicketButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RaisedButton(
-      color: Colors.green,
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
@@ -26,7 +26,7 @@ class SaveTicketButton extends StatelessWidget {
           ),
           SizedBox(width: 6),
           Icon(
-            LineIcons.check_circle,
+            LineIcons.checkCircle,
             color: Colors.white,
           )
         ],

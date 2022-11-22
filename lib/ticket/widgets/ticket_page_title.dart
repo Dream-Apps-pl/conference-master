@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class TicketPageTitle extends StatelessWidget {
   const TicketPageTitle({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override

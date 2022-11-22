@@ -14,7 +14,7 @@ showForceUpdateDialog(BuildContext context) {
 }
 
 class _ForceUpdateDialog extends StatelessWidget {
-  const _ForceUpdateDialog({Key key}) : super(key: key);
+  const _ForceUpdateDialog({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +29,7 @@ class _ForceUpdateDialog extends StatelessWidget {
         ),
         Align(
           alignment: Alignment.bottomRight,
-          child: FlatButton(
+          child: TextButton(
             child: new Text("Update"),
             onPressed: () {
               final url =

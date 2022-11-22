@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-Future<String> showWriteReviewModalBottomSheet<String>(BuildContext context,
-    {String initialValue}) {
+Future<String?> showWriteReviewModalBottomSheet<String>(BuildContext context,
+    {required String initialValue}) {
   return showModalBottomSheet<String>(
     context: context,
     isScrollControlled: true,
     builder: (_) => _WriteReviewModalBottomSheet(
-      initialValue: initialValue ?? "",
+      initialValue: initialValue,
     ),
   );
 }
@@ -14,7 +14,8 @@ Future<String> showWriteReviewModalBottomSheet<String>(BuildContext context,
 class _WriteReviewModalBottomSheet extends StatefulWidget {
   final String initialValue;
 
-  _WriteReviewModalBottomSheet({Key key, this.initialValue}) : super(key: key);
+  _WriteReviewModalBottomSheet({Key? key, required this.initialValue})
+      : super(key: key);
 
   @override
   _WriteReviewModalBottomSheetState createState() =>
@@ -23,7 +24,7 @@ class _WriteReviewModalBottomSheet extends StatefulWidget {
 
 class _WriteReviewModalBottomSheetState
     extends State<_WriteReviewModalBottomSheet> {
-  TextEditingController _controller;
+  late TextEditingController _controller;
   bool canSubmit = false;
 
   @override
@@ -85,8 +86,7 @@ class _WriteReviewModalBottomSheetState
                     style: TextStyle(fontStyle: FontStyle.italic),
                   ),
                 ),
-                FlatButton(
-                  textColor: Theme.of(context).accentColor,
+                ElevatedButton(
                   child: Text("Submit"),
                   onPressed: this.canSubmit
                       ? () {

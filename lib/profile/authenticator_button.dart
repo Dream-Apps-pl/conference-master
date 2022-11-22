@@ -6,7 +6,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 
 class AuthenticatorButton extends StatelessWidget {
   const AuthenticatorButton({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -56,7 +56,7 @@ class AuthenticatorButton extends StatelessWidget {
             ],
           ),
           children: <Widget>[
-            FlatButton(
+            TextButton(
               child: Text('Login'),
               onPressed: () async {
                 final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -69,7 +69,7 @@ class AuthenticatorButton extends StatelessWidget {
                     msg: "Logged in",
                     toastLength: Toast.LENGTH_SHORT,
                     gravity: ToastGravity.CENTER,
-                    timeInSecForIos: 1,
+                    timeInSecForIosWeb: 1,
                     backgroundColor: Theme.of(context).backgroundColor,
                     fontSize: 16.0,
                   );
@@ -79,7 +79,7 @@ class AuthenticatorButton extends StatelessWidget {
                       msg: "Error during log in",
                       toastLength: Toast.LENGTH_SHORT,
                       gravity: ToastGravity.CENTER,
-                      timeInSecForIos: 1,
+                      timeInSecForIosWeb: 1,
                       backgroundColor: Colors.red,
                       textColor: Colors.white,
                       fontSize: 16.0);
@@ -87,7 +87,7 @@ class AuthenticatorButton extends StatelessWidget {
                 }
               },
             ),
-            FlatButton(
+            TextButton(
               child: Text('Register'),
               onPressed: () async {
                 final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -101,7 +101,7 @@ class AuthenticatorButton extends StatelessWidget {
                     msg: "Registered and logged in",
                     toastLength: Toast.LENGTH_SHORT,
                     gravity: ToastGravity.CENTER,
-                    timeInSecForIos: 1,
+                    timeInSecForIosWeb: 1,
                     backgroundColor: Theme.of(context).backgroundColor,
                     fontSize: 16.0,
                   );
@@ -111,7 +111,7 @@ class AuthenticatorButton extends StatelessWidget {
                     msg: "Error during registration",
                     toastLength: Toast.LENGTH_SHORT,
                     gravity: ToastGravity.CENTER,
-                    timeInSecForIos: 1,
+                    timeInSecForIosWeb: 1,
                     backgroundColor: Colors.red,
                     textColor: Colors.white,
                     fontSize: 16.0,
@@ -121,7 +121,7 @@ class AuthenticatorButton extends StatelessWidget {
                 }
               },
             ),
-            FlatButton(
+            TextButton(
               child: Text('Logout'),
               onPressed: () async {
                 final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -129,7 +129,7 @@ class AuthenticatorButton extends StatelessWidget {
                   msg: "Logged out",
                   toastLength: Toast.LENGTH_SHORT,
                   gravity: ToastGravity.CENTER,
-                  timeInSecForIos: 1,
+                  timeInSecForIosWeb: 1,
                   backgroundColor: Theme.of(context).backgroundColor,
                   fontSize: 16.0,
                 );

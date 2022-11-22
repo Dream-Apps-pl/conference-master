@@ -42,14 +42,14 @@ class ReactiveTalksRepository implements TalkRepository {
   bool _loaded = false;
 
   ReactiveTalksRepository({
-    ContentfulTalksRepository repository,
-    List<Talk> seedValue,
+    required repository,
+    required List<Talk> seedValue,
   })  : this._repository = repository,
         this._subject = BehaviorSubject<List<Talk>>.seeded(seedValue);
 
   Future<void> addNewTalk(Talk talk) async {
     _subject.add(List.unmodifiable([]
-      ..addAll(_subject.value ?? [])
+      ..addAll(_subject.value)
       ..add(talk)));
 
     await _repository.saveTalks(_subject.value);
@@ -80,7 +80,7 @@ class ReactiveTalksRepository implements TalkRepository {
     StreamTransformer<List<Talk>, Talk> transform =
         StreamTransformer.fromHandlers(
       handleData: (List<Talk> data, EventSink<Talk> sink) {
-        sink.add(data.firstWhere((t) => t.id == id, orElse: () => null));
+        sink.add(data.firstWhere((t) => t.id == id));
       },
       handleError: (Object error, StackTrace stacktrace, EventSink sink) {
         sink.addError('Something went wrong: $error');
@@ -105,7 +105,7 @@ class ReactiveTalksRepository implements TalkRepository {
 
     _repository.loadTalks().then((entities) {
       _subject.add(List<Talk>.unmodifiable(
-        []..addAll(_subject.value ?? [])..addAll(entities),
+        []..addAll(_subject.value)..addAll(entities),
       ));
     });
   }

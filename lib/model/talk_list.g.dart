@@ -6,14 +6,12 @@ part of 'talk_list.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-TalkList _$TalkListFromJson(Map json) {
-  return TalkList(
-    FirestoreUtils.fromJson(json['day'] as Timestamp),
-    (json['talks'] as List)
-        .map((e) => Talk.fromJson(Map<String, dynamic>.from(e as Map)))
-        .toList(),
-  );
-}
+TalkList _$TalkListFromJson(Map json) => TalkList(
+      FirestoreUtils.fromJson(json['day'] as Timestamp),
+      (json['talks'] as List<dynamic>)
+          .map((e) => Talk.fromJson(Map<String, dynamic>.from(e as Map)))
+          .toList(),
+    );
 
 Map<String, dynamic> _$TalkListToJson(TalkList instance) => <String, dynamic>{
       'day': FirestoreUtils.toJson(instance.day),

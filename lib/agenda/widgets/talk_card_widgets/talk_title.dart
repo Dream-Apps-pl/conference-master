@@ -5,10 +5,10 @@ import 'speakers.dart';
 
 class TitleWrapper extends StatelessWidget {
   const TitleWrapper({
-    Key key,
-    @required this.topPadding,
-    @required this.talk,
-    @required this.compact,
+    Key? key,
+    required this.topPadding,
+    required this.talk,
+    required this.compact,
   }) : super(key: key);
 
   final double topPadding;
@@ -42,9 +42,9 @@ class TitleWrapper extends StatelessWidget {
 
 class TalkTitle extends StatelessWidget {
   const TalkTitle({
-    Key key,
-    @required this.talk,
-    @required this.compact,
+    Key? key,
+    required this.talk,
+    required this.compact,
   }) : super(key: key);
 
   final Talk talk;
@@ -72,9 +72,9 @@ class TalkTitle extends StatelessWidget {
 
 class TalkTitleText extends StatelessWidget {
   const TalkTitleText({
-    Key key,
-    @required this.title,
-    @required this.compact,
+    Key? key,
+    required this.title,
+    required this.compact,
   }) : super(key: key);
 
   final String title;

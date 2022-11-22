@@ -10,10 +10,10 @@ part 'organizer.g.dart';
 @JsonSerializable()
 class Organizers extends EntryCollection<OrganizerFields> {
   Organizers({
-    int total,
-    int skip,
-    int limit,
-    List<OrganizerFields> items,
+    required int total,
+    required int skip,
+    required int limit,
+    required List<OrganizerFields> items,
   }) : super(
           total: total,
           skip: skip,
@@ -27,7 +27,6 @@ class Organizers extends EntryCollection<OrganizerFields> {
 }
 
 @JsonSerializable(
-  nullable: false,
   explicitToJson: true,
   anyMap: true,
 )
@@ -41,7 +40,6 @@ class OrganizerFields extends Entry<Organizer> {
 }
 
 @JsonSerializable(
-  nullable: false,
   explicitToJson: true,
   anyMap: true,
 )
@@ -49,7 +47,7 @@ class Organizer extends Equatable implements Comparable<Organizer> {
   final String name;
   final Asset picture;
   String get pictureUrl =>
-      picture?.fields?.file?.url?.replaceAll("//", "http://");
+      picture.fields!.file!.url.replaceAll("//", "http://");
 
   @JsonKey(fromJson: _storeDocumentAsString)
   final String bio;
@@ -61,7 +59,7 @@ class Organizer extends Equatable implements Comparable<Organizer> {
 
   Map get longBioMap => jsonDecode(longBio);
 
-  Document get longBioDocument => _documentFromJson(jsonDecode(longBio));
+  Document? get longBioDocument => _documentFromJson(jsonDecode(longBio));
   final int order;
 
   Organizer(this.name, this.picture, this.bio, this.longBio, this.order);
@@ -75,7 +73,7 @@ class Organizer extends Equatable implements Comparable<Organizer> {
 
   @override
   int compareTo(Organizer other) {
-    return order?.compareTo(other?.order) ?? name?.compareTo(other?.name) ?? 0;
+    return order.compareTo(other.order);
   }
 }
 
@@ -83,15 +81,7 @@ String _storeDocumentAsString(Map doc) {
   return jsonEncode(doc);
 }
 
-String _documentToJson(Document doc) {
-  return '''{
-"content": ${doc.content},
-"data": ${doc.data},
-"nodeType": ${doc.nodeType}}
-}
-''';
-}
 
-Document _documentFromJson(Map json) {
+Document? _documentFromJson(Map json) {
   return Document.fromJson(json);
 }

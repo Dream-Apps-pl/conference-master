@@ -1,10 +1,10 @@
 import 'dart:io';
 
-import 'package:conferenceapp/utils/analytics.dart';
 import 'package:conferenceapp/common/appbar.dart';
 import 'package:conferenceapp/common/logger.dart';
 import 'package:conferenceapp/organizers/organizers_page.dart';
 import 'package:conferenceapp/sponsors/sponsors_page.dart';
+import 'package:conferenceapp/utils/analytics.dart';
 import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';

@@ -5,10 +5,10 @@ import 'package:flutter/material.dart';
 
 class Speakers extends StatelessWidget {
   const Speakers({
-    Key key,
-    @required this.topPadding,
-    @required this.talk,
-    @required this.compact,
+    Key? key,
+    required this.topPadding,
+    required this.talk,
+    required this.compact,
   }) : super(key: key);
 
   final double topPadding;
@@ -33,8 +33,8 @@ class Speakers extends StatelessWidget {
 
 class _TalkSpeaker extends StatelessWidget {
   const _TalkSpeaker({
-    Key key,
-    @required this.speaker,
+    Key? key,
+    required this.speaker,
     this.compact = false,
   }) : super(key: key);
 
@@ -78,8 +78,8 @@ class _TalkSpeaker extends StatelessWidget {
 
 class SpeakersHeightEquivalent extends StatelessWidget {
   const SpeakersHeightEquivalent({
-    Key key,
-    @required this.talk,
+    Key? key,
+    required this.talk,
   }) : super(key: key);
 
   final Talk talk;

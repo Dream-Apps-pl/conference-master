@@ -7,10 +7,10 @@ part 'sponsor.g.dart';
 @JsonSerializable()
 class Sponsors extends EntryCollection<SponsorFields> {
   Sponsors({
-    int total,
-    int skip,
-    int limit,
-    List<SponsorFields> items,
+    required int total,
+    required int skip,
+    required int limit,
+    required List<SponsorFields> items,
   }) : super(
           total: total,
           skip: skip,
@@ -24,7 +24,6 @@ class Sponsors extends EntryCollection<SponsorFields> {
 }
 
 @JsonSerializable(
-  nullable: false,
   explicitToJson: true,
   anyMap: true,
 )
@@ -38,21 +37,20 @@ class SponsorFields extends Entry<Sponsor> {
 }
 
 @JsonSerializable(
-  nullable: false,
   explicitToJson: true,
   anyMap: true,
 )
 class Sponsor extends Equatable {
-  @JsonKey(name: 'nazwaFirmy', nullable: true)
+  @JsonKey(name: 'nazwaFirmy')
   final String name;
-  @JsonKey(name: 'logo', nullable: true)
+  @JsonKey(name: 'logo')
   final Asset logo;
-  @JsonKey(name: 'linkDoStronySponsora', nullable: true)
+  @JsonKey(name: 'linkDoStronySponsora')
   final String url;
-  @JsonKey(name: 'poziomSponsoringu', nullable: true)
+  @JsonKey(name: 'poziomSponsoringu')
   final SponsorLevel level;
   @JsonKey(ignore: true)
-  String get logoUrl => logo?.fields?.file?.url?.replaceAll("//", "http://");
+  String get logoUrl => logo.fields!.file!.url.replaceAll("//", "http://");
 
   Sponsor(this.name, this.logo, this.url, this.level);
 

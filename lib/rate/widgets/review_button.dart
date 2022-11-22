@@ -11,24 +11,24 @@ class ReviewButton extends StatelessWidget {
   final Future<bool> Function() canReviewDelegate;
 
   const ReviewButton(
-      {Key key,
-      @required this.onReviewSubmitted,
-      @required this.canReviewDelegate})
+      {Key? key,
+      required this.onReviewSubmitted,
+      required this.canReviewDelegate})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return FlatButton(
+    return ElevatedButton(
       child: Text(
         "Write a review",
         style: TextStyle(
           decoration: TextDecoration.underline,
-          color: Theme.of(context).accentColor,
+          color: Theme.of(context).primaryColor,
         ),
       ),
       onPressed: () async {
         if (await canReviewDelegate()) {
-          final review = await showWriteReviewModalBottomSheet(context);
+          final review = await showWriteReviewModalBottomSheet(context, initialValue: null);
           if (review != null) {
             this.onReviewSubmitted(review);
           }

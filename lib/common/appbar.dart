@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 class FlutterEuropeAppBar extends StatelessWidget
     implements PreferredSizeWidget {
   FlutterEuropeAppBar({
-    Key key,
+    Key? key,
     this.back = false,
     this.search = true,
     this.layoutSelector = false,
@@ -18,7 +18,7 @@ class FlutterEuropeAppBar extends StatelessWidget
   final bool back;
   final bool search;
   final bool layoutSelector;
-  final VoidCallback onSearch;
+  final VoidCallback? onSearch;
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +74,7 @@ class FlutterEuropeAppBar extends StatelessWidget
 
 class ToggleLayoutButton extends StatelessWidget {
   const ToggleLayoutButton({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override

@@ -12,13 +12,14 @@ class ScanTicketPage extends StatefulWidget {
   final List<QrCameraDescription> cameras;
   final TicketCheckBloc bloc;
 
-  const ScanTicketPage({Key key, this.cameras, this.bloc}) : super(key: key);
+  const ScanTicketPage({Key? key, required this.cameras, required this.bloc})
+      : super(key: key);
   @override
   _ScanTicketPageState createState() => _ScanTicketPageState();
 }
 
 class _ScanTicketPageState extends State<ScanTicketPage> {
-  QRReaderController controller;
+  late QRReaderController controller;
   bool scanning = true;
 
   @override
@@ -65,7 +66,7 @@ class _ScanTicketPageState extends State<ScanTicketPage> {
                       right: 0,
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: RaisedButton(
+                        child: ElevatedButton(
                           onPressed: startScanning,
                           child: Text('Scan again'),
                         ),
@@ -167,7 +168,7 @@ class _ScanTicketPageState extends State<ScanTicketPage> {
   }
 
   void showInSnackBar(String message) {
-    Scaffold.of(context).showSnackBar(new SnackBar(
+    ScaffoldMessenger.of(context).showSnackBar(new SnackBar(
       content: new Text(message),
       behavior: SnackBarBehavior.floating,
     ));
@@ -177,7 +178,7 @@ class _ScanTicketPageState extends State<ScanTicketPage> {
 class TicketError extends StatelessWidget {
   const TicketError(
     this.reason, {
-    Key key,
+    Key? key,
   }) : super(key: key);
   final String reason;
   @override
@@ -207,15 +208,15 @@ class TicketError extends StatelessWidget {
 
 class TicketValidated extends StatelessWidget {
   const TicketValidated({
-    Key key,
+    Key? key,
     this.bloc,
     this.state,
     this.onClose,
   }) : super(key: key);
 
-  final TicketCheckBloc bloc;
-  final TicketValidatedState state;
-  final VoidCallback onClose;
+  final TicketCheckBloc? bloc;
+  final TicketValidatedState? state;
+  final VoidCallback? onClose;
 
   @override
   Widget build(BuildContext context) {
@@ -243,14 +244,14 @@ class TicketValidated extends StatelessWidget {
                   ),
                 ),
               ),
-              Text('Zamówienie: ${state.ticket?.orderId}'),
-              Text('Bilet: ${state.ticket?.ticketId}'),
-              RaisedButton(
+              Text('Zamówienie: ${state?.ticket.orderId}'),
+              Text('Bilet: ${state?.ticket.ticketId}'),
+              ElevatedButton(
                 child: Text('OK'),
                 onPressed: () {
-                  onClose();
+                  onClose!();
                   // startScanning();
-                  bloc.add(InitEvent());
+                  bloc!.add(InitEvent());
                 },
               )
             ],
@@ -263,9 +264,9 @@ class TicketValidated extends StatelessWidget {
 
 class TicketInfo extends StatelessWidget {
   const TicketInfo({
-    Key key,
-    @required this.bloc,
-    @required this.state,
+    Key? key,
+    required this.bloc,
+    required this.state,
   }) : super(key: key);
 
   final TicketCheckBloc bloc;
@@ -292,8 +293,8 @@ class TicketInfo extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 12),
-                Text('Zamówienie: ${state.ticket?.orderId}'),
-                Text('Numer biletu: ${state.ticket?.ticketId}'),
+                Text('Zamówienie: ${state.ticket.orderId}'),
+                Text('Numer biletu: ${state.ticket.ticketId}'),
                 Text('Nazwisko: ${state.name}'),
                 SizedBox(height: 12),
                 Text('Dane techniczne'),
@@ -315,19 +316,21 @@ class TicketInfo extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
-                    RaisedButton(
+                    ElevatedButton(
                       child: Text('Anuluj'),
-                      color: Colors.red,
-                      textColor: Colors.white,
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.red,
+                          textStyle: TextStyle(color: Colors.white)),
                       onPressed: () {
                         bloc.add(InitEvent());
                       },
                     ),
                     SizedBox(width: 12),
-                    RaisedButton(
+                    ElevatedButton(
                       child: Text('Wszystko OK'),
-                      color: Colors.green,
-                      textColor: Colors.white,
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.green,
+                          textStyle: TextStyle(color: Colors.white)),
                       onPressed: () {
                         bloc.add(TickedValidated(
                           state.userId,
@@ -348,7 +351,7 @@ class TicketInfo extends StatelessWidget {
 
 class ScanTopInfo extends StatelessWidget {
   const ScanTopInfo({
-    Key key,
+    Key? key,
     this.scanning = false,
   }) : super(key: key);
 

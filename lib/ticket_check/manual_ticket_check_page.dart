@@ -8,7 +8,7 @@ import 'bloc/bloc.dart';
 class ManualTicketPage extends StatefulWidget {
   final TicketCheckBloc bloc;
 
-  const ManualTicketPage({Key key, this.bloc}) : super(key: key);
+  const ManualTicketPage({Key? key, required this.bloc}) : super(key: key);
 
   @override
   _ManualTicketPageState createState() => _ManualTicketPageState();
@@ -59,7 +59,7 @@ class _ManualTicketPageState extends State<ManualTicketPage> {
                   Text(
                       'Numer zamówienia (order no.) ma 9 znaków i zaczyna się od OT'),
                   Text('Numer biletu (ticket id.) ma 20 znaków'),
-                  RaisedButton(
+                  ElevatedButton(
                     child: Text('Szukaj'),
                     onPressed: value.length > 0 ? onSearch : null,
                   ),

@@ -14,7 +14,7 @@ class OrganizersRepository {
     } catch (e, s) {
       logger.errorException(e, s);
 
-      return List<Organizer>();
+      return <Organizer>[];
     }
   }
 }

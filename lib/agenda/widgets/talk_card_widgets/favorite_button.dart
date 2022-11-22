@@ -9,9 +9,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class FavoriteButton extends StatelessWidget {
   const FavoriteButton({
-    Key key,
-    @required this.isFavorite,
-    @required this.talk,
+    Key? key,
+    required this.isFavorite,
+    required this.talk,
   }) : super(key: key);
 
   final bool isFavorite;
@@ -36,11 +36,11 @@ class FavoriteButton extends StatelessWidget {
     final sharedPrefs = Provider.of<SharedPreferences>(context, listen: false);
     final remindersEnabled = sharedPrefs.getBool('reminders') == true;
     if (isFavorite) {
-      favoritesRepo.removeTalkFromFavorites(talk?.id);
+      favoritesRepo.removeTalkFromFavorites(talk.id);
       cancelNotification(flutterLocalNotificationsPlugin);
       hideInfoAboutNotification(context);
     } else {
-      favoritesRepo.addTalkToFavorites(talk?.id);
+      favoritesRepo.addTalkToFavorites(talk.id);
       if (remindersEnabled) {
         scheduleNotification(
             flutterLocalNotificationsPlugin, favoritesRepo, talk);
@@ -57,11 +57,11 @@ class FavoriteButton extends StatelessWidget {
   }
 
   void showInfoAboutNotification(BuildContext context) {
-    final suffix = appConfig.flavor != 'prod'
+    final suffix = appConfig?.flavor != 'prod'
         ? ' (in test mode notification will appear in 20 seconds)'
         : '';
-    Scaffold.of(context).hideCurrentSnackBar();
-    Scaffold.of(context).showSnackBar(SnackBar(
+    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       content: Text(
         'We\'ll let you know when the talk starts$suffix',
       ),
@@ -77,19 +77,19 @@ class FavoriteButton extends StatelessWidget {
     final androidPlatformChannelSpecifics = AndroidNotificationDetails(
       'notifications',
       'App Notifications',
-      'Various notifications from the app',
-      importance: Importance.Max,
-      priority: Priority.Max,
+      importance: Importance.max,
+      priority: Priority.max,
       ticker: 'Flutter Europe',
     );
-    final iOSPlatformChannelSpecifics = IOSNotificationDetails(
+    final iOSPlatformChannelSpecifics = DarwinNotificationDetails(
       presentAlert: true,
       presentBadge: true,
       presentSound: true,
     );
 
     final platformChannelSpecifics = NotificationDetails(
-        androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
+        android: androidPlatformChannelSpecifics,
+        iOS: iOSPlatformChannelSpecifics);
 
     final reminderTime = _reminderTime();
 
@@ -118,7 +118,7 @@ class FavoriteButton extends StatelessWidget {
   }
 
   DateTime _reminderTime() {
-    if (appConfig.flavor != 'prod') {
+    if (appConfig?.flavor != 'prod') {
       return DateTime.now().add(Duration(seconds: 20));
     } else {
       return talk.startTime.subtract(Duration(minutes: 5));
@@ -126,7 +126,7 @@ class FavoriteButton extends StatelessWidget {
   }
 
   DateTime _ratingTime() {
-    if (appConfig.flavor != 'prod') {
+    if (appConfig?.flavor != 'prod') {
       return DateTime.now().add(Duration(seconds: 40));
     } else {
       return talk.endTime.subtract(Duration(minutes: 5));
@@ -134,6 +134,6 @@ class FavoriteButton extends StatelessWidget {
   }
 
   void hideInfoAboutNotification(BuildContext context) {
-    Scaffold.of(context).hideCurrentSnackBar();
+    ScaffoldMessenger.of(context).hideCurrentSnackBar();
   }
 }

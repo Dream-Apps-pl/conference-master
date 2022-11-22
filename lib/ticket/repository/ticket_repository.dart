@@ -13,7 +13,7 @@ class TicketRepository {
 
   TicketRepository(this._userRepository);
 
-  Future<Ticket> getTicket() async {
+  Future<Ticket?> getTicket() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     try {
       final ticketString = prefs.getString(_ticketKey);
@@ -24,7 +24,7 @@ class TicketRepository {
       }
     } catch (e, s) {
       logger.errorException(e, s);
-      Crashlytics.instance.recordError(e, s);
+      FirebaseCrashlytics.instance.recordError(e, s);
       prefs.remove(_ticketKey);
     }
     return null;

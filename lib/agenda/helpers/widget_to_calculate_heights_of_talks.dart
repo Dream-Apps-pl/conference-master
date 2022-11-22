@@ -15,8 +15,8 @@ import 'package:provider/provider.dart';
 // but instead rendered once to calculate all the dimensions.
 class WidgetUsedToCalculateHeightsOfTalkCards extends StatefulWidget {
   const WidgetUsedToCalculateHeightsOfTalkCards({
-    Key key,
-    this.talks,
+    Key? key,
+    required this.talks,
   }) : super(key: key);
   final Map<int, List<Talk>> talks;
 
@@ -36,20 +36,21 @@ class _WidgetUsedToCalculateHeightsOfTalkCardsState
     }
 
     final talksPerHour = groupBy<Talk, DateTime>(
-        [...widget.talks[0], ...widget.talks[1]], (t) => t.startTime);
+        [...widget.talks[0]!, ...widget.talks[1]!], (t) => t.startTime);
 
-    layoutHelper.setTalksCount(widget.talks[0].length + widget.talks[1].length);
+    layoutHelper
+        .setTalksCount(widget.talks[0]!.length + widget.talks[1]!.length);
     final hours = talksPerHour.keys.toList();
 
     final widgets = <Widget>[];
     for (var index = 0; index < talksPerHour.length; index++) {
       final _thisHoursTalks = talksPerHour[hours[index]];
-      final _talk = _thisHoursTalks.firstWhere(
-          (t) => t.room.id != TalkType.advanced.toString(),
-          orElse: () => null);
-      final _nextTalk = _thisHoursTalks.firstWhere(
-          (t) => t.room.id == TalkType.advanced.toString(),
-          orElse: () => null);
+      final _talk = _thisHoursTalks?.firstWhere(
+        (t) => t.room.id != TalkType.advanced.toString(),
+      );
+      final _nextTalk = _thisHoursTalks?.firstWhere(
+        (t) => t.room.id == TalkType.advanced.toString(),
+      );
 
       widgets.add(
         Column(
@@ -63,7 +64,7 @@ class _WidgetUsedToCalculateHeightsOfTalkCardsState
                 Opacity(
                   opacity: 0.0,
                   child: CompactLeftTalkContainer(
-                    talk: _talk ?? _nextTalk,
+                    talk: _talk ?? _nextTalk!,
                   ),
                 ),
                 if (_talk != null)
@@ -98,7 +99,7 @@ class _WidgetUsedToCalculateHeightsOfTalkCardsState
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             NormalPlaceholderTalkCard(
-              talk: _talk,
+              talk: _talk!,
               compact: false,
               first: true,
               helper: layoutHelper,
@@ -128,10 +129,10 @@ class _WidgetUsedToCalculateHeightsOfTalkCardsState
 
 class CompactPlaceholderTalkCard extends StatelessWidget {
   CompactPlaceholderTalkCard({
-    Key key,
-    @required this.talk,
-    @required this.compact,
-    @required this.helper,
+    Key? key,
+    required this.talk,
+    required this.compact,
+    required this.helper,
   }) : super(key: key);
 
   final Talk talk;
@@ -141,7 +142,8 @@ class CompactPlaceholderTalkCard extends StatelessWidget {
 
   _getSize() {
     try {
-      final RenderBox renderBoxRed = _keyRed.currentContext.findRenderObject();
+      final RenderBox renderBoxRed =
+          _keyRed.currentContext!.findRenderObject() as RenderBox;
       final sizeRed = renderBoxRed.size;
 
       helper.setCompactTalkHeight(talk.id, sizeRed.height);
@@ -167,7 +169,7 @@ class CompactPlaceholderTalkCard extends StatelessWidget {
           talk: talk,
           isFavorite: false,
           first: false,
-          compact: compact,
+          compact: compact, onTap: () {  },
         ),
       ),
     );
@@ -176,11 +178,11 @@ class CompactPlaceholderTalkCard extends StatelessWidget {
 
 class NormalPlaceholderTalkCard extends StatelessWidget {
   NormalPlaceholderTalkCard({
-    Key key,
-    @required this.talk,
-    @required this.compact,
-    @required this.first,
-    @required this.helper,
+    Key? key,
+    required this.talk,
+    required this.compact,
+    required this.first,
+    required this.helper,
   }) : super(key: key);
 
   final Talk talk;
@@ -191,7 +193,7 @@ class NormalPlaceholderTalkCard extends StatelessWidget {
 
   _getSize() {
     try {
-      final RenderBox renderBoxRed = _keyRed.currentContext.findRenderObject();
+      final RenderBox renderBoxRed = _keyRed.currentContext!.findRenderObject() as RenderBox;
       final sizeRed = renderBoxRed.size;
 
       helper.setNormalTalkHeight(talk.id, sizeRed.height);
@@ -217,7 +219,7 @@ class NormalPlaceholderTalkCard extends StatelessWidget {
           talk: talk,
           isFavorite: false,
           first: first,
-          compact: compact,
+          compact: compact, onTap: () {  },
         ),
       ),
     );

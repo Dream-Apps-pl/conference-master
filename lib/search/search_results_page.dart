@@ -7,7 +7,7 @@ import 'package:line_icons/line_icons.dart';
 
 class SearchResultsPage extends StatelessWidget {
   const SearchResultsPage({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -19,7 +19,7 @@ class SearchResultsPage extends StatelessWidget {
             return MaterialSearch<Talk>(
               placeholder: 'Search',
               getResults: (String criteria) async {
-                return [...state.talks[0], ...state.talks[1]]
+                return [...state.talks[0]!, ...state.talks[1]!]
                     .map((Talk v) => new MaterialSearchResult<Talk>(
                           icon: v.authors.length > 1
                               ? LineIcons.users

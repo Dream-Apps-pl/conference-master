@@ -66,7 +66,7 @@ class TicketBloc extends Bloc<TicketEvent, TicketState> {
     if (event.ticketData.ticketId != null || event.ticketData.orderId != null) {
       yield TicketLoadingState();
       final ticket = Ticket(
-          event.ticketData.orderId?.toUpperCase(), event.ticketData.ticketId);
+          event.ticketData.orderId.toUpperCase(), event.ticketData.ticketId);
       logger.setDeviceString('ticket', '${ticket.orderId} ${ticket.ticketId}');
 
       await _ticketRepository.addTicket(ticket);
@@ -82,7 +82,7 @@ class TicketBloc extends Bloc<TicketEvent, TicketState> {
       yield NoTicketState();
     } else {
       final ticket = await _ticketRepository.getTicket();
-      yield TicketAddedState(ticket);
+      yield TicketAddedState(ticket!);
     }
   }
 

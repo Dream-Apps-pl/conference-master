@@ -6,7 +6,7 @@ class DaySelectorContainer extends StatelessWidget {
   const DaySelectorContainer(
     this.pageController,
     this.index, {
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   final PageController pageController;
@@ -30,7 +30,7 @@ class DaySelectorContainer extends StatelessWidget {
                 child: Container(
                   decoration: BoxDecoration(
                     border: Border.all(
-                      color: bgColor,
+                      color: bgColor!,
                       style: BorderStyle.solid,
                       width: 2,
                     ),
@@ -52,7 +52,7 @@ class DaySelector extends StatelessWidget {
     this.bgColor,
     this.pageController,
     this.index, {
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   final Color bgColor;

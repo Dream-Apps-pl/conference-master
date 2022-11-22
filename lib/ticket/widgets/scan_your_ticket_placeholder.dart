@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class ScanYourTicketPlaceholder extends StatelessWidget {
   const ScanYourTicketPlaceholder({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override

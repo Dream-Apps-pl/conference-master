@@ -5,24 +5,23 @@ import 'package:firebase_ml_vision/firebase_ml_vision.dart';
 import 'package:camera/camera.dart';
 
 import 'scanner_utils.dart';
-import 'detector_painters.dart';
 
 typedef void TextDetected(String number);
 typedef bool CheckCondition(String word);
 
 class TicketDetector extends StatefulWidget {
   const TicketDetector({
-    Key key,
+    Key? key,
     this.onDetected,
     this.condition,
     this.detectorHeight,
     this.overlay,
   }) : super(key: key);
 
-  final TextDetected onDetected;
-  final CheckCondition condition;
-  final double detectorHeight;
-  final Widget overlay;
+  final TextDetected? onDetected;
+  final CheckCondition? condition;
+  final double? detectorHeight;
+  final Widget? overlay;
 
   @override
   _TicketDetectorState createState() => _TicketDetectorState();
@@ -30,12 +29,9 @@ class TicketDetector extends StatefulWidget {
 
 class _TicketDetectorState extends State<TicketDetector> {
   final _recognizer = FirebaseVision.instance.textRecognizer();
-  VisionText _scanResults;
-  CameraController _camera;
-  Detector _currentDetector = Detector.text;
+  CameraController? _camera;
   bool _isDetecting = false;
   CameraLensDirection _direction = CameraLensDirection.back;
-  Size _screenSize;
 
   @override
   void initState() {
@@ -53,9 +49,9 @@ class _TicketDetectorState extends State<TicketDetector> {
           ? ResolutionPreset.medium
           : ResolutionPreset.medium,
     );
-    await _camera.initialize();
+    await _camera?.initialize();
 
-    _camera.startImageStream((CameraImage image) {
+    _camera?.startImageStream((CameraImage image) {
       if (_isDetecting) return;
 
       _isDetecting = true;
@@ -66,12 +62,11 @@ class _TicketDetectorState extends State<TicketDetector> {
         imageRotation: description.sensorOrientation,
       ).then(
         (dynamic results) {
-          if (_currentDetector == null || results == null) return;
+          if (results == null) return;
           if (results is VisionText) {
             final handled = handleScannerResults(results);
             if (handled) return;
             setState(() {
-              _scanResults = results;
             });
           }
         },
@@ -82,7 +77,7 @@ class _TicketDetectorState extends State<TicketDetector> {
   Widget _buildImage() {
     return WillPopScope(
       onWillPop: () async {
-        await _camera.dispose().then((_) {
+        await _camera?.dispose().then((_) {
           _recognizer.close();
         });
         return true;
@@ -99,8 +94,8 @@ class _TicketDetectorState extends State<TicketDetector> {
                 ),
               )
             : InitializedCamera(
-                camera: _camera,
-                overlay: widget.overlay,
+                camera: _camera!,
+                overlay: widget.overlay!,
               ),
       ),
     );
@@ -108,17 +103,15 @@ class _TicketDetectorState extends State<TicketDetector> {
 
   @override
   Widget build(BuildContext context) {
-    _screenSize = MediaQuery.of(context).size;
     return _buildImage();
   }
 
   @override
   void dispose() {
-    _camera.dispose().then((_) {
+    _camera?.dispose().then((_) {
       _recognizer.close();
     });
 
-    _currentDetector = null;
     super.dispose();
   }
 
@@ -127,17 +120,17 @@ class _TicketDetectorState extends State<TicketDetector> {
       final _filteredScanRresults =
           results.blocks.where((b) => textWithinBounds(b)).toList();
 
-      if (_filteredScanRresults != null && _filteredScanRresults.length > 0) {
+      if (_filteredScanRresults.length > 0) {
         for (var text in _filteredScanRresults) {
           for (var line in text.lines) {
-            for (var word in line.text.split(' ')) {
-              final correct = widget.condition(word);
+            for (var word in line.text!.split(' ')) {
+              final correct = widget.condition!(word);
 
               if (correct) {
                 final result = word.toUpperCase();
                 logger.info(result);
                 setState(() {
-                  widget.onDetected(result);
+                  widget.onDetected!(result);
                 });
                 return true;
               }
@@ -152,41 +145,18 @@ class _TicketDetectorState extends State<TicketDetector> {
     return false;
   }
 
-  Widget _buildResults() {
-    const Text noResultsText = Text('No results!');
-
-    if (_scanResults == null ||
-        _camera == null ||
-        !_camera.value.isInitialized) {
-      return noResultsText;
-    }
-
-    CustomPainter painter;
-
-    final Size imageSize = Size(
-      _camera.value.previewSize.height,
-      _camera.value.previewSize.width,
-    );
-
-    painter = TextDetectorPainter(imageSize, _scanResults);
-
-    return CustomPaint(
-      painter: painter,
-    );
-  }
 
   bool textWithinBounds(TextBlock b) {
     final Size imageSize = Size(
-      _camera.value.previewSize.height,
-      _camera.value.previewSize.width,
+      _camera!.value.previewSize!.height,
+      _camera!.value.previewSize!.width,
     );
-    final double scaleY = imageSize.height / _screenSize.height;
     final double imageHalfY = imageSize.height / 2.0;
     for (var l in b.lines) {
       for (var e in l.elements) {
         final result =
-            e.boundingBox.top > (imageHalfY - widget.detectorHeight / 2) &&
-                e.boundingBox.bottom < (imageHalfY + widget.detectorHeight / 2);
+            e.boundingBox!.top > (imageHalfY - widget.detectorHeight! / 2) &&
+                e.boundingBox!.bottom < (imageHalfY + widget.detectorHeight! / 2);
 
         if (result == true) {
           print('TRUE ${e.text}');
@@ -201,9 +171,9 @@ class _TicketDetectorState extends State<TicketDetector> {
 
 class InitializedCamera extends StatelessWidget {
   const InitializedCamera({
-    Key key,
-    @required CameraController camera,
-    @required Widget overlay,
+    Key? key,
+    required CameraController camera,
+    required Widget overlay,
   })  : _camera = camera,
         _overlay = overlay,
         super(key: key);

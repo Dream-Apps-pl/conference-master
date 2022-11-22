@@ -8,7 +8,7 @@ import 'package:rxdart/rxdart.dart';
 
 class UserRepository {
   final AuthRepository _authRepository;
-  final Firestore _firestore;
+  final FirebaseFirestore _firestore;
   User _cachedUser;
 
   UserRepository(this._authRepository, this._firestore) {
@@ -21,7 +21,7 @@ class UserRepository {
     return _authRepository.userId.asyncExpand((id) {
       if (id == null) return null;
 
-      return _firestore.document('users/$id').snapshots();
+      return _firestore.doc('users/$id').snapshots();
     });
   }
 
@@ -38,7 +38,7 @@ class UserRepository {
 
     logger.setDeviceString('userId', _cachedUser.userId);
 
-    await _firestore.document('users/${_cachedUser.userId}').setData({
+    await _firestore.doc('users/${_cachedUser.userId}').set({
       'userId': _cachedUser.userId,
       'favoriteTalksIds': _cachedUser.favoriteTalksIds..add(talkId),
       'updated': DateTime.now(),
@@ -49,7 +49,7 @@ class UserRepository {
     if (!_cachedUser.favoriteTalksIds.contains(talkId)) {
       return;
     }
-    await _firestore.document('users/${_cachedUser.userId}').setData({
+    await _firestore.doc('users/${_cachedUser.userId}').set({
       'userId': _cachedUser.userId,
       'favoriteTalksIds': _cachedUser.favoriteTalksIds..remove(talkId),
       'updated': DateTime.now(),
@@ -60,11 +60,11 @@ class UserRepository {
     String id,
     DocumentSnapshot userSnapshot,
   ) {
-    if (id != userSnapshot.documentID || id != _cachedUser?.userId) {
+    if (id != userSnapshot.id || id != _cachedUser.userId) {
       logger.warn('Wrong auth id of cached user');
     }
     if (userSnapshot.exists) {
-      final user = User.fromJson(userSnapshot.data);
+      final user = User.fromJson(userSnapshot.data() as Map<String, dynamic>);
       _cachedUser = user;
       return user;
     } else {

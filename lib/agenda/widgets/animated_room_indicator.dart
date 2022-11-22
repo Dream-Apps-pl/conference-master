@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 
 class AnimatedRoomIndicator extends StatelessWidget {
   const AnimatedRoomIndicator({
-    Key key,
-    @required this.compact,
-    @required this.rooms,
+    Key? key,
+    required this.compact,
+    required this.rooms,
   }) : super(key: key);
 
   final bool compact;

@@ -21,14 +21,14 @@ class OrganizersPage extends StatelessWidget {
           future: organizersRepository.fetchOrganizers(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              final organizers = snapshot.data.toList();
+              final organizers = snapshot.data?.toList();
 
               return GridView.count(
                 crossAxisCount:
                     MediaQuery.of(context).orientation == Orientation.portrait
                         ? 2
                         : 4,
-                children: organizers
+                children: organizers!
                     .map((f) => Padding(
                           padding: const EdgeInsets.all(12.0),
                           child: InkResponse(

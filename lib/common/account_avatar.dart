@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class AccountAvatar extends StatelessWidget {
   const AccountAvatar({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override

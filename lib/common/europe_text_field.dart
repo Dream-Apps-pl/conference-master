@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class EuropeTextFormField extends StatelessWidget {
   const EuropeTextFormField({
-    Key key,
+    Key? key,
     this.hint,
     this.icon,
     this.onTap,
@@ -18,27 +18,27 @@ class EuropeTextFormField extends StatelessWidget {
     this.additionalValidator,
   }) : super(key: key);
 
-  final String hint;
-  final IconData icon;
-  final VoidCallback onTap;
-  final String value;
-  final TextEditingController controller;
-  final ValueChanged<String> onFieldSubmitted;
-  final ValueChanged<String> onChanged;
-  final int maxLength;
-  final FocusNode focusNode;
-  final TextInputType keyboardType;
+  final String? hint;
+  final IconData? icon;
+  final VoidCallback? onTap;
+  final String? value;
+  final TextEditingController? controller;
+  final ValueChanged<String>? onFieldSubmitted;
+  final ValueChanged<String>? onChanged;
+  final int? maxLength;
+  final FocusNode? focusNode;
+  final TextInputType? keyboardType;
   final TextCapitalization textCapitalization;
   final bool obscureText;
-  final FormFieldValidator<String> additionalValidator;
+  final FormFieldValidator<String>? additionalValidator;
 
   @override
   Widget build(BuildContext context) {
     final border = OutlineInputBorder(
       borderSide: BorderSide(
         color: Theme.of(context).brightness == Brightness.light
-            ? Colors.grey[200]
-            : Colors.grey[700],
+            ? Colors.grey
+            : Colors.blueGrey,
       ),
       borderRadius: BorderRadius.circular(12),
     );
@@ -55,13 +55,13 @@ class EuropeTextFormField extends StatelessWidget {
         keyboardType: keyboardType,
         maxLength: maxLength,
         validator: (value) {
-          if (value.length == 0) {
+          if (value!.length == 0) {
             return 'Please fill this field.';
           }
           if (value.length != maxLength) {
             return 'This field should have $maxLength characters.';
           }
-          if (additionalValidator != null) return additionalValidator(value);
+          if (additionalValidator != null) return additionalValidator!(value);
           return null;
         },
         textInputAction: TextInputAction.next,
@@ -75,8 +75,8 @@ class EuropeTextFormField extends StatelessWidget {
           focusedBorder: border.copyWith(
             borderSide: BorderSide(
               color: Theme.of(context).brightness == Brightness.light
-                  ? Colors.grey[300]
-                  : Colors.grey[600],
+                  ? Colors.grey
+                  : Colors.blueGrey,
             ),
           ),
           fillColor: Theme.of(context).scaffoldBackgroundColor,

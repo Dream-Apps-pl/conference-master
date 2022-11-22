@@ -8,15 +8,16 @@ import 'package:contentful/contentful.dart';
 part 'agenda.g.dart';
 
 enum TalkType { beginner, advanced, other }
+
 enum Day { day_one, day_two }
 
 @JsonSerializable()
 class Agenda extends EntryCollection<AgendaFields> {
   Agenda({
-    int total,
-    int skip,
-    int limit,
-    List<AgendaFields> items,
+    required int total,
+    required int skip,
+    required int limit,
+    required List<AgendaFields> items,
   }) : super(
           total: total,
           skip: skip,
@@ -29,7 +30,6 @@ class Agenda extends EntryCollection<AgendaFields> {
 }
 
 @JsonSerializable(
-  nullable: false,
   explicitToJson: true,
   anyMap: true,
 )
@@ -52,11 +52,10 @@ String _documentToJson(Document doc) {
 }
 
 Document _documentFromJson(Map json) {
-  return Document.fromJson(json);
+  return Document.fromJson(json)!;
 }
 
 @JsonSerializable(
-  nullable: false,
   explicitToJson: true,
   anyMap: true,
 )
@@ -66,13 +65,12 @@ class Fields extends Equatable {
   final String time;
   final String title;
   final TalkType type;
-  @JsonKey(nullable: true)
   final ContentfulSpeaker speaker;
-  @JsonKey(nullable: true, name: 'secondSpeaked')
+  @JsonKey(name: 'secondSpeaked')
   final ContentfulSpeaker secondSpeaker;
 
   @JsonKey(ignore: true)
-  Document get descriptionDocument =>
+  Document? get descriptionDocument =>
       _documentFromJson(jsonDecode(description));
 
   @JsonKey(fromJson: _storeDocumentAsString)
@@ -97,7 +95,7 @@ class Fields extends Equatable {
     if (value == 'day two') {
       return Day.day_two;
     }
-    return null;
+    return Day.day_one;
   }
 
   static String _dayToJson(Day day) {
@@ -121,7 +119,6 @@ String _storeDocumentAsString(Map doc) {
 }
 
 @JsonSerializable(
-  nullable: false,
   explicitToJson: true,
   anyMap: true,
 )
@@ -135,17 +132,13 @@ class ContentfulSpeaker extends Entry<ContentfulSpeakerFields> {
 }
 
 @JsonSerializable(
-  nullable: false,
   explicitToJson: true,
   anyMap: true,
 )
 class ContentfulSpeakerFields extends Equatable {
   final String name;
-  @JsonKey(nullable: true)
   final String twitter;
-  @JsonKey(nullable: true)
   final Asset picture;
-  @JsonKey(nullable: true)
   final String topic;
   @JsonKey(fromJson: _documentFromJson, toJson: _documentToJson)
   final Document bio;

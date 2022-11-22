@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_null_comparison
+
 import 'package:add_2_calendar/add_2_calendar.dart';
 import 'package:conferenceapp/agenda/repository/talks_repository.dart';
 import 'package:conferenceapp/agenda/widgets/talk_card_widgets/favorite_button.dart';
@@ -38,7 +40,7 @@ class TalkPage extends StatelessWidget {
         final talk = snapshot.hasData ? snapshot.data : null;
         return Scaffold(
           floatingActionButton: FloatingActionButton(
-            child: Icon(LineIcons.calendar_plus_o),
+            child: Icon(LineIcons.calendarPlus),
             tooltip: 'Add to calendar',
             backgroundColor: Theme.of(context).primaryColor,
             onPressed: talk != null
@@ -46,7 +48,7 @@ class TalkPage extends StatelessWidget {
                     try {
                       final Event event = Event(
                         title: talk.title,
-                        description: Document.fromJson(talk.descriptionMap)
+                        description: Document.fromJson(talk.descriptionMap)!
                             .toSimpleString(),
                         location:
                             'Centrum konferencyjne w Centrum Nauki Kopernik, Wybrzeże Kościuszkowskie 20, 00-390 Warszawa',
@@ -108,8 +110,8 @@ class TalkPage extends StatelessWidget {
 
 class TalkRating extends StatefulWidget {
   const TalkRating({
-    Key key,
-    @required this.talk,
+    Key? key,
+    required this.talk,
   }) : super(key: key);
 
   final Talk talk;
@@ -119,18 +121,18 @@ class TalkRating extends StatefulWidget {
 }
 
 class _TalkRatingState extends State<TalkRating> {
-  RateBloc _rateBloc;
+  late RateBloc _rateBloc;
   double rating = 0.0;
 
   @override
   void dispose() {
-    _rateBloc?.close();
+    _rateBloc.close();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    _rateBloc ??= RateBloc(Provider.of<RatingsRepository>(context))
+    _rateBloc = RateBloc(Provider.of<RatingsRepository>(context))
       ..add(FetchRateTalk(widget.talk));
 
     return BlocListener<RateBloc, RateState>(
@@ -151,7 +153,7 @@ class _TalkRatingState extends State<TalkRating> {
                 onRatingChanged: (r) {
                   _rateBloc.add(RateTalk(widget.talk, r));
                 },
-                rating: _rateBloc.rating ?? 0.0,
+                rating: _rateBloc.rating,
               ),
               _rateBloc.review != null && _rateBloc.review.isNotEmpty
                   ? ReviewText(_rateBloc.review,
@@ -164,7 +166,7 @@ class _TalkRatingState extends State<TalkRating> {
               if (state is TalkRatedState)
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: FlatButton(
+                  child: ElevatedButton(
                     child: RichText(
                       text: TextSpan(
                           style: DefaultTextStyle.of(context).style,
@@ -200,8 +202,8 @@ class _TalkRatingState extends State<TalkRating> {
   void shareToTwitter() {
     try {
       final twitters = widget.talk.authors
-          .map((f) => f.twitter?.isNotEmpty == true
-              ? '@' + f.twitter?.split('/')?.last
+          .map((f) => f.twitter.isNotEmpty == true
+              ? '@' + f.twitter.split('/').last
               : '')
           .join(' ');
       final body =
@@ -211,10 +213,10 @@ class _TalkRatingState extends State<TalkRating> {
         subject: body,
       );
     } catch (e, s) {
-      Scaffold.of(context).showSnackBar(SnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text('Ups, we have a problem here.'),
         behavior: SnackBarBehavior.floating,
-        backgroundColor: Theme.of(context).accentColor,
+        backgroundColor: Theme.of(context).colorScheme.secondary,
       ));
       logger.error('Problem during share to Twitter');
       logger.errorException(e, s);
@@ -224,8 +226,8 @@ class _TalkRatingState extends State<TalkRating> {
 
 class TalkTitle extends StatelessWidget {
   const TalkTitle({
-    Key key,
-    @required this.talk,
+    Key? key,
+    required this.talk,
   }) : super(key: key);
 
   final Talk talk;
@@ -245,8 +247,8 @@ class TalkTitle extends StatelessWidget {
 
 class TalkDetails extends StatelessWidget {
   const TalkDetails({
-    Key key,
-    @required this.talk,
+    Key? key,
+    required this.talk,
   }) : super(key: key);
 
   final Talk talk;
@@ -298,12 +300,12 @@ class TalkDetails extends StatelessWidget {
 
 class CustomExpandablePanel extends StatelessWidget {
   const CustomExpandablePanel({
-    Key key,
+    Key? key,
     this.header,
-    @required this.content,
+    required this.content,
   }) : super(key: key);
 
-  final String header;
+  final String? header;
   final String content;
 
   @override
@@ -313,7 +315,7 @@ class CustomExpandablePanel extends StatelessWidget {
           ? Row(
               children: <Widget>[
                 Text(
-                  header,
+                  header!,
                   textAlign: TextAlign.left,
                   style: TextStyle(
                     fontSize: 14,
@@ -338,7 +340,7 @@ class CustomExpandablePanel extends StatelessWidget {
             ExpandableIcon(
               theme: ExpandableThemeData.combine(
                 ExpandableThemeData(
-                  iconColor: Theme.of(context).textTheme.body1.color,
+                  iconColor: Theme.of(context).textTheme.bodyText1!.color,
                 ),
                 ExpandableThemeData.defaults,
               ),
@@ -358,23 +360,21 @@ class CustomExpandablePanel extends StatelessWidget {
           ExpandableIcon(
             theme: ExpandableThemeData.combine(
               ExpandableThemeData(
-                iconColor: Theme.of(context).textTheme.body1.color,
+                iconColor: Theme.of(context).textTheme.bodyText1!.color,
               ),
               ExpandableThemeData.defaults,
             ),
           )
         ],
       ),
-      tapBodyToCollapse: true,
-      hasIcon: false,
     );
   }
 }
 
 class TopHeader extends StatelessWidget {
   const TopHeader({
-    Key key,
-    @required this.talk,
+    Key? key,
+    required this.talk,
   }) : super(key: key);
 
   final Talk talk;
@@ -432,8 +432,8 @@ class TopHeader extends StatelessWidget {
 
 class SpeakerNameAndJob extends StatelessWidget {
   const SpeakerNameAndJob({
-    Key key,
-    @required this.author,
+    Key? key,
+    required this.author,
   }) : super(key: key);
 
   final Author author;
@@ -475,8 +475,8 @@ class SpeakerNameAndJob extends StatelessWidget {
 
 class TwitterButton extends StatelessWidget {
   const TwitterButton({
-    Key key,
-    @required this.author,
+    Key? key,
+    required this.author,
   }) : super(key: key);
 
   final Author author;
@@ -512,8 +512,8 @@ class TwitterButton extends StatelessWidget {
 
 class TalkDetailsFavoriteButton extends StatelessWidget {
   const TalkDetailsFavoriteButton({
-    Key key,
-    @required this.talk,
+    Key? key,
+    required this.talk,
   }) : super(key: key);
 
   final Talk talk;
@@ -524,8 +524,9 @@ class TalkDetailsFavoriteButton extends StatelessWidget {
       stream: Provider.of<FavoritesRepository>(context).favoriteTalks,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          final fav = snapshot.data.firstWhere((Talk n) => n.id == talk.id,
-                  orElse: () => null) !=
+          final fav = snapshot.data!.firstWhere(
+                (Talk n) => n.id == talk.id,
+              ) !=
               null;
           return FavoriteButton(
             isFavorite: fav,

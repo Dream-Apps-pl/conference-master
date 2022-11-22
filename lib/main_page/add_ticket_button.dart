@@ -7,7 +7,7 @@ import 'package:line_icons/line_icons.dart';
 
 class AddTicketButton extends StatelessWidget {
   const AddTicketButton({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -21,7 +21,7 @@ class AddTicketButton extends StatelessWidget {
                 child: FloatingActionButton.extended(
                   icon: DescribedFeatureOverlay(
                     featureId: 'show_ticket',
-                    tapTarget: Icon(LineIcons.ticket),
+                    tapTarget: Icon(LineIcons.alternateTicket),
                     title: Text('Add your ticket'),
                     description: Text(
                         'Tap this button to add your ticket. You\'ll need your order or ticket number.'),
@@ -31,7 +31,7 @@ class AddTicketButton extends StatelessWidget {
                     },
                     targetColor: Colors.white,
                     textColor: Colors.white,
-                    child: Icon(LineIcons.ticket),
+                    child: Icon(LineIcons.alternateTicket),
                   ),
                   shape: StadiumBorder(),
                   backgroundColor: Theme.of(context).primaryColor,
@@ -55,7 +55,7 @@ class AddTicketButton extends StatelessWidget {
                   isExtended: true,
                   child: DescribedFeatureOverlay(
                     featureId: 'show_ticket',
-                    tapTarget: Icon(LineIcons.ticket),
+                    tapTarget: Icon(LineIcons.alternateTicket),
                     title: Text('Add your ticket'),
                     description: Text(
                         'Tap this button to see your ticket. You should show it during registration or swag pickup.'),
@@ -65,7 +65,7 @@ class AddTicketButton extends StatelessWidget {
                     },
                     targetColor: Colors.white,
                     textColor: Colors.white,
-                    child: Icon(LineIcons.ticket),
+                    child: Icon(LineIcons.alternateTicket),
                   ),
                   onPressed: () => onPressed(context),
                 ),

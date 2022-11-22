@@ -4,10 +4,10 @@ import 'package:intl/intl.dart';
 
 class AnimatedLeftTalkContainer extends StatelessWidget {
   const AnimatedLeftTalkContainer({
-    Key key,
-    @required this.compact,
-    @required this.talk,
-    @required this.topPadding,
+    Key? key,
+    required this.compact,
+    required this.talk,
+    required this.topPadding,
   }) : super(key: key);
 
   final bool compact;
@@ -48,9 +48,9 @@ class AnimatedLeftTalkContainer extends StatelessWidget {
 
 class LeftTalkContainer extends StatelessWidget {
   const LeftTalkContainer({
-    Key key,
-    @required this.topPadding,
-    @required this.talk,
+    Key? key,
+    required this.topPadding,
+    required this.talk,
   }) : super(key: key);
 
   final double topPadding;

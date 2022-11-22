@@ -6,7 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class AgendaLayoutHelper with ChangeNotifier {
   bool _compact = true;
   bool _hasHeightsCalculated = false;
-  int _talksCount;
+  late int _talksCount;
 
   AgendaLayoutHelper(this._compact);
 
@@ -17,11 +17,11 @@ class AgendaLayoutHelper with ChangeNotifier {
     _compact = !_compact;
 
     final paramValue = _compact ? 'compact' : 'normal';
-    analytics.logEvent(
+    analytics?.logEvent(
       name: 'agenda_layout_toggle',
       parameters: {'target': paramValue},
     );
-    analytics.setUserProperty(name: 'agenda_mode', value: paramValue);
+    analytics?.setUserProperty(name: 'agenda_mode', value: paramValue);
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString('agenda_mode', paramValue);
@@ -44,17 +44,17 @@ class AgendaLayoutHelper with ChangeNotifier {
   final _compactTalkHeights = Map<String, double>();
   final _normalTalkHeights = Map<String, double>();
 
-  double compactHeight(Talk talk, Talk nextTalk) {
+  double? compactHeight(Talk? talk, Talk? nextTalk) {
     try {
-      if (talk == null && nextTalk != null) {
-        return _compactTalkHeights[nextTalk.id];
+      if (talk == null) {
+        return _compactTalkHeights[nextTalk!.id];
       }
       final heightT = _compactTalkHeights[talk.id];
       if (nextTalk == null) {
         return heightT;
       }
       final heightN = _compactTalkHeights[nextTalk.id];
-      if (heightT > heightN == true) {
+      if (heightT! > heightN! == true) {
         return heightT;
       } else {
         return heightN;
@@ -64,56 +64,54 @@ class AgendaLayoutHelper with ChangeNotifier {
     }
   }
 
-  double normalHeight(Talk talk, Talk nextTalk) {
+  double? normalHeight(Talk? talk, Talk? nextTalk) {
     try {
-      if (talk == null && nextTalk != null) {
-        return _normalTalkHeights[nextTalk.id];
+      if (talk == null) {
+        return _normalTalkHeights[nextTalk!.id];
       }
-      if (talk != null) {
-        final heightT = _normalTalkHeights[talk.id];
-        if (nextTalk == null) {
-          return heightT;
-        }
-        final heightN = _normalTalkHeights[nextTalk.id];
-        return heightT + heightN;
+      final heightT = _normalTalkHeights[talk.id];
+      if (nextTalk == null) {
+        return heightT;
       }
+      final heightN = _normalTalkHeights[nextTalk.id];
+      return heightT! + heightN!;
     } catch (e) {}
     return 100;
   }
 
   double bottomPositionOfSecondTalkCardWhenCompact(
-      String talkId, String nextTalkId) {
-    if (talkId == null && nextTalkId != null) {
+      String? talkId, String? nextTalkId) {
+    if (talkId == null) {
       return 0;
     }
-    if (talkId != null && nextTalkId == null) {
+    if (nextTalkId == null) {
       return 0;
     }
-    if (_compactTalkHeights[talkId] < _compactTalkHeights[nextTalkId]) {
+    if (_compactTalkHeights[talkId]! < _compactTalkHeights[nextTalkId]!) {
       return 0;
     }
-    if (_compactTalkHeights[talkId] > _compactTalkHeights[nextTalkId]) {
-      return _compactTalkHeights[talkId] - _compactTalkHeights[nextTalkId];
+    if (_compactTalkHeights[talkId]! > _compactTalkHeights[nextTalkId]!) {
+      return _compactTalkHeights[talkId]! - _compactTalkHeights[nextTalkId]!;
     }
     return 0;
   }
 
   double bottomPositionOfFirstTalkCardWhenCompact(
-      String talkId, String nextTalkId) {
+      String? talkId, String? nextTalkId) {
     if (nextTalkId == null) {
       return 0;
     }
-    if (_compactTalkHeights[talkId] < _compactTalkHeights[nextTalkId]) {
-      return _compactTalkHeights[nextTalkId] - _compactTalkHeights[talkId];
+    if (_compactTalkHeights[talkId]! < _compactTalkHeights[nextTalkId]!) {
+      return _compactTalkHeights[nextTalkId]! - _compactTalkHeights[talkId]!;
     }
-    if (_compactTalkHeights[talkId] > _compactTalkHeights[nextTalkId]) {
+    if (_compactTalkHeights[talkId]! > _compactTalkHeights[nextTalkId]!) {
       return 0;
     }
     return 0;
   }
 
-  double bottomPositionOfFirstTalkCardWhenNormal(
-      String talkId, String nextTalkId) {
+  double? bottomPositionOfFirstTalkCardWhenNormal(
+      String? talkId, String? nextTalkId) {
     if (nextTalkId == null) {
       return 0;
     }
@@ -134,7 +132,7 @@ class AgendaLayoutHelper with ChangeNotifier {
     checkIfNotifyAboutHeight();
   }
 
-  double normalTalkHeight(String id) {
+  double? normalTalkHeight(String? id) {
     if (id == null) {
       return 0;
     }

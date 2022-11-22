@@ -4,7 +4,7 @@ import 'package:line_icons/line_icons.dart';
 
 class LearnFeaturesButton extends StatelessWidget {
   const LearnFeaturesButton({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -22,7 +22,7 @@ class LearnFeaturesButton extends StatelessWidget {
             },
           );
         },
-        icon: Icon(LineIcons.question_circle),
+        icon: Icon(LineIcons.questionCircle),
       ),
     );
   }

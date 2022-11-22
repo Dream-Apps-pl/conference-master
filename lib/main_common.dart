@@ -14,21 +14,20 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'app.dart';
 import 'utils/analytics.dart';
 
-void mainCommon({@required AppConfig config}) {
-  BlocSupervisor.delegate = SimpleBlocDelegate();
-  Crashlytics.instance.enableInDevMode = true;
+void mainCommon({required AppConfig config}) {
+  Bloc.observer = SimpleBlocObserver();
   FlutterError.onError = (error) {
     logger.error(error.exceptionAsString());
-    Crashlytics.instance.recordFlutterError(error);
+    FirebaseCrashlytics.instance.recordFlutterError(error);
   };
 
   runZoned<Future<void>>(() async {
     WidgetsFlutterBinding.ensureInitialized();
-    analytics = FirebaseAnalytics();
+    analytics = FirebaseAnalytics.instance;
     appConfig = config;
     final sharedPrefs = await SharedPreferences.getInstance();
-    final FirebaseMessaging firebaseMessaging = FirebaseMessaging();
-    FlutterBugfender.init(appConfig.bugfenderKey);
+    final FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
+    FlutterBugfender.init(appConfig!.bugfenderKey!);
 
     runApp(
       MyApp(
@@ -39,6 +38,6 @@ void mainCommon({@required AppConfig config}) {
     );
   }, onError: (error, stack) {
     logger.errorException(error, stack);
-    return Crashlytics.instance.recordError(error, stack);
+    return FirebaseCrashlytics.instance.recordError(error, stack);
   });
 }

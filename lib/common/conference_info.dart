@@ -5,7 +5,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 class ConferenceInfo extends StatelessWidget {
   const ConferenceInfo({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -54,10 +54,10 @@ class ConferenceInfo extends StatelessWidget {
               ),
             ),
             IconButton(
-              icon: Icon(LineIcons.map_signs),
+              icon: Icon(LineIcons.mapSigns),
               onPressed: () async {
-                if (await canLaunch('https://goo.gl/maps/ChCCX5G71E5VRmWX6')) {
-                  launch('https://goo.gl/maps/ChCCX5G71E5VRmWX6');
+                if (await canLaunchUrl(Uri.parse('https://goo.gl/maps/ChCCX5G71E5VRmWX6'))) {
+                  launchUrl(Uri.parse('https://goo.gl/maps/ChCCX5G71E5VRmWX6'));
                 }
               },
             )

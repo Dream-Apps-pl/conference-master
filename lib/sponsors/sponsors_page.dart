@@ -25,7 +25,7 @@ class SponsorsPage extends StatelessWidget {
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               final elems = <Widget>[];
-              final grouped = groupBy(snapshot.data, (Sponsor f) => f.level);
+              final grouped = groupBy(snapshot.data!, (Sponsor f) => f.level);
               grouped.forEach((g, list) {
                 elems.add(Center(
                     child: Padding(

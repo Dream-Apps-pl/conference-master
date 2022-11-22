@@ -4,7 +4,7 @@ import 'package:rxdart/rxdart.dart';
 
 class AuthRepository {
   final FirebaseAuth _firebaseAuth;
-  final Firestore _firestore;
+  final FirebaseFirestore _firestore;
   final CollectionReference _adminsCollection;
   final CollectionReference _ticketersCollection;
 
@@ -15,12 +15,12 @@ class AuthRepository {
   }
 
   void _init() async {
-    final user = await _firebaseAuth.currentUser();
+    final user = _firebaseAuth.currentUser;
     if (user == null) {
       final result = await _firebaseAuth.signInAnonymously();
-      if (result != null && result.user != null) {
-        await _firestore.document('users/${result.user.uid}')?.setData({
-          'userId': result.user.uid,
+      if (result.user != null) {
+        await _firestore.doc('users/${result.user!.uid}').set({
+          'userId': result.user!.uid,
           'favoriteTalksIds': [],
         });
       }
@@ -32,20 +32,18 @@ class AuthRepository {
     _init();
   }
 
-  Stream<String> get userId => _firebaseAuth.onAuthStateChanged.map((user) {
+  Stream<String> get userId => _firebaseAuth.authStateChanges().map((user) {
         if (user != null) {
           return user.uid;
-        } else {
-          return null;
-        }
+        } else
+          return '';
       });
 
-  Stream<FirebaseUser> get user => _firebaseAuth.onAuthStateChanged.map((user) {
+  Stream<User> get user => _firebaseAuth.authStateChanges().map((user) {
         if (user != null)
           return user;
-        else {
-          return null;
-        }
+        else
+          return user!;
       });
 
   Stream<bool> get isAdmin => Rx.combineLatest2(
@@ -61,10 +59,10 @@ class AuthRepository {
       ).asBroadcastStream();
 
   Stream<List<DocumentSnapshot>> get _adminsSnapshotsStream =>
-      _adminsCollection.snapshots().map((docs) => docs.documents.toList());
+      _adminsCollection.snapshots().map((docs) => docs.docs.toList());
 
   Stream<List<DocumentSnapshot>> get _ticketersSnapshotsStream =>
-      _ticketersCollection.snapshots().map((docs) => docs.documents.toList());
+      _ticketersCollection.snapshots().map((docs) => docs.docs.toList());
 
   bool _isUserAdmin(
     String id,
@@ -85,13 +83,13 @@ class AuthRepository {
   }
 
   bool _isUserTicketer(
-    FirebaseUser user,
+    User user,
     List<DocumentSnapshot> ticketersSnapshot,
   ) {
     try {
       if (ticketersSnapshot.length > 0) {
         final isTicketer = ticketersSnapshot.firstWhere((f) {
-          return f.data["email"] == user.email;
+          return f.data()["email"] == user.email;
         }, orElse: () => null);
         return isTicketer != null;
       } else {

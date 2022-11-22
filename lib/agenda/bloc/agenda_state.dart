@@ -35,7 +35,7 @@ class PopulatedAgendaState extends AgendaState {
     });
   }
   final _talks = Map<int, List<Talk>>();
-  final _rooms = List<Room>();
+  final _rooms = <Room>[];
   Map<int, List<Talk>> get talks => _talks;
   List<Room> get rooms => _rooms;
 }

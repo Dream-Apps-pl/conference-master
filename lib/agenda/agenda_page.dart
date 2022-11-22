@@ -8,7 +8,7 @@ import 'widgets/populated_agenda_table.dart';
 
 class AgendaPage extends StatefulWidget {
   const AgendaPage({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -16,7 +16,7 @@ class AgendaPage extends StatefulWidget {
 }
 
 class _AgendaPageState extends State<AgendaPage> {
-  PageController pageController;
+  late PageController pageController;
   final ValueNotifier<int> currentIndex = ValueNotifier<int>(0);
 
   @override
@@ -24,8 +24,8 @@ class _AgendaPageState extends State<AgendaPage> {
     super.initState();
     pageController = PageController(initialPage: 0);
     pageController.addListener(() {
-      if (pageController.page.round() != currentIndex.value) {
-        currentIndex.value = pageController.page.round();
+      if (pageController.page?.round() != currentIndex.value) {
+        currentIndex.value = pageController.page!.round();
       }
     });
     currentIndex.addListener(() {

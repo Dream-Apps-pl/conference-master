@@ -7,9 +7,10 @@ import 'package:conferenceapp/model/ticket.dart';
 import './bloc.dart';
 
 class TicketCheckBloc extends Bloc<TicketCheckEvent, TicketCheckState> {
-  final ticketCollection = Firestore.instance.collection('tickets');
-  final checkedTickets = Firestore.instance.collection('tickets_checked');
-  final users = Firestore.instance.collection('users');
+  final ticketCollection = FirebaseFirestore.instance.collection('tickets');
+  final checkedTickets =
+      FirebaseFirestore.instance.collection('tickets_checked');
+  final users = FirebaseFirestore.instance.collection('users');
 
   @override
   String toString() => 'TicketCheckBloc';
@@ -47,7 +48,7 @@ class TicketCheckBloc extends Bloc<TicketCheckEvent, TicketCheckState> {
   }
 
   Future addToCheckedTickets(TickedValidated event) async {
-    await checkedTickets.document(event.ticket.ticketId).setData({
+    await checkedTickets.doc(event.ticket.ticketId).set({
       'userId': event.userId,
       'ticketId': event.ticket.ticketId,
       'orderId': event.ticket.orderId,
@@ -56,15 +57,12 @@ class TicketCheckBloc extends Bloc<TicketCheckEvent, TicketCheckState> {
   }
 
   Future updateUser(TickedValidated event) async {
-    final user = users.document(event.userId);
-    await user.setData(
-      {
-        'ticketId': event.ticket.ticketId,
-        'orderId': event.ticket.orderId,
-        'updated': DateTime.now(),
-      },
-      merge: true,
-    );
+    final user = users.doc(event.userId);
+    await user.set({
+      'ticketId': event.ticket.ticketId,
+      'orderId': event.ticket.orderId,
+      'updated': DateTime.now(),
+    }, SetOptions(merge: true));
   }
 
   Stream<TicketCheckState> handleTicketScanned(TicketScanned event) async* {
@@ -86,7 +84,7 @@ class TicketCheckBloc extends Bloc<TicketCheckEvent, TicketCheckState> {
               'Wszystkie bilety z zamówienia $orderId zostały już sprawdzone. W zamówieniu było ${matchingTickets.length} biletów. Skonsultuj sytuację z osobą odpowiedzialną za sprawdzanie biletów.\nSprawdzone bilety:\n${matchingCheckedTickets.map((m) => m['orderId'] + ' ' + m['ticketId']).join('\n')}');
           return;
         }
-        final matchingTicketsWithoutChecked = List();
+        final matchingTicketsWithoutChecked = [];
         filterCheccked(matchingTickets, matchingCheckedTickets,
             matchingTicketsWithoutChecked);
         final selectedTicket = matchingTicketsWithoutChecked.first;
@@ -136,8 +134,8 @@ class TicketCheckBloc extends Bloc<TicketCheckEvent, TicketCheckState> {
           'ticketId',
           whereIn: matchingTickets.map((f) => f['ticketId']).toList(),
         )
-        .getDocuments();
-    return mcts.documents;
+        .get();
+    return mcts.docs;
   }
 
   Future<List> getMatchingTickets(String orderId, String ticketId) async {
@@ -157,10 +155,12 @@ class TicketCheckBloc extends Bloc<TicketCheckEvent, TicketCheckState> {
   }
 
   Future<List> getTicketsCollection() async {
-    final tickets =
-        await Firestore.instance.document('tickets/tickets').snapshots().first;
+    final tickets = await FirebaseFirestore.instance
+        .doc('tickets/tickets')
+        .snapshots()
+        .first;
 
-    final List ticketCollection = tickets.data['tickets'];
+    final List ticketCollection = tickets.data()!['tickets'];
     return ticketCollection;
   }
 

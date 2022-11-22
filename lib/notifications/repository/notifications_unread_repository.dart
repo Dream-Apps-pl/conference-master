@@ -22,22 +22,20 @@ class AppNotificationsUnreadStatusRepository {
         _sharedPrefKey, DateTime.now().microsecondsSinceEpoch);
   }
 
-  DateTime latestNotificationReadTime() {
+  DateTime? latestNotificationReadTime() {
     var value = sharedPreferences.getInt(_sharedPrefKey);
-    if (value != null)
-      return DateTime.fromMicrosecondsSinceEpoch(value);
-    else
-      return null;
+    if (value != null) return DateTime.fromMicrosecondsSinceEpoch(value);
+    return null;
   }
 
   Stream<int> _lastNotificationReadTime() {
     try {
       final value = sharedPreferences.getInt(_sharedPrefKey);
-      return Stream.value(value);
+      return Stream.value(value!);
     } catch (e) {
       // do nothing;
     }
-    return Stream.value(null);
+    return Stream.value(0);
   }
 
   bool _combine(List<AppNotification> list, int lastRead) {

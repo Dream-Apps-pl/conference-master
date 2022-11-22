@@ -22,7 +22,7 @@ class FavoritesRepository {
 
   Future<void> addTalkToFavorites(String talkId) {
     try {
-      analytics.logEvent(name: 'favorites_add', parameters: {'id': talkId});
+      analytics?.logEvent(name: 'favorites_add', parameters: {'id': talkId});
       return _userRepository.addTalkToFavorites(talkId);
     } catch (e, s) {
       logger.errorException(e, s);
@@ -32,7 +32,7 @@ class FavoritesRepository {
 
   Future<void> removeTalkFromFavorites(String talkId) {
     try {
-      analytics.logEvent(name: 'favorites_remove', parameters: {'id': talkId});
+      analytics?.logEvent(name: 'favorites_remove', parameters: {'id': talkId});
       return _userRepository.removeTalkFromFavorites(talkId);
     } catch (e, s) {
       logger.errorException(e, s);

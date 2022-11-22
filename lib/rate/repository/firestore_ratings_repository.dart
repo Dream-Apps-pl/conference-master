@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_null_comparison
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:conferenceapp/common/logger.dart';
 import 'package:conferenceapp/model/user.dart';
@@ -21,10 +23,10 @@ class FirestoreRatingsRepository implements RatingsRepository {
   String myReviewOfTalk(String talkId) {
     try {
       final key = _talkReviewKey(talkId);
-      return _sharedPreferences.getString(key);
+      return _sharedPreferences.getString(key) ?? '0';
     } catch (e, s) {
       logger.errorException(e, s);
-      return null;
+      return '0';
     }
   }
 
@@ -32,10 +34,10 @@ class FirestoreRatingsRepository implements RatingsRepository {
   int myRatingOfTalk(String talkId) {
     try {
       final key = _talkRatingKey(talkId);
-      return _sharedPreferences.getInt(key);
+      return _sharedPreferences.getInt(key) ?? 0;
     } catch (e, s) {
       logger.errorException(e, s);
-      return null;
+      return 0;
     }
   }
 
@@ -58,7 +60,7 @@ class FirestoreRatingsRepository implements RatingsRepository {
 
     if (myTalkRatingDoc != null && myTalkRatingDoc.exists) {
       myTalkRatingDoc.reference
-          .updateData({"rating": rating, "update_date": Timestamp.now()});
+          .update({"rating": rating, "update_date": Timestamp.now()});
     } else {
       _ratingsCollection.add({
         "user_id": me.userId,
@@ -88,7 +90,7 @@ class FirestoreRatingsRepository implements RatingsRepository {
 
     if (myTalkRatingDoc != null && myTalkRatingDoc.exists) {
       myTalkRatingDoc.reference
-          .updateData({"review": review, "update_date": Timestamp.now()});
+          .update({"review": review, "update_date": Timestamp.now()});
     } else {
       _ratingsCollection.add({
         "user_id": me.userId,
@@ -99,14 +101,14 @@ class FirestoreRatingsRepository implements RatingsRepository {
     }
   }
 
-  Future<DocumentSnapshot> _getMyTalkRatingDocument(
+  Future<DocumentSnapshot?> _getMyTalkRatingDocument(
       String userId, String talkId) async {
     try {
       return (await _ratingsCollection
               .where("user_id", isEqualTo: userId)
               .where("talk_id", isEqualTo: talkId)
-              .getDocuments())
-          .documents
+              .get())
+          .docs
           .firstOrDefault();
     } catch (e, s) {
       logger.errorException(e, s);
@@ -114,7 +116,7 @@ class FirestoreRatingsRepository implements RatingsRepository {
     }
   }
 
-  Future<User> _getCurrentUser() {
+  Future<User>? _getCurrentUser() {
     try {
       return _userRepository.user.first;
     } catch (e, s) {
@@ -125,7 +127,7 @@ class FirestoreRatingsRepository implements RatingsRepository {
 }
 
 extension ListOperations on List<DocumentSnapshot> {
-  DocumentSnapshot firstOrDefault() {
+  DocumentSnapshot<Object?>? firstOrDefault() {
     return this.length > 0 ? this.first : null;
   }
 }

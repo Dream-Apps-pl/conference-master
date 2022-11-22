@@ -4,8 +4,8 @@ import 'scan_text_border_container.dart';
 
 class ScanTicketBackground extends StatelessWidget {
   const ScanTicketBackground({
-    Key key,
-    this.detectorHeight,
+    Key? key,
+    required this.detectorHeight,
   }) : super(key: key);
 
   final double detectorHeight;

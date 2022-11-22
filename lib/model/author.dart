@@ -5,7 +5,6 @@ import 'package:conferenceapp/utils/contentful_helper.dart';
 part 'author.g.dart';
 
 @JsonSerializable(
-  nullable: false,
   ignoreUnannotated: false,
   anyMap: true,
 )
@@ -23,16 +22,13 @@ class Author {
   Map<String, dynamic> toJson() => _$AuthorToJson(this);
 
   factory Author.fromSpeaker(ContentfulSpeaker speaker) {
-    if (speaker == null) {
-      return null;
-    }
     return Author(
-      speaker.sys?.id,
-      speaker.fields.name,
-      speaker.fields.longBio.toSimpleString(),
-      speaker.fields.bio.toSimpleString(),
-      speaker.fields.twitter,
-      speaker.fields.picture.fields.file.url.replaceAll("//", "http://"),
+      speaker.sys!.id,
+      speaker.fields!.name,
+      speaker.fields!.longBio.toSimpleString(),
+      speaker.fields!.bio.toSimpleString(),
+      speaker.fields!.twitter,
+      speaker.fields!.picture.fields!.file!.url.replaceAll("//", "http://"),
     );
   }
 

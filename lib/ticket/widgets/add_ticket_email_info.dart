@@ -5,7 +5,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 class AddTicketEmailInfo extends StatelessWidget {
   const AddTicketEmailInfo({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override

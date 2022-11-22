@@ -13,14 +13,14 @@ class QrImage extends StatelessWidget {
   final Size imageSize;
 
   const QrImage({
-    Key key,
-    this.data,
+    Key? key,
+    required this.data,
     this.version = 4,
     this.errorCorrectionLevel = qr.QrErrorCorrectLevel.M,
     this.color = Colors.black,
     this.backgroundColor = Colors.white,
-    this.embeddedImage,
-    this.imageSize,
+    required this.embeddedImage,
+    required this.imageSize,
   }) : super(key: key);
 
   @override
@@ -60,7 +60,7 @@ class QrImage extends StatelessWidget {
             }
 
             return Image.memory(
-              snapshot.data.buffer.asUint8List(),
+              snapshot.data!.buffer.asUint8List(),
               fit: BoxFit.contain,
             );
           }),
@@ -71,7 +71,6 @@ class QrImage extends StatelessWidget {
           layoutBuilder: (Widget topChild, Key topChildKey, Widget bottomChild,
               Key bottomChildKey) {
             return Stack(
-              overflow: Overflow.visible,
               children: <Widget>[
                 Positioned.fill(
                   key: bottomChildKey,

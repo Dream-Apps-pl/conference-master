@@ -1,7 +1,6 @@
 import 'package:conferenceapp/common/logger.dart';
 import 'package:conferenceapp/model/talk.dart';
 import 'package:conferenceapp/utils/contentful_client.dart';
-import 'package:flutter/foundation.dart';
 
 import 'file_storage.dart';
 
@@ -11,9 +10,9 @@ class ContentfulTalksRepository {
   final Duration cacheDuration;
 
   const ContentfulTalksRepository({
-    @required this.fileStorage,
-    @required this.client,
-    @required this.cacheDuration,
+    required this.fileStorage,
+    required this.client,
+    required this.cacheDuration,
   });
 
   Future<List<Talk>> loadTalks([bool force = false]) async {
@@ -34,7 +33,7 @@ class ContentfulTalksRepository {
     final lastModified = await fileStorage.lastModified();
 
     return lastModified
-        .isBefore(DateTime.now().subtract(cacheDuration ?? Duration(hours: 2)));
+        .isBefore(DateTime.now().subtract(cacheDuration));
   }
 
   Future<List<Talk>> fetchTalks() async {
@@ -46,7 +45,7 @@ class ContentfulTalksRepository {
       return talks;
     } catch (e, s) {
       logger.errorException(e, s);
-      return List<Talk>();
+      return <Talk>[];
     }
   }
 

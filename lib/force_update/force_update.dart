@@ -8,9 +8,9 @@ import 'package:package_info/package_info.dart';
 class ForceUpdate {
   static void onForceUpdate(Function callback) async {
     final packageInfo = await PackageInfo.fromPlatform();
-    final remoteConfig = await RemoteConfig.instance;
+    final remoteConfig = FirebaseRemoteConfig.instance;
 
-    if (appConfig.flavor == 'dev') return;
+    if (appConfig?.flavor == 'dev') return;
 
     try {
       await remoteConfig.fetch();
@@ -18,7 +18,7 @@ class ForceUpdate {
       logger.errorException(e, s);
     }
 
-    await remoteConfig.activateFetched();
+    await remoteConfig.fetchAndActivate();
 
     final requiredBuildNumber = remoteConfig.getInt(Platform.isAndroid
         ? 'android_min_build_number'

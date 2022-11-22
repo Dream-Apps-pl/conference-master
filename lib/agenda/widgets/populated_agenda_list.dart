@@ -17,7 +17,7 @@ class PopulatedAgendaDayList extends StatelessWidget {
   const PopulatedAgendaDayList(
     this.talksInDay,
     this.rooms, {
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   final List<Talk> talksInDay;
@@ -62,12 +62,12 @@ class PopulatedAgendaDayList extends StatelessWidget {
 
 class PopulatedAgendaDayListContent extends StatelessWidget {
   const PopulatedAgendaDayListContent({
-    Key key,
-    @required this.talksPerHour,
-    @required this.compact,
-    @required this.layoutHelper,
-    @required this.snapshot,
-    @required this.rooms,
+    Key? key,
+    required this.talksPerHour,
+    required this.compact,
+    required this.layoutHelper,
+    required this.snapshot,
+    required this.rooms,
   }) : super(key: key);
 
   final Map<DateTime, List<Talk>> talksPerHour;
@@ -105,12 +105,12 @@ class PopulatedAgendaDayListContent extends StatelessWidget {
               final _thisHoursTalks = talksPerHour[hours[index]];
 
               //TODO: make it independent of rooms number
-              _firstTalk = _thisHoursTalks.firstWhere(
-                  (t) => t.room.id != TalkType.advanced.toString(),
-                  orElse: () => null);
+              _firstTalk = _thisHoursTalks!.firstWhere(
+                (t) => t.room.id != TalkType.advanced.toString(),
+              );
               _secondTalk = _thisHoursTalks.firstWhere(
-                  (t) => t.room.id == TalkType.advanced.toString(),
-                  orElse: () => null);
+                (t) => t.room.id == TalkType.advanced.toString(),
+              );
 
               final firstChild = getCompactTalkCards(
                   _firstTalk, _secondTalk, favoriteTalks, context);
@@ -141,12 +141,12 @@ class PopulatedAgendaDayListContent extends StatelessWidget {
               final _thisHoursTalks = talksPerHour[hours[index]];
 
               //TODO: make it independent of rooms number
-              _firstTalk = _thisHoursTalks.firstWhere(
-                  (t) => t.room.id != TalkType.advanced.toString(),
-                  orElse: () => null);
+              _firstTalk = _thisHoursTalks!.firstWhere(
+                (t) => t.room.id != TalkType.advanced.toString(),
+              );
               _secondTalk = _thisHoursTalks.firstWhere(
-                  (t) => t.room.id == TalkType.advanced.toString(),
-                  orElse: () => null);
+                (t) => t.room.id == TalkType.advanced.toString(),
+              );
 
               final secondChild = getNormalTalkCards(
                   _firstTalk, favoriteTalks, context, _secondTalk);
@@ -198,8 +198,8 @@ class PopulatedAgendaDayListContent extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        CompactLeftTalkContainer(talk: _firstTalk ?? _secondTalk),
-        if (_firstTalk?.type == TalkType.other)
+        CompactLeftTalkContainer(talk: _firstTalk),
+        if (_firstTalk.type == TalkType.other)
           Expanded(
             child: TalkCard(
               key: ValueKey(_firstTalk.id),
@@ -210,7 +210,7 @@ class PopulatedAgendaDayListContent extends StatelessWidget {
               onTap: () => onTap(context, _firstTalk),
             ),
           )
-        else if (_firstTalk != null && _firstTalk.type == TalkType.beginner)
+        else if (_firstTalk.type == TalkType.beginner)
           Flexible(
             child: TalkCard(
               key: ValueKey(_firstTalk.id),
@@ -223,11 +223,11 @@ class PopulatedAgendaDayListContent extends StatelessWidget {
           )
         else
           Flexible(child: Container()),
-        if (_firstTalk?.type != TalkType.other)
+        if (_firstTalk.type != TalkType.other)
           SizedBox(
             width: 12,
           ),
-        if (_secondTalk != null && _secondTalk.type == TalkType.advanced)
+        if (_secondTalk.type == TalkType.advanced)
           Flexible(
             child: TalkCard(
               key: ValueKey(_secondTalk.id),
@@ -238,7 +238,7 @@ class PopulatedAgendaDayListContent extends StatelessWidget {
               onTap: () => onTap(context, _secondTalk),
             ),
           )
-        else if (_firstTalk?.type != TalkType.other)
+        else if (_firstTalk.type != TalkType.other)
           Flexible(child: Container()),
       ],
     );

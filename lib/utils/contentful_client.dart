@@ -13,7 +13,7 @@ class ContentfulClient {
 
   Future<List<Talk>> fetchTalks() async {
     try {
-      final _client = Client(space, apiKey);
+      final _client = Client(BearerTokenHTTPClient(apiKey), spaceId: space);
 
       final data = await _client.getEntries<AgendaFields>(
         {
@@ -32,7 +32,7 @@ class ContentfulClient {
 
   Future<List<Sponsor>> fetchSponsors() async {
     try {
-      final _client = Client(space, apiKey);
+      final _client = Client(BearerTokenHTTPClient(apiKey), spaceId: space);
 
       final data = await _client.getEntries<SponsorFields>(
         {
@@ -45,13 +45,13 @@ class ContentfulClient {
       return data.items.map((f) => f.fields).toList();
     } catch (e) {
       logger.errorException(e);
-      return List<Sponsor>();
+      return <Sponsor>[];
     }
   }
 
   Future<List<Organizer>> fetchOrganizers() async {
     try {
-      final _client = Client(space, apiKey);
+      final _client = Client(BearerTokenHTTPClient(apiKey), spaceId: space);
 
       final data = await _client.getEntries<OrganizerFields>(
         {

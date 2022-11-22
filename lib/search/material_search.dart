@@ -1,6 +1,8 @@
 // Forked from material_search package
 // https://pub.dev/packages/material_search
 // Licensed on MIT License by ian.naph@gmail.com
+// ignore_for_file: unnecessary_null_comparison
+
 import 'dart:async';
 
 import 'package:conferenceapp/common/logger.dart';
@@ -14,12 +16,12 @@ typedef void OnSubmit(dynamic value);
 
 class MaterialSearchResult<T> extends StatelessWidget {
   const MaterialSearchResult({
-    Key key,
-    this.value,
-    this.title,
-    this.subtitle,
-    this.icon,
-    this.criteria,
+    Key? key,
+    required this.value,
+    required this.title,
+    required this.subtitle,
+    required this.icon,
+    required this.criteria,
   }) : super(key: key);
 
   final T value;
@@ -34,13 +36,13 @@ class MaterialSearchResult<T> extends StatelessWidget {
       context: context,
       word: title,
       criteria: criteria,
-      style: Theme.of(context).textTheme.subhead,
+      style: Theme.of(context).textTheme.headline1!,
     );
     final subtitleWidget = getResultWithEmphasis(
       context: context,
       word: subtitle,
       criteria: criteria,
-      style: Theme.of(context).textTheme.subtitle,
+      style: Theme.of(context).textTheme.headline1!,
     );
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
@@ -64,11 +66,11 @@ class MaterialSearchResult<T> extends StatelessWidget {
   }
 
 //
-  Widget getResultWithEmphasis({
-    @required BuildContext context,
-    @required String word,
-    @required String criteria,
-    @required TextStyle style,
+  RichText? getResultWithEmphasis({
+    required BuildContext context,
+    required String word,
+    required String criteria,
+    required TextStyle style,
   }) {
     final wordClean = word.toLowerCase().trim();
     final criteriaClean = criteria.toLowerCase().trim();

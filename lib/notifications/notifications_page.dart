@@ -20,46 +20,46 @@ class NotificationsPage extends StatelessWidget {
     return StreamBuilder<List<AppNotification>>(
         stream: notificationsRepository.notifications(),
         builder: (context, snapshot) {
-          if (snapshot.hasData && snapshot.data.length > 0) {
+          if (snapshot.hasData && snapshot.data!.length > 0) {
             final list = snapshot.data;
             return ListView.builder(
               physics: AlwaysScrollableScrollPhysics(
                   parent: BouncingScrollPhysics()),
-              itemCount: list.length,
+              itemCount: list!.length,
               itemBuilder: (context, index) {
                 final notif = list[index];
                 return ListTile(
                   title: Text(
-                    notif.title ?? '',
+                    notif.title,
                     style: TextStyle(
                       fontWeight:
                           notif.important ? FontWeight.bold : FontWeight.w400,
                     ),
                   ),
-                  subtitle: Text(notif.content ?? ''),
+                  subtitle: Text(notif.content),
                   trailing: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
-                      if (notif.url != null && notif.url.isNotEmpty)
+                      if (notif.url.isNotEmpty)
                         Icon(
                           LineIcons.link,
                           size: 14,
                         ),
                       Text(timeago.format(notif.dateTime)),
-                      if (lastRead != null && lastRead.isBefore(notif.dateTime))
+                      if (lastRead!.isBefore(notif.dateTime))
                         Padding(
                           padding: const EdgeInsets.only(left: 6.0),
                           child: Container(
                             decoration: BoxDecoration(
                                 shape: BoxShape.circle,
-                                color: Theme.of(context).accentColor),
+                                color: Theme.of(context).primaryColor),
                             height: 8,
                             width: 8,
                           ),
                         ),
                     ],
                   ),
-                  onTap: notif.url != null && notif.url.isNotEmpty
+                  onTap: notif.url.isNotEmpty
                       ? () => openNotification(notif)
                       : null,
                 );
@@ -76,18 +76,18 @@ class NotificationsPage extends StatelessWidget {
   }
 
   void openNotification(AppNotification notification) async {
-    if (await canLaunch(notification.url)) {
-      analytics.logEvent(name: 'notif_open', parameters: {
+    if (await canLaunchUrl(Uri.parse(notification.url))) {
+      analytics?.logEvent(name: 'notif_open', parameters: {
         'title': notification.title,
       });
-      await launch(notification.url);
+      await launchUrl(Uri.parse(notification.url));
     }
   }
 }
 
 class NotificationsEmptyState extends StatelessWidget {
   const NotificationsEmptyState({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override

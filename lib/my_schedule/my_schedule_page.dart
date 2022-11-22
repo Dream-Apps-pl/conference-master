@@ -12,7 +12,7 @@ class MySchedulePage extends StatefulWidget {
 }
 
 class _MySchedulePageState extends State<MySchedulePage> {
-  PageController pageController;
+  late PageController pageController;
   final ValueNotifier<int> currentIndex = ValueNotifier<int>(0);
 
   @override
@@ -20,8 +20,8 @@ class _MySchedulePageState extends State<MySchedulePage> {
     super.initState();
     pageController = PageController(initialPage: 0);
     pageController.addListener(() {
-      if (pageController.page.round() != currentIndex.value) {
-        currentIndex.value = pageController.page.round();
+      if (pageController.page?.round() != currentIndex.value) {
+        currentIndex.value = pageController.page!.round();
       }
     });
     currentIndex.addListener(() {
@@ -46,7 +46,7 @@ class _MySchedulePageState extends State<MySchedulePage> {
                 builder: (context, snapshot) {
                   if (state is PopulatedAgendaState &&
                       snapshot.hasData &&
-                      snapshot.data.length > 0) {
+                      snapshot.data!.length > 0) {
                     final talksMap = getTalksPerDay(snapshot, state);
                     return PopulatedAgendaTable(
                       talksMap,
@@ -68,12 +68,12 @@ class _MySchedulePageState extends State<MySchedulePage> {
   getTalksPerDay(
       AsyncSnapshot<List<Talk>> snapshot, PopulatedAgendaState state) {
     final talks = {
-      0: snapshot.data
-          .where((f) => sameDay(f.startTime, state.talks[0].first.startTime))
+      0: snapshot.data!
+          .where((f) => sameDay(f.startTime, state.talks[0]!.first.startTime))
           .toList()
             ..sort(),
-      1: snapshot.data
-          .where((f) => sameDay(f.startTime, state.talks[1].first.startTime))
+      1: snapshot.data!
+          .where((f) => sameDay(f.startTime, state.talks[1]!.first.startTime))
           .toList()
             ..sort(),
     };
@@ -95,7 +95,7 @@ class _MySchedulePageState extends State<MySchedulePage> {
 
 class MyScheduleEmptyState extends StatelessWidget {
   const MyScheduleEmptyState({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override

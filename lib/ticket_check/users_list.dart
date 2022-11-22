@@ -18,7 +18,7 @@ class _UsersListPageState extends State<UsersListPage> {
   @override
   Widget build(BuildContext context) {
     final tickets =
-        Firestore.instance.collection('tickets_checked').snapshots();
+        FirebaseFirestore.instance.collection('tickets_checked').snapshots();
     final authRepo = RepositoryProvider.of<AuthRepository>(context);
     return Scaffold(
       appBar: AppBar(
@@ -72,7 +72,7 @@ class _UsersListPageState extends State<UsersListPage> {
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
-                              'W sumie sprawdzono: ${list.data.documents?.length}'),
+                              'W sumie sprawdzono: ${list.data?.docs.length}'),
                         ),
                         Flexible(
                           child: TicketsList(list, isAdmin, filter),
