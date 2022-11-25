@@ -63,7 +63,7 @@ class RateBloc extends Bloc<RateEvent, RateState> {
   }
 
   Stream<RateState> handleFetchRateTalk(FetchRateTalk event) async* {
-    _rating = _ratingsRepository.myRatingOfTalk(event.talk.id)?.toDouble();
+    _rating = _ratingsRepository.myRatingOfTalk(event.talk.id).toDouble();
     _review = _ratingsRepository.myReviewOfTalk(event.talk.id);
 
     yield TalkRateFetched();

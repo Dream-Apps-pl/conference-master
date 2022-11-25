@@ -9,7 +9,7 @@ import 'package:rxdart/rxdart.dart';
 class UserRepository {
   final AuthRepository _authRepository;
   final FirebaseFirestore _firestore;
-  User _cachedUser;
+  late User _cachedUser;
 
   UserRepository(this._authRepository, this._firestore) {
     this.user.listen((user) {

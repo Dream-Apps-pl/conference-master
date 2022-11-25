@@ -5,7 +5,7 @@ import 'package:conferenceapp/common/logger.dart';
 import 'package:conferenceapp/organizers/organizers_page.dart';
 import 'package:conferenceapp/sponsors/sponsors_page.dart';
 import 'package:conferenceapp/utils/analytics.dart';
-import 'package:dynamic_theme/dynamic_theme.dart';
+import 'package:dynamic_themes/dynamic_themes.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -16,7 +16,7 @@ import 'package:package_info/package_info.dart';
 import 'package:provider/provider.dart';
 import 'package:share/share.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:snapfeed/snapfeed.dart';
+// import 'package:snapfeed/snapfeed.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'authenticator_button.dart';
@@ -53,7 +53,7 @@ class _ProfilePageState extends State<ProfilePage> {
           ListTile(
             title: Text('Sponsors'),
             subtitle: Text('See who supported us'),
-            trailing: Icon(LineIcons.angle_right),
+            trailing: Icon(LineIcons.angleRight),
             contentPadding: EdgeInsets.only(left: 16.0, right: 24.0),
             onTap: () {
               logger.info('Sponsors tapped');
@@ -69,7 +69,7 @@ class _ProfilePageState extends State<ProfilePage> {
           ListTile(
             title: Text('Organizers'),
             subtitle: Text('See who created this event'),
-            trailing: Icon(LineIcons.angle_right),
+            trailing: Icon(LineIcons.angleRight),
             contentPadding: EdgeInsets.only(left: 16.0, right: 24.0),
             onTap: () {
               logger.info('Organizers tapped');
@@ -85,7 +85,7 @@ class _ProfilePageState extends State<ProfilePage> {
           ListTile(
             title: Text('Code of conduct'),
             subtitle: Text('Read our rules'),
-            trailing: Icon(LineIcons.angle_right),
+            trailing: Icon(LineIcons.angleRight),
             contentPadding: EdgeInsets.only(left: 16.0, right: 24.0),
             onTap: () async {
               final text = await getFileData('assets/coc.md');
@@ -113,7 +113,7 @@ class _ProfilePageState extends State<ProfilePage> {
             title: Text('Send feedback'),
             subtitle: Text(
                 'Let us know if you find any errors or want to share your feedback with us'),
-            trailing: Icon(LineIcons.angle_right),
+            trailing: Icon(LineIcons.angleRight),
             contentPadding: EdgeInsets.only(left: 16.0, right: 24.0),
             onTap: () async {
               logger.info('Feedback tapped');
@@ -122,14 +122,14 @@ class _ProfilePageState extends State<ProfilePage> {
                 barrierDismissible: true,
                 builder: (ctx) => SimpleDialog(
                   children: <Widget>[
-                    FlatButton(
+                    TextButton(
                       child: Text('Send e-mail'),
                       onPressed: () {
                         sendEmail();
                         Navigator.pop(ctx);
                       },
                     ),
-                    FlatButton(
+                    TextButton(
                       child: Text(
                         'Try Snapfeed\n(User feedback tool for Flutter apps)',
                         textAlign: TextAlign.center,
@@ -137,7 +137,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       onPressed: () {
                         Navigator.pop(ctx);
                         logger.info('Feedback button tapped');
-                        Snapfeed.of(context).startFeedback();
+                        //Snapfeed.of(context).startFeedback();
                       },
                     )
                   ],
@@ -147,7 +147,7 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
           ListTile(
             title: Text('About'),
-            trailing: Icon(LineIcons.angle_right),
+            trailing: Icon(LineIcons.angleRight),
             contentPadding: EdgeInsets.only(left: 16.0, right: 24.0),
             onTap: () async {
               final text = await getFileData('assets/about.md');
@@ -166,7 +166,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           MarkdownBody(
                             data: text,
                           ),
-                          FlatButton(
+                          TextButton(
                             child: Text('Send e-mail'),
                             onPressed: () {
                               sendEmail();
@@ -185,7 +185,7 @@ class _ProfilePageState extends State<ProfilePage> {
             title: Text('Open source licenses'),
             subtitle:
                 Text('All the awesome libraries we used to create this app'),
-            trailing: Icon(LineIcons.angle_right),
+            trailing: Icon(LineIcons.angleRight),
             contentPadding: EdgeInsets.only(left: 16.0, right: 24.0),
             onTap: () async {
               final version = await PackageInfo.fromPlatform();
@@ -211,7 +211,7 @@ class _ProfilePageState extends State<ProfilePage> {
             ListTile(
               title: Text('Service login'),
               subtitle: Text('You can check tickets if you\'re authorized'),
-              trailing: Icon(LineIcons.angle_right),
+              trailing: Icon(LineIcons.angleRight),
               contentPadding: EdgeInsets.only(left: 16.0, right: 24.0),
               onTap: () {
                 AuthenticatorButton().showLoginDialog(context);
@@ -230,7 +230,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 });
               }
             },
-            child: VersionInfo(),
+            child: VersionInfo(key: null,),
           )
         ],
       ),
@@ -260,30 +260,31 @@ class _ProfilePageState extends State<ProfilePage> {
 
   void changeReminders(bool value) {
     final sharedPrefs = Provider.of<SharedPreferences>(context);
-    analytics.setUserProperty(name: 'reminders', value: '$value');
+    analytics?.setUserProperty(name: 'reminders', value: '$value');
     FlutterBugfender.setDeviceString('reminders', '$value');
     sharedPrefs.setBool('reminders', value);
     setState(() {});
   }
 
   void changeBrightness() {
-    final target = Theme.of(context).brightness == Brightness.dark
-        ? Brightness.light
-        : Brightness.dark;
+    final target = Theme.of(context).brightness == 2 //Brightness.dark
+        ? 0 //Brightness.light
+        : 2; //Brightness.dark;
     final paramValue = target == Brightness.light ? 'light' : 'dark';
-    analytics.logEvent(
+    analytics?.logEvent(
       name: 'settings_theme',
       parameters: {'target': paramValue},
     );
-    analytics.setUserProperty(name: 'theme', value: paramValue);
+    analytics?.setUserProperty(name: 'theme', value: paramValue);
     FlutterBugfender.setDeviceString('theme', paramValue);
-    DynamicTheme.of(context).setBrightness(target);
+    // DynamicTheme.of(context)?.setBrightness(target);
+    DynamicTheme.of(context)?.setTheme(target);
   }
 }
 
 class VersionInfo extends StatelessWidget {
   const VersionInfo({
-    Key key,
+    required Key ?key,
   }) : super(key: key);
 
   @override
@@ -297,7 +298,7 @@ class VersionInfo extends StatelessWidget {
             final pkg = snapshot.data;
             return Row(
               children: <Widget>[
-                Text('V. ${pkg.version} (${pkg.buildNumber})'),
+                Text('V. ${pkg?.version} (${pkg?.buildNumber})'),
               ],
             );
           }
