@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:conferenceapp/common/logger.dart';
 import 'package:conferenceapp/model/agenda.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -38,39 +39,40 @@ class Talk implements Comparable<Talk> {
     this.type,
   );
 
-  // factory Talk.fromContentful(AgendaFields item) {
-  //   try {
-  //     final authors = [
-  //       Author.fromSpeaker(item.fields!.speaker),
-  //       Author.fromSpeaker(item.fields!.secondSpeaker)
-  //     ]..removeWhere((n) => n == null);
+  factory Talk.fromContentful(AgendaFields item) {
+    try {
+      final authors = [
+        Author.fromSpeaker(item.fields!.speaker),
+        Author.fromSpeaker(item.fields!.secondSpeaker)
+      ]..removeWhere((n) => n.id.isEmpty);
 
-  //     return Talk(
-  //       item.sys!.id,
-  //       item.fields!.title,
-  //       authors,
-  //       item.fields!.description,
-  //       DateTime(
-  //         2020,
-  //         1,
-  //         item.fields!.day == Day.day_one ? 23 : 24,
-  //         int.parse(item.fields!.time.substring(0, 2)),
-  //         int.parse(item.fields!.time.substring(3, 5)),
-  //       ),
-  //       DateTime(
-  //         2020,
-  //         1,
-  //         item.fields!.day == Day.day_one ? 23 : 24,
-  //         int.parse(item.fields!.time.substring(6, 8)),
-  //         int.parse(item.fields!.time.substring(9, 11)),
-  //       ),
-  //       Room.fromContentfulType(item.fields!.type),
-  //       item.fields!.type,
-  //     );
-  //   } catch (e, s) {
-  //     logger.errorException(e, s);
-  //   }
-  // }
+      return Talk(
+        item.sys!.id,
+        item.fields!.title,
+        authors,
+        item.fields!.description,
+        DateTime(
+          2020,
+          1,
+          item.fields!.day == Day.day_one ? 23 : 24,
+          int.parse(item.fields!.time.substring(0, 2)),
+          int.parse(item.fields!.time.substring(3, 5)),
+        ),
+        DateTime(
+          2020,
+          1,
+          item.fields!.day == Day.day_one ? 23 : 24,
+          int.parse(item.fields!.time.substring(6, 8)),
+          int.parse(item.fields!.time.substring(9, 11)),
+        ),
+        Room.fromContentfulType(item.fields!.type),
+        item.fields!.type,
+      );
+    } catch (e, s) {
+      logger.errorException(e, s);
+      rethrow;
+    }
+  }
 
   factory Talk.fromJson(Map<String, dynamic> json) => _$TalkFromJson(json);
 

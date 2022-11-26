@@ -43,9 +43,9 @@ class ReactiveTalksRepository implements TalkRepository {
 
   ReactiveTalksRepository({
     required repository,
-    required List<Talk> seedValue,
+    List<Talk>? seedValue,
   })  : this._repository = repository,
-        this._subject = BehaviorSubject<List<Talk>>.seeded(seedValue);
+        this._subject = BehaviorSubject<List<Talk>>.seeded(seedValue!);
 
   Future<void> addNewTalk(Talk talk) async {
     _subject.add(List.unmodifiable([]
@@ -105,7 +105,9 @@ class ReactiveTalksRepository implements TalkRepository {
 
     _repository.loadTalks().then((entities) {
       _subject.add(List<Talk>.unmodifiable(
-        []..addAll(_subject.value)..addAll(entities),
+        []
+          ..addAll(_subject.value)
+          ..addAll(entities),
       ));
     });
   }

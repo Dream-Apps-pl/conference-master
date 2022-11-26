@@ -322,8 +322,9 @@ class QrCode extends StatelessWidget {
                 padding: const EdgeInsets.all(20.0),
                 child: QrImage(
                   data: qrData,
-                  embeddedImage:
-                      validated ? AssetImage('assets/checked.png') : null,
+                  embeddedImage: validated
+                      ? AssetImage('assets/checked.png')
+                      : AssetImage(''),
                   imageSize: Size(100, 100),
                 ),
               ),

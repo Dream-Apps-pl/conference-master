@@ -1,4 +1,3 @@
-import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:qr_flutter/qr_flutter.dart' as qr;
@@ -53,7 +52,7 @@ class QrImage extends StatelessWidget {
             alignment: Alignment.center,
           ),
           secondChild: Builder(builder: (BuildContext context) {
-            if (snapshot.data == null || data == null) {
+            if (snapshot.data == null) {
               return Center(
                 child: Text('No data provided.'),
               );
@@ -88,7 +87,7 @@ class QrImage extends StatelessWidget {
                     child: Container(
                       height: imageSize != null ? imageSize.height : null,
                       width: imageSize != null ? imageSize.width : null,
-                      child: Image(image: embeddedImage),
+                      child: Image(image: embeddedImage as ImageProvider),
                     ),
                   )
               ],

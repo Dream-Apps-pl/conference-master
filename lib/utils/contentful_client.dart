@@ -22,15 +22,14 @@ class ContentfulClient {
         },
         AgendaFields.fromJson,
       );
-
       return data.items.map<Talk>((talk) => Talk.fromContentful(talk)).toList();
     } catch (e) {
       logger.errorException(e);
-      return null;
+      return null!;
     }
   }
 
-  Future<List<Sponsor>> fetchSponsors() async {
+  Future<List<Sponsor?>> fetchSponsors() async {
     try {
       final _client = Client(BearerTokenHTTPClient(apiKey), spaceId: space);
 
@@ -49,7 +48,7 @@ class ContentfulClient {
     }
   }
 
-  Future<List<Organizer>> fetchOrganizers() async {
+  Future<List<Organizer?>> fetchOrganizers() async {
     try {
       final _client = Client(BearerTokenHTTPClient(apiKey), spaceId: space);
 
@@ -64,7 +63,7 @@ class ContentfulClient {
       return data.items.map((f) => f.fields).toList();
     } catch (e) {
       logger.errorException(e);
-      return List<Organizer>();
+      return <Organizer>[];
     }
   }
 }

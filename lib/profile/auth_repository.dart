@@ -71,9 +71,9 @@ class AuthRepository {
     try {
       if (adminsSnapshot.length > 0) {
         final isAdmin = adminsSnapshot.firstWhere((f) {
-          return f.data["id"] == id;
-        }, orElse: () => null);
-        return isAdmin != null;
+          return f.id == id;
+        });
+        return isAdmin.exists;
       } else {
         return false;
       }
@@ -89,9 +89,9 @@ class AuthRepository {
     try {
       if (ticketersSnapshot.length > 0) {
         final isTicketer = ticketersSnapshot.firstWhere((f) {
-          return f.data()["email"] == user.email;
-        }, orElse: () => null);
-        return isTicketer != null;
+          return (f.data() as Map<String, dynamic>)["email"] == user.email;
+        });
+        return isTicketer.exists;
       } else {
         return false;
       }

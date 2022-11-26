@@ -7,8 +7,8 @@ import 'package:conferenceapp/profile/auth_repository.dart';
 import 'package:rxdart/rxdart.dart';
 
 class UserRepository {
-  final AuthRepository _authRepository;
-  final FirebaseFirestore _firestore;
+  AuthRepository _authRepository;
+  FirebaseFirestore _firestore;
   User _cachedUser;
 
   UserRepository(this._authRepository, this._firestore) {

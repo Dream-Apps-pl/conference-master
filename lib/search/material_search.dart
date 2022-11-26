@@ -54,8 +54,8 @@ class MaterialSearchResult<T> extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  titleWidget,
-                  if (subtitle != null) subtitleWidget,
+                  titleWidget!,
+                  if (subtitle != null) subtitleWidget!,
                 ],
               ),
             ),
@@ -78,7 +78,7 @@ class MaterialSearchResult<T> extends StatelessWidget {
     if (word == null) return null;
     if (criteria.isNotEmpty && wordClean.contains(criteriaClean)) {
       final position = wordClean.indexOf(criteriaClean);
-      String text0, text1, text2;
+      late String text0, text1, text2;
       if (position == 0) {
         text1 = word.substring(position, criteriaClean.length);
         text2 = word.substring(criteriaClean.length, word.length);
@@ -96,7 +96,7 @@ class MaterialSearchResult<T> extends StatelessWidget {
         text: TextSpan(
           style: style,
           children: <TextSpan>[
-            if (text0 != null) TextSpan(text: text0),
+            if (text0.isNotEmpty != null) TextSpan(text: text0),
             if (text1 != null)
               TextSpan(
                   text: text1, style: TextStyle(fontWeight: FontWeight.bold)),
@@ -121,15 +121,15 @@ class MaterialSearchResult<T> extends StatelessWidget {
 
 class MaterialSearch<T> extends StatefulWidget {
   MaterialSearch({
-    Key key,
-    this.placeholder,
+    Key? key,
+    required this.placeholder,
     this.results,
-    this.getResults,
-    this.filter,
+    required this.getResults,
+    required this.filter,
     this.sort,
     this.limit: 10,
-    this.onSelect,
-    this.onSubmit,
+    required this.onSelect,
+    required this.onSubmit,
     this.barBackgroundColor = Colors.white,
     this.iconColor = Colors.white,
     this.leading,
@@ -146,16 +146,16 @@ class MaterialSearch<T> extends StatefulWidget {
 
   final String placeholder;
 
-  final List<MaterialSearchResult<T>> results;
+  final List<MaterialSearchResult<T>>? results;
   final MaterialResultsFinder getResults;
   final MaterialSearchFilter<T> filter;
-  final MaterialSearchSort<T> sort;
+  final MaterialSearchSort<T>? sort;
   final int limit;
   final ValueChanged<T> onSelect;
   final OnSubmit onSubmit;
   final Color barBackgroundColor;
   final Color iconColor;
-  final Widget leading;
+  final Widget? leading;
 
   @override
   _MaterialSearchState<T> createState() => new _MaterialSearchState<T>();
@@ -196,7 +196,7 @@ class _MaterialSearchState<T> extends State<MaterialSearch> {
     });
   }
 
-  Timer _resultsTimer;
+  late Timer _resultsTimer;
   Future _getResultsDebounced() async {
     if (_results.length == 0) {
       setState(() {
@@ -226,7 +226,7 @@ class _MaterialSearchState<T> extends State<MaterialSearch> {
 
       setState(() {
         _loading = false;
-        _results = results;
+        _results = List<MaterialSearchResult<T>>.from(results);
       });
     });
   }
@@ -234,14 +234,13 @@ class _MaterialSearchState<T> extends State<MaterialSearch> {
   @override
   void dispose() {
     super.dispose();
-    _resultsTimer?.cancel();
+    _resultsTimer.cancel();
     _controller.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    var results =
-        (widget.results ?? _results).where((MaterialSearchResult result) {
+    var results = (widget.results)?.where((MaterialSearchResult result) {
       if (widget.filter != null) {
         return widget.filter(result.value, _criteria);
       }
@@ -256,10 +255,10 @@ class _MaterialSearchState<T> extends State<MaterialSearch> {
 
     if (widget.sort != null) {
       logger.info('Sorting');
-      results.sort((a, b) => widget.sort(a.value, b.value, _criteria));
+      results?.sort((a, b) => widget.sort!(a.value, b.value, _criteria));
     }
 
-    results = results.take(widget.limit).toList();
+    results = results?.take(widget.limit).toList();
 
     IconThemeData iconTheme =
         Theme.of(context).iconTheme.copyWith(color: widget.iconColor);
@@ -315,11 +314,11 @@ class _MaterialSearchState<T> extends State<MaterialSearch> {
                     child: new CircularProgressIndicator()),
               )
             : ListView.builder(
-                itemCount: results.length,
+                itemCount: results?.length ?? 0,
                 itemBuilder: (context, index) {
                   return InkWell(
-                    onTap: () => widget.onSelect(results[index].value),
-                    child: results[index],
+                    onTap: () => widget.onSelect(results?[index].value),
+                    child: results?[index],
                   );
                 },
               ),

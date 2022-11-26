@@ -6,7 +6,9 @@ import 'package:conferenceapp/agenda/repository/talks_repository.dart';
 import './bloc.dart';
 
 class AgendaBloc extends Bloc<AgendaEvent, AgendaState> {
-  AgendaBloc(this.talksRepository);
+  AgendaBloc(this.talksRepository) : super(InitialAgendaState()){
+on<AgendaEvent>(mapEventToState);
+  };
 
   @override
   String toString() => 'AgendaBloc';

@@ -1,21 +1,18 @@
 import 'package:flutter/material.dart';
 
 Future<String?> showWriteReviewModalBottomSheet<String>(BuildContext context,
-    {required String initialValue}) {
+    {String? data}) {
   return showModalBottomSheet<String>(
     context: context,
     isScrollControlled: true,
-    builder: (_) => _WriteReviewModalBottomSheet(
-      initialValue: initialValue,
-    ),
+    builder: (_) => _WriteReviewModalBottomSheet(initialValue: data.toString()),
   );
 }
 
 class _WriteReviewModalBottomSheet extends StatefulWidget {
-  final String initialValue;
+  final String? initialValue;
 
-  _WriteReviewModalBottomSheet({Key? key, required this.initialValue})
-      : super(key: key);
+  _WriteReviewModalBottomSheet({Key? key, this.initialValue}) : super(key: key);
 
   @override
   _WriteReviewModalBottomSheetState createState() =>
@@ -64,16 +61,15 @@ class _WriteReviewModalBottomSheetState
             TextField(
               controller: _controller,
               maxLines: null,
-              cursorColor: Theme.of(context).accentColor,
               autofocus: true,
               maxLength: 200,
               decoration: InputDecoration(
                 hintText: "How did you like the talk? (min. 10 letters).",
                 enabledBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Theme.of(context).accentColor),
+                  borderSide: BorderSide(color: Theme.of(context).colorScheme.secondary),
                 ),
                 focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Theme.of(context).accentColor),
+                  borderSide: BorderSide(color: Theme.of(context).colorScheme.secondary),
                 ),
               ),
             ),

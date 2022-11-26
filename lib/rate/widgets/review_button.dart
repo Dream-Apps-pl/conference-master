@@ -28,7 +28,7 @@ class ReviewButton extends StatelessWidget {
       ),
       onPressed: () async {
         if (await canReviewDelegate()) {
-          final review = await showWriteReviewModalBottomSheet(context, initialValue: null);
+          final review = await showWriteReviewModalBottomSheet(context, data: '');
           if (review != null) {
             this.onReviewSubmitted(review);
           }
