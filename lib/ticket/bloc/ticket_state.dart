@@ -7,12 +7,12 @@ abstract class TicketState extends Equatable {}
 
 class NoTicketState extends TicketState {
   @override
-  List<Object> get props => null;
+  List<Object> get props => [];
 }
 
 class TicketLoadingState extends TicketState {
   @override
-  List<Object> get props => null;
+  List<Object> get props => []; //before was: List<Object> get props => null;
 }
 
 class TicketAddedState extends TicketState {
@@ -35,5 +35,5 @@ class TicketValidatedState extends TicketAddedState {
 
 class TicketErrorState extends TicketState {
   @override
-  List<Object> get props => null;
+  List<Object> get props => []; //null
 }

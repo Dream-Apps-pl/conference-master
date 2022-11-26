@@ -121,14 +121,14 @@ class _ProfilePageState extends State<ProfilePage> {
                 barrierDismissible: true,
                 builder: (ctx) => SimpleDialog(
                   children: <Widget>[
-                    ElevatedButton(
+                    TextButton(
                       child: Text('Send e-mail'),
                       onPressed: () {
                         sendEmail();
                         Navigator.pop(ctx);
                       },
                     ),
-                    ElevatedButton(
+                    TextButton(
                       child: Text(
                         'Try Snapfeed\n(User feedback tool for Flutter apps)',
                         textAlign: TextAlign.center,
@@ -136,6 +136,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       onPressed: () {
                         Navigator.pop(ctx);
                         logger.info('Feedback button tapped');
+                        //Snapfeed.of(context).startFeedback();
                       },
                     )
                   ],
@@ -164,7 +165,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           MarkdownBody(
                             data: text,
                           ),
-                          ElevatedButton(
+                          TextButton(
                             child: Text('Send e-mail'),
                             onPressed: () {
                               sendEmail();

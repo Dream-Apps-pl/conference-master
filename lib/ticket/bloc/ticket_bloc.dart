@@ -10,7 +10,7 @@ import 'package:conferenceapp/ticket/repository/ticket_repository.dart';
 class TicketBloc extends Bloc<TicketEvent, TicketState> {
   final TicketRepository _ticketRepository;
   final UserRepository _userRepository;
-  StreamSubscription<User> _userSub;
+  late StreamSubscription<User> _userSub;
 
   TicketBloc(this._ticketRepository, this._userRepository) {
     _userSub = _userRepository.user.listen(handleUser);
