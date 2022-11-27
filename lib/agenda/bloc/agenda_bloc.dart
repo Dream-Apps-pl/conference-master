@@ -6,15 +6,13 @@ import 'package:conferenceapp/agenda/repository/talks_repository.dart';
 import './bloc.dart';
 
 class AgendaBloc extends Bloc<AgendaEvent, AgendaState> {
-  AgendaBloc(this.talksRepository) : super(InitialAgendaState()){
-on<AgendaEvent>(mapEventToState);
-  };
+  AgendaBloc(this.talksRepository) : super(InitialAgendaState());
 
   @override
   String toString() => 'AgendaBloc';
 
-  final TalkRepository talksRepository;
-  StreamSubscription talksSubscription;
+  late TalkRepository talksRepository;
+  late StreamSubscription talksSubscription;
 
   @override
   AgendaState get initialState => InitialAgendaState();

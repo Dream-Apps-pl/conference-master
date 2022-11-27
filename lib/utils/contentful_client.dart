@@ -29,7 +29,7 @@ class ContentfulClient {
     }
   }
 
-  Future<List<Sponsor?>> fetchSponsors() async {
+  Future<List<Sponsor>> fetchSponsors() async {
     try {
       final _client = Client(BearerTokenHTTPClient(apiKey), spaceId: space);
 
@@ -41,14 +41,14 @@ class ContentfulClient {
         SponsorFields.fromJson,
       );
 
-      return data.items.map((f) => f.fields).toList();
+      return data.items.map((f) => f.fields!).toList();
     } catch (e) {
       logger.errorException(e);
       return <Sponsor>[];
     }
   }
 
-  Future<List<Organizer?>> fetchOrganizers() async {
+  Future<List<Organizer>> fetchOrganizers() async {
     try {
       final _client = Client(BearerTokenHTTPClient(apiKey), spaceId: space);
 
@@ -60,7 +60,7 @@ class ContentfulClient {
         OrganizerFields.fromJson,
       );
 
-      return data.items.map((f) => f.fields).toList();
+      return data.items.map((f) => f.fields!).toList();
     } catch (e) {
       logger.errorException(e);
       return <Organizer>[];

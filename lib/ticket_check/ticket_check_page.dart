@@ -1,7 +1,6 @@
 import 'package:conferenceapp/common/logger.dart';
 import 'package:conferenceapp/ticket_check/bloc/bloc.dart';
 import 'package:conferenceapp/ticket_check/users_list.dart';
-import 'package:fast_qr_reader_view/fast_qr_reader_view.dart';
 import 'package:flutter/material.dart';
 
 import 'manual_ticket_check_page.dart';
@@ -36,25 +35,17 @@ class _TicketCheckPageState extends State<TicketCheckPage> {
               ),
               onPressed: () async {
                 try {
-                  final cameras = await availableCameras();
-                  final permission = await checkCameraPermission();
                   final bloc = TicketCheckBloc();
-                  if (permission != PermissionStatus.granted) {
-                    await requestCameraPermission();
-                  }
                   await Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => ScanTicketPage(
-                        cameras: cameras,
                         bloc: bloc,
                       ),
                     ),
                   );
                   bloc.close();
-                } on QRReaderException catch (e) {
-                  logError(e.code, e.description);
-                }
+                } catch (e) {}
               },
             ),
             SizedBox(
@@ -98,22 +89,13 @@ class _TicketCheckPageState extends State<TicketCheckPage> {
               ),
               onPressed: () async {
                 try {
-                  final cameras = await availableCameras();
-                  final permission = await checkCameraPermission();
-                  if (permission != PermissionStatus.granted) {
-                    await requestCameraPermission();
-                  }
                   await Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => ScanPartyPage(
-                        cameras: cameras,
-                      ),
+                      builder: (context) => ScanPartyPage(),
                     ),
                   );
-                } on QRReaderException catch (e) {
-                  logError(e.code, e.description);
-                }
+                } catch (e) {}
               },
             ),
             SizedBox(

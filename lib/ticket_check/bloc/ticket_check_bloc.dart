@@ -12,6 +12,8 @@ class TicketCheckBloc extends Bloc<TicketCheckEvent, TicketCheckState> {
       FirebaseFirestore.instance.collection('tickets_checked');
   final users = FirebaseFirestore.instance.collection('users');
 
+  TicketCheckBloc() : super(NoTicketCheckState());
+
   @override
   String toString() => 'TicketCheckBloc';
 

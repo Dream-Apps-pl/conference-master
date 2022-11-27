@@ -1,8 +1,8 @@
 import 'package:conferenceapp/common/logger.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_ml_vision/firebase_ml_vision.dart';
 import 'package:camera/camera.dart';
+import 'package:google_ml_kit/google_ml_kit.dart';
 
 import 'scanner_utils.dart';
 
@@ -28,7 +28,7 @@ class TicketDetector extends StatefulWidget {
 }
 
 class _TicketDetectorState extends State<TicketDetector> {
-  final _recognizer = FirebaseVision.instance.textRecognizer();
+  // final _recognizer = FirebaseVision.instance.textRecognizer();
   CameraController? _camera;
   bool _isDetecting = false;
   CameraLensDirection _direction = CameraLensDirection.back;
@@ -56,21 +56,21 @@ class _TicketDetectorState extends State<TicketDetector> {
 
       _isDetecting = true;
 
-      ScannerUtils.detect(
-        image: image,
-        detectInImage: _recognizer.processImage,
-        imageRotation: description.sensorOrientation,
-      ).then(
-        (dynamic results) {
-          if (results == null) return;
-          if (results is VisionText) {
-            final handled = handleScannerResults(results);
-            if (handled) return;
-            setState(() {
-            });
-          }
-        },
-      ).whenComplete(() => _isDetecting = false);
+      // ScannerUtils.detect(
+      //   image: image,
+      //   detectInImage: _recognizer.processImage,
+      //   imageRotation: description.sensorOrientation,
+      // ).then(
+      //   (dynamic results) {
+      //     if (results == null) return;
+      //     if (results is VisionText) {
+      //       final handled = handleScannerResults(results);
+      //       if (handled) return;
+      //       setState(() {
+      //       });
+      //     }
+      //   },
+      // ).whenComplete(() => _isDetecting = false);
     });
   }
 
@@ -78,7 +78,7 @@ class _TicketDetectorState extends State<TicketDetector> {
     return WillPopScope(
       onWillPop: () async {
         await _camera?.dispose().then((_) {
-          _recognizer.close();
+          // _recognizer.close();
         });
         return true;
       },
@@ -109,13 +109,13 @@ class _TicketDetectorState extends State<TicketDetector> {
   @override
   void dispose() {
     _camera?.dispose().then((_) {
-      _recognizer.close();
+      // _recognizer.close();
     });
 
     super.dispose();
   }
 
-  bool handleScannerResults(VisionText results) {
+  bool handleScannerResults(RecognizedText results) {
     try {
       final _filteredScanRresults =
           results.blocks.where((b) => textWithinBounds(b)).toList();
@@ -123,7 +123,7 @@ class _TicketDetectorState extends State<TicketDetector> {
       if (_filteredScanRresults.length > 0) {
         for (var text in _filteredScanRresults) {
           for (var line in text.lines) {
-            for (var word in line.text!.split(' ')) {
+            for (var word in line.text.split(' ')) {
               final correct = widget.condition!(word);
 
               if (correct) {
@@ -155,8 +155,8 @@ class _TicketDetectorState extends State<TicketDetector> {
     for (var l in b.lines) {
       for (var e in l.elements) {
         final result =
-            e.boundingBox!.top > (imageHalfY - widget.detectorHeight! / 2) &&
-                e.boundingBox!.bottom < (imageHalfY + widget.detectorHeight! / 2);
+            e.boundingBox.top > (imageHalfY - widget.detectorHeight! / 2) &&
+                e.boundingBox.bottom < (imageHalfY + widget.detectorHeight! / 2);
 
         if (result == true) {
           print('TRUE ${e.text}');

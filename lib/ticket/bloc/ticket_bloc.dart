@@ -12,7 +12,7 @@ class TicketBloc extends Bloc<TicketEvent, TicketState> {
   final UserRepository _userRepository;
   late StreamSubscription<User> _userSub;
 
-  TicketBloc(this._ticketRepository, this._userRepository) {
+  TicketBloc(this._ticketRepository, this._userRepository) : super(NoTicketState()) {
     _userSub = _userRepository.user.listen(handleUser);
   }
 

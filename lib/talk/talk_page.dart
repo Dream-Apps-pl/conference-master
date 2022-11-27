@@ -1,6 +1,6 @@
 // ignore_for_file: unnecessary_null_comparison
 
-import 'package:add_2_calendar/add_2_calendar.dart';
+// import 'package:add_2_calendar/add_2_calendar.dart';
 import 'package:conferenceapp/agenda/repository/talks_repository.dart';
 import 'package:conferenceapp/agenda/widgets/talk_card_widgets/favorite_button.dart';
 import 'package:conferenceapp/common/logger.dart';
@@ -46,18 +46,19 @@ class TalkPage extends StatelessWidget {
             onPressed: talk != null
                 ? () {
                     try {
-                      final Event event = Event(
-                        title: talk.title,
-                        description: Document.fromJson(talk.descriptionMap)!
-                            .toSimpleString(),
-                        location:
-                            'Centrum konferencyjne w Centrum Nauki Kopernik, Wybrzeże Kościuszkowskie 20, 00-390 Warszawa',
-                        startDate: talk.startTime,
-                        endDate: talk.endTime,
-                        allDay: false,
-                      );
+                      // TODO: add calendar
+                      // final Event event = Event(
+                      //   title: talk.title,
+                      //   description: Document.fromJson(talk.descriptionMap)!
+                      //       .toSimpleString(),
+                      //   location:
+                      //       'Centrum konferencyjne w Centrum Nauki Kopernik, Wybrzeże Kościuszkowskie 20, 00-390 Warszawa',
+                      //   startDate: talk.startTime,
+                      //   endDate: talk.endTime,
+                      //   allDay: false,
+                      // );
 
-                      Add2Calendar.addEvent2Cal(event);
+                      // Add2Calendar.addEvent2Cal(event);
                     } catch (e, s) {
                       logger.errorException(e, s);
                     }

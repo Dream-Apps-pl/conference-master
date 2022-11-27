@@ -1,31 +1,24 @@
-import 'package:conferenceapp/common/europe_text_field.dart';
-import 'package:conferenceapp/common/logger.dart';
 import 'package:conferenceapp/ticket/widgets/ticket_clipper.dart';
 import 'package:conferenceapp/ticket_check/bloc/bloc.dart';
-import 'package:fast_qr_reader_view/fast_qr_reader_view.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:vibration/vibration.dart';
+import 'package:mobile_scanner/mobile_scanner.dart';
 
 class ScanTicketPage extends StatefulWidget {
-  final List<QrCameraDescription> cameras;
   final TicketCheckBloc bloc;
 
-  const ScanTicketPage({Key? key, required this.cameras, required this.bloc})
-      : super(key: key);
+  const ScanTicketPage({Key? key, required this.bloc}) : super(key: key);
   @override
   _ScanTicketPageState createState() => _ScanTicketPageState();
 }
 
 class _ScanTicketPageState extends State<ScanTicketPage> {
-  late QRReaderController controller;
   bool scanning = true;
 
   @override
   void initState() {
     super.initState();
-    onNewCameraSelected(widget.cameras[0]);
   }
 
   @override
@@ -52,26 +45,7 @@ class _ScanTicketPageState extends State<ScanTicketPage> {
                       bloc: widget.bloc,
                       state: state,
                     ),
-                  if (state is TicketValidatedState)
-                    TicketValidated(
-                      bloc: widget.bloc,
-                      state: state,
-                      onClose: startScanning,
-                    ),
                   if (state is TicketErrorState) TicketError(state.reason),
-                  if (!scanning)
-                    Positioned(
-                      bottom: 0,
-                      left: 0,
-                      right: 0,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: ElevatedButton(
-                          onPressed: startScanning,
-                          child: Text('Scan again'),
-                        ),
-                      ),
-                    )
                 ],
               ),
             );
@@ -80,98 +54,19 @@ class _ScanTicketPageState extends State<ScanTicketPage> {
   }
 
   Widget _cameraPreviewWidget() {
-    if (controller == null || !controller.value.isInitialized) {
-      return const Text(
-        'No camera selected',
-        style: const TextStyle(
-          color: Colors.white,
-          fontSize: 24.0,
-          fontWeight: FontWeight.w900,
-        ),
-      );
-    } else {
-      return new AspectRatio(
-        aspectRatio: controller.value.aspectRatio,
-        child: new QRReaderPreview(controller),
-      );
-    }
-  }
-
-  void onNewCameraSelected(QrCameraDescription cameraDescription) async {
-    if (controller != null) {
-      await controller.dispose();
-    }
-    controller = new QRReaderController(
-      cameraDescription,
-      ResolutionPreset.low,
-      [
-        CodeFormat.qr,
-        CodeFormat.pdf417,
-      ],
-      onCodeRead,
-    );
-
-    // If the controller is updated then update the UI.
-    controller.addListener(() {
-      if (mounted) setState(() {});
-      if (controller.value.hasError) {
-        showInSnackBar('Camera error ${controller.value.errorDescription}');
-      }
-    });
-
-    try {
-      await controller.initialize();
-    } on QRReaderException catch (e) {
-      logError(e.code, e.description);
-      showInSnackBar('Error: ${e.code}\n${e.description}');
-    }
-
-    if (mounted) {
-      setState(() {});
-      controller.startScanning();
-    }
-  }
-
-  void onCodeRead(dynamic value) {
-    logger.info("Stopping scanning, value detected: $value");
-    Vibration.vibrate(duration: 300);
-    setState(() {
-      scanning = false;
-    });
-    try {
-      controller.stopScanning();
-    } catch (e, s) {
-      logger.errorException(e, s);
-    }
-
-    if (value != null) {
-      widget.bloc.add(TicketScanned(value));
-    }
-  }
-
-  void startScanning() {
-    logger.info("Starting scanning");
-    try {
-      if (scanning == false) controller.stopScanning();
-    } catch (e) {
-      logger.errorException(e);
-    }
-    try {
-      controller.startScanning();
-      setState(() {
-        scanning = true;
-      });
-      widget.bloc.add(InitEvent());
-    } catch (e) {
-      logger.errorException(e);
-    }
-  }
-
-  void showInSnackBar(String message) {
-    ScaffoldMessenger.of(context).showSnackBar(new SnackBar(
-      content: new Text(message),
-      behavior: SnackBarBehavior.floating,
-    ));
+    return MobileScanner(
+        controller: MobileScannerController(
+            facing: CameraFacing.front, torchEnabled: true),
+        onDetect: (capture) {
+          final List<Barcode> barcodes = capture.barcodes;
+          if (barcodes.isEmpty) {
+            widget.bloc.add(TicketScanned(barcodes.first.rawValue!));
+            debugPrint('Failed to scan Barcode');
+          } else {
+            final String code = barcodes.first.rawValue!;
+            debugPrint('Barcode found! $code');
+          }
+        });
   }
 }
 

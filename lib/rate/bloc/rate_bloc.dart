@@ -8,16 +8,16 @@ import 'package:conferenceapp/rate/repository/ratings_repository.dart';
 import './bloc.dart';
 
 class RateBloc extends Bloc<RateEvent, RateState> {
-  RateBloc(this._ratingsRepository);
+  RateBloc(this._ratingsRepository) : super(InitialRateState());
 
-  final RatingsRepository _ratingsRepository;
+  late RatingsRepository _ratingsRepository;
 
-  RemoteConfigSettings _config;
+  late RemoteConfigSettings _config;
 
-  double _rating;
+  late double _rating;
   double get rating => _rating;
 
-  String _review;
+  late String _review;
   String get review => _review;
 
   @override
@@ -85,10 +85,9 @@ class RateBloc extends Bloc<RateEvent, RateState> {
   }
 
   Future<bool> canRateTalk(Talk talk) async {
-    _config ??= await RemoteConfig.instance;
 
-    final minutes = _config.getInt("minutes_before_talk_can_be_rated") ?? 5;
-    final canRateTime = talk.endTime.subtract(Duration(minutes: minutes));
+    // final minutes = _config.getInt("minutes_before_talk_can_be_rated") ?? 5;
+    final canRateTime = talk.endTime.subtract(Duration(minutes: 5));
 
     return DateTime.now().isAfter(canRateTime);
   }

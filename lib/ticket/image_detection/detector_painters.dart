@@ -2,8 +2,8 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-import 'package:firebase_ml_vision/firebase_ml_vision.dart';
 import 'package:flutter/material.dart';
+import 'package:google_ml_kit/google_ml_kit.dart';
 
 enum Detector { barcode, text }
 
@@ -39,7 +39,8 @@ class BarcodeDetectorPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(BarcodeDetectorPainter oldDelegate) {
-    return oldDelegate.absoluteImageSize != absoluteImageSize || oldDelegate.barcodeLocations != barcodeLocations;
+    return oldDelegate.absoluteImageSize != absoluteImageSize ||
+        oldDelegate.barcodeLocations != barcodeLocations;
   }
 }
 
@@ -48,19 +49,19 @@ class TextDetectorPainter extends CustomPainter {
   TextDetectorPainter(this.absoluteImageSize, this.visionText);
 
   final Size absoluteImageSize;
-  final VisionText visionText;
+  final RecognizedText visionText;
 
   @override
   void paint(Canvas canvas, Size size) {
     final double scaleX = size.width / absoluteImageSize.width;
     final double scaleY = size.height / absoluteImageSize.height;
 
-    RRect scaleRect(TextContainer container) {
+    RRect scaleRect(TextBlock container) {
       return RRect.fromLTRBAndCorners(
-        container.boundingBox!.left * scaleX,
-        container.boundingBox!.top * scaleY,
-        container.boundingBox!.right * scaleX,
-        container.boundingBox!.bottom * scaleY,
+        container.boundingBox.left * scaleX,
+        container.boundingBox.top * scaleY,
+        container.boundingBox.right * scaleX,
+        container.boundingBox.bottom * scaleY,
         topLeft: Radius.circular(6.0),
         topRight: Radius.circular(6.0),
         bottomLeft: Radius.circular(6.0),
@@ -77,13 +78,13 @@ class TextDetectorPainter extends CustomPainter {
     for (TextBlock block in visionText.blocks) {
       for (TextLine line in block.lines) {
         for (TextElement element in line.elements) {
-          paint.color = element.text!.length > 7 && element.text!.length < 11
+          paint.color = element.text.length > 7 && element.text.length < 11
               ? Colors.blue.withOpacity(0.7)
               : Colors.deepOrange.withOpacity(0.7);
-          canvas.drawRRect(scaleRect(element), paint);
+          canvas.drawRRect(scaleRect(block), paint);
         }
         paint.color = Colors.black12;
-        canvas.drawRRect(scaleRect(line), paint);
+        canvas.drawRRect(scaleRect(block), paint);
       }
 
       paint.color = Colors.black26;
@@ -93,6 +94,7 @@ class TextDetectorPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(TextDetectorPainter oldDelegate) {
-    return oldDelegate.absoluteImageSize != absoluteImageSize || oldDelegate.visionText != visionText;
+    return oldDelegate.absoluteImageSize != absoluteImageSize ||
+        oldDelegate.visionText != visionText;
   }
 }

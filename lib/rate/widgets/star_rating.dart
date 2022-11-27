@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:smooth_star_rating/smooth_star_rating.dart';
+import 'package:smooth_star_rating_nsafe/smooth_star_rating.dart';
 
 class StarRating extends StatelessWidget {
   final Function(double) onRatingChanged;
@@ -13,7 +13,7 @@ class StarRating extends StatelessWidget {
   Widget build(BuildContext context) {
     return SmoothStarRating(
       allowHalfRating: false,
-      onRated: onRatingChanged,
+      onRatingChanged: onRatingChanged,
       starCount: 5,
       rating: rating,
       size: 40.0,
