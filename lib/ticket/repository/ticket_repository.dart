@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:conferenceapp/common/logger.dart';
 import 'package:conferenceapp/model/ticket.dart';
 import 'package:conferenceapp/profile/user_repository.dart';
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+// import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class TicketRepository {
@@ -24,7 +24,7 @@ class TicketRepository {
       }
     } catch (e, s) {
       logger.errorException(e, s);
-      FirebaseCrashlytics.instance.recordError(e, s);
+      // FirebaseCrashlytics.instance.recordError(e, s);
       prefs.remove(_ticketKey);
     }
     return null;
