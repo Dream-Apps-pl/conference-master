@@ -38,7 +38,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "dev.fluttereurope.conferenceapp"
+        applicationId "com.dreamapps.wydarzenia_snyiwizje"
         minSdkVersion 21
         targetSdkVersion 33
         versionCode flutterVersionCode.toInteger()

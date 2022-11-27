@@ -1,4 +1,4 @@
-package dev.fluttereurope.conferenceapp
+package com.dreamapps.wydarzenia_snyiwizje
 
 import io.flutter.embedding.android.FlutterActivity
 
