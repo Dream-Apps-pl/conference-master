@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "181287176766",
+    "project_id": "comdreamappswydarzeniasiw",
+    "storage_bucket": "comdreamappswydarzeniasiw.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:181287176766:android:e852329fb04acdf7691f6f",
+        "android_client_info": {
+          "package_name": "com.dreamapps.wydarzenia_snyiwizje"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "181287176766-8efoh6q5olvn7q3c59906p8uefc1mcu8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCdBq9yKm6Mp5FTdjCC855h81bsTjAcaCo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "181287176766-8efoh6q5olvn7q3c59906p8uefc1mcu8.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "181287176766-q17e8n7a9cl2eltdi5uodm7ch1a1td7b.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.dreamapps.wydsnyiwizje"
+              }
+            }
+          ]
+        }
+      },
+      "admob_app_id": "ca-app-pub-8465263282224422~6520580891"
+    }
+  ],
+  "configuration_version": "1"
+}

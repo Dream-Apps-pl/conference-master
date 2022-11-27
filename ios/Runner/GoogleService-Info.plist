@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string></string>
+	<string>181287176766-q17e8n7a9cl2eltdi5uodm7ch1a1td7b.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string></string>
+	<string>com.googleusercontent.apps.181287176766-q17e8n7a9cl2eltdi5uodm7ch1a1td7b</string>
 	<key>API_KEY</key>
-	<string></string>
+	<string>AIzaSyCNcfB9zvVd77TJIuswzhx4Y7pV2PyuuYk</string>
 	<key>GCM_SENDER_ID</key>
-	<string></string>
+	<string>181287176766</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string></string>
+	<string>com.dreamapps.wydsnyiwizje</string>
 	<key>PROJECT_ID</key>
-	<string></string>
+	<string>comdreamappswydarzeniasiw</string>
 	<key>STORAGE_BUCKET</key>
-	<string></string>
+	<string>comdreamappswydarzeniasiw.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,8 +29,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string></string>
-	<key>DATABASE_URL</key>
-	<string></string>
+	<string>1:181287176766:ios:4a677955381f8ecf691f6f</string>
+	<key>ADMOB_APP_ID</key>
+	<string>ca-app-pub-8465263282224422~8809539179</string>
 </dict>
 </plist>
