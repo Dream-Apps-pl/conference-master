@@ -149,26 +149,26 @@ class _HomePageState extends State<HomePage> {
             height: itemHeight,
             child: Icon(LineIcons.calendar),
           ),
-          label: _currentIndex != agenda ? 'Agenda' : null,
+          label: _currentIndex != agenda ? 'Agenda' : '',
         ),
         BottomNavigationBarItem(
           icon: Icon(LineIcons.calendarCheck),
-          label: _currentIndex != mySchedule ? 'My Schedule' : null,
+          label: _currentIndex != mySchedule ? 'My Schedule' : '',
         ),
         BottomNavigationBarItem(
           icon: NotificationIndicator(
             child: Icon(LineIcons.bell),
           ),
-          label: _currentIndex != notifications ? 'Notifications' : null,
+          label: _currentIndex != notifications ? 'Notifications' : '',
         ),
         BottomNavigationBarItem(
           icon: Icon(LineIcons.cog),
-          label: _currentIndex != profile ? 'Settings' : null,
+          label: _currentIndex != profile ? 'Settings' : '',
         ),
         if (isTicketer == true)
           BottomNavigationBarItem(
             icon: Icon(LineIcons.alternateTicket),
-            label: _currentIndex != ticketer ? 'Bilety' : null,
+            label: _currentIndex != ticketer ? 'Bilety' : '',
           ),
         if (isAdmin == true)
           BottomNavigationBarItem(

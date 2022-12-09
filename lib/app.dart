@@ -259,7 +259,8 @@ class BlocProviders extends StatelessWidget {
           create: (BuildContext context) => TicketBloc(
             RepositoryProvider.of<TicketRepository>(context),
             RepositoryProvider.of<UserRepository>(context),
-          )..add(FetchTicket()),
+          ),
+          // )..add(FetchTicket()),
         ),
       ],
       child: child,

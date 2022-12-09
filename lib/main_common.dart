@@ -5,6 +5,7 @@ import 'package:conferenceapp/common/logger.dart';
 import 'package:conferenceapp/config.dart';
 import 'package:conferenceapp/utils/bloc_delegate.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_core/firebase_core.dart';
 // import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bugfender/flutter_bugfender.dart';
@@ -23,11 +24,12 @@ void mainCommon({required AppConfig config}) {
 
   runZoned<Future<void>>(() async {
     WidgetsFlutterBinding.ensureInitialized();
+    await Firebase.initializeApp();
     analytics = FirebaseAnalytics.instance;
     appConfig = config;
     final sharedPrefs = await SharedPreferences.getInstance();
     final FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
-    FlutterBugfender.init(appConfig!.bugfenderKey!);
+    // FlutterBugfender.init(appConfig!.bugfenderKey!);
 
     runApp(
       MyApp(

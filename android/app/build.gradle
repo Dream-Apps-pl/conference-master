@@ -85,9 +85,9 @@ android {
     productFlavors {
         dev {
             dimension "flavor-type"
-            applicationIdSuffix ".dev"
+            // applicationIdSuffix ".dev"
             versionNameSuffix "-dev"
-            manifestPlaceholders = [appName: "Flutter Europe Dev"]
+            manifestPlaceholders = [appName: "Konferencje Sny i Wizje"]
             signingConfig signingConfigs.debug
         }
         tst {
@@ -109,6 +109,13 @@ flutter {
     source '../..'
 }
 
+configurations.all {
+    resolutionStrategy {
+        force 'com.squareup.okhttp:okhttp:2.7.5'
+        force 'com.squareup.okio:okio:1.17.5'
+    }
+}
+
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     testImplementation 'junit:junit:4.13.2'
@@ -120,5 +127,5 @@ dependencies {
 }
 
 //apply plugin: 'io.fabric'
-//apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.google.firebase.firebase-perf'

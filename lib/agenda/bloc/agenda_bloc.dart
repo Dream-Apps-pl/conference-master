@@ -14,10 +14,8 @@ class AgendaBloc extends Bloc<AgendaEvent, AgendaState> {
   late TalkRepository talksRepository;
   late StreamSubscription talksSubscription;
 
-  @override
   AgendaState get initialState => InitialAgendaState();
 
-  @override
   Stream<AgendaState> mapEventToState(
     AgendaEvent event,
   ) async* {
