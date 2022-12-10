@@ -93,9 +93,9 @@ class FavoriteButton extends StatelessWidget {
 
     final reminderTime = _reminderTime();
 
-    final title = '${talk.title}' +
-        (talk.authors.isNotEmpty ? 'by ' : '') +
-        talk.authors.join(", ");
+    final title = '${talk.title}';
+        // (talk.authors.isNotEmpty ? 'by ' : '') +
+        // talk.authors.join(", ");
     await flutterLocalNotificationsPlugin.schedule(
       talk.id.hashCode,
       'Next talk starts in 5 minutes',

@@ -7,13 +7,13 @@ part of 'talk_list.dart';
 // **************************************************************************
 
 TalkList _$TalkListFromJson(Map json) => TalkList(
-      FirestoreUtils.fromJson(json['day'] as Timestamp),
+      dateTimeFromTimeStamp(json['day']),
       (json['talks'] as List<dynamic>)
           .map((e) => Talk.fromJson(Map<String, dynamic>.from(e as Map)))
           .toList(),
     );
 
 Map<String, dynamic> _$TalkListToJson(TalkList instance) => <String, dynamic>{
-      'day': FirestoreUtils.toJson(instance.day),
+      'day': dateTimeToTimeStamp(instance.day),
       'talks': instance.talks.map((e) => e.toJson()).toList(),
     };

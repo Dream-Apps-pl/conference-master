@@ -39,7 +39,7 @@ class AgendaBloc extends Bloc<AgendaEvent, AgendaState> {
   }
 
   Stream<AgendaState> mapUpdateToState(AgendaUpdated event) async* {
-    if (event.talks != null) {
+    if (event.talks.isNotEmpty) {
       if (event.talks.length == 0) {
         yield LoadingAgendaState();
       }

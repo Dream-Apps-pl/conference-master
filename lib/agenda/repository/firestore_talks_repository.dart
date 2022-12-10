@@ -8,15 +8,21 @@ import 'package:conferenceapp/model/talk_list.dart';
 import 'talks_repository.dart';
 
 class FirestoreTalkRepository implements TalkRepository {
-  final talksCollection =
-      FirebaseFirestore.instance.collection('talks').where("public", isEqualTo: true);
+  final talksCollection = FirebaseFirestore.instance.collection('talks');
+  // .where("public", isEqualTo: true);
 
   @override
   Stream<List<Talk>> talks() {
-    return talksCollection.snapshots().map((snapshot) {
+    print('log talko');
+    var data = talksCollection.snapshots().map((snapshot) {
+      print('log talko data ${snapshot.docs.length}');
       final list = snapshot.docs.map(getTalks).toList();
+      // print('log talko data s ${list.first.day}');
       return list.expand((l) => l.talks).toList();
+      // return list.expand((l) => l.talks).toList();
     });
+    print('log talko ada ${data.first}');
+    return data;
   }
 
   @override
@@ -35,12 +41,14 @@ class FirestoreTalkRepository implements TalkRepository {
     return talks().transform(transform);
   }
 
-  TalkList getTalks(doc) {
+  TalkList getTalks(DocumentSnapshot docs) {
     try {
-      return TalkList.fromJson(doc.data);
+      print('log talk doc ${docs.data()}');
+      return TalkList.fromJson(docs.data() as Map<String, dynamic>);
     } catch (e, s) {
+      print('log talk e $e $s');
       logger.errorException(e, s);
-      return TalkList(DateTime(2000, 1, 1), <Talk>[]);
+      return TalkList(DateTime(2023, 1, 1), <Talk>[]);
     }
   }
 

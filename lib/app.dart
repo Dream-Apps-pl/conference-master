@@ -5,6 +5,7 @@ import 'package:conferenceapp/agenda/bloc/bloc.dart';
 import 'package:conferenceapp/agenda/helpers/agenda_layout_helper.dart';
 import 'package:conferenceapp/agenda/repository/contentful_talks_repository.dart';
 import 'package:conferenceapp/agenda/repository/file_storage.dart';
+import 'package:conferenceapp/agenda/repository/firestore_talks_repository.dart';
 import 'package:conferenceapp/agenda/repository/reactive_talks_repository.dart';
 import 'package:conferenceapp/agenda/repository/talks_repository.dart';
 import 'package:conferenceapp/common/logger.dart';
@@ -253,7 +254,7 @@ class BlocProviders extends StatelessWidget {
         BlocProvider<AgendaBloc>(
           create: (BuildContext context) =>
               AgendaBloc(RepositoryProvider.of<TalkRepository>(context))
-                ..add(InitAgenda()),
+                // ..add(InitAgenda()),
         ),
         BlocProvider<TicketBloc>(
           create: (BuildContext context) => TicketBloc(
@@ -368,17 +369,18 @@ class RepositoryProviders extends StatelessWidget {
       BuildContext context, ContentfulClient client) {
     final sharedPrefs = Provider.of<SharedPreferences>(context, listen: false);
     final cache = sharedPrefs.getInt('cache_duration') ?? 90;
-    return ReactiveTalksRepository(
-      repository: ContentfulTalksRepository(
-          client: client,
-          fileStorage: FileStorage(
-            'talks',
-            () => Directory.systemTemp,
-          ),
-          cacheDuration: Duration(
-            minutes: cache == 0 ? 90 : cache,
-          )),
-    );
+    return FirestoreTalkRepository();
+    // return ReactiveTalksRepository(
+    //   repository: ContentfulTalksRepository(
+    //       client: client,
+    //       fileStorage: FileStorage(
+    //         'talks',
+    //         () => Directory.systemTemp,
+    //       ),
+    //       cacheDuration: Duration(
+    //         minutes: cache == 0 ? 90 : cache,
+    //       )),
+    // );
   }
 
   RatingsRepository _ratingsRepositoryBuilder(BuildContext context,

@@ -149,21 +149,21 @@ class _HomePageState extends State<HomePage> {
             height: itemHeight,
             child: Icon(LineIcons.calendar),
           ),
-          label: _currentIndex != agenda ? 'Agenda' : '',
+          label: 'Agenda',
         ),
         BottomNavigationBarItem(
           icon: Icon(LineIcons.calendarCheck),
-          label: _currentIndex != mySchedule ? 'My Schedule' : '',
+          label: 'My Schedule',
         ),
         BottomNavigationBarItem(
           icon: NotificationIndicator(
             child: Icon(LineIcons.bell),
           ),
-          label: _currentIndex != notifications ? 'Notifications' : '',
+          label: 'Notifications',
         ),
         BottomNavigationBarItem(
           icon: Icon(LineIcons.cog),
-          label: _currentIndex != profile ? 'Settings' : '',
+          label: 'Settings',
         ),
         if (isTicketer == true)
           BottomNavigationBarItem(
@@ -247,7 +247,8 @@ class _HomePageState extends State<HomePage> {
 class NotificationIndicator extends StatelessWidget {
   final Widget child;
 
-  const NotificationIndicator({Key? key, required this.child}) : super(key: key);
+  const NotificationIndicator({Key? key, required this.child})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
     final notif =

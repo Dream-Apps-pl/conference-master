@@ -1,4 +1,5 @@
 import 'package:conferenceapp/agenda/bloc/bloc.dart';
+import 'package:conferenceapp/agenda/repository/talks_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -21,6 +22,7 @@ class _AgendaPageState extends State<AgendaPage> {
 
   @override
   void initState() {
+    RepositoryProvider.of<TalkRepository>(context).talks();
     super.initState();
     pageController = PageController(initialPage: 0);
     pageController.addListener(() {
@@ -37,7 +39,8 @@ class _AgendaPageState extends State<AgendaPage> {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        DaySelectorContainer(pageController, currentIndex.value),
+        if (pageController.hasClients)
+          DaySelectorContainer(pageController, currentIndex.value),
         Flexible(
           child: BlocBuilder(
             bloc: BlocProvider.of<AgendaBloc>(context),

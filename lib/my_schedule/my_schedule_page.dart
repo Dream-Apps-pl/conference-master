@@ -36,7 +36,8 @@ class _MySchedulePageState extends State<MySchedulePage> {
 
     return Column(
       children: <Widget>[
-        DaySelectorContainer(pageController, currentIndex.value),
+        if (pageController.hasClients)
+          DaySelectorContainer(pageController, currentIndex.value),
         Flexible(
           child: BlocBuilder(
             bloc: BlocProvider.of<AgendaBloc>(context),
@@ -71,11 +72,11 @@ class _MySchedulePageState extends State<MySchedulePage> {
       0: snapshot.data!
           .where((f) => sameDay(f.startTime, state.talks[0]!.first.startTime))
           .toList()
-            ..sort(),
+        ..sort(),
       1: snapshot.data!
           .where((f) => sameDay(f.startTime, state.talks[1]!.first.startTime))
           .toList()
-            ..sort(),
+        ..sort(),
     };
     return talks;
   }
