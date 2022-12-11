@@ -13,15 +13,10 @@ class FirestoreTalkRepository implements TalkRepository {
 
   @override
   Stream<List<Talk>> talks() {
-    print('log talko');
     var data = talksCollection.snapshots().map((snapshot) {
-      print('log talko data ${snapshot.docs.length}');
       final list = snapshot.docs.map(getTalks).toList();
-      // print('log talko data s ${list.first.day}');
       return list.expand((l) => l.talks).toList();
-      // return list.expand((l) => l.talks).toList();
     });
-    print('log talko ada ${data.first}');
     return data;
   }
 
@@ -43,10 +38,8 @@ class FirestoreTalkRepository implements TalkRepository {
 
   TalkList getTalks(DocumentSnapshot docs) {
     try {
-      print('log talk doc ${docs.data()}');
       return TalkList.fromJson(docs.data() as Map<String, dynamic>);
     } catch (e, s) {
-      print('log talk e $e $s');
       logger.errorException(e, s);
       return TalkList(DateTime(2023, 1, 1), <Talk>[]);
     }

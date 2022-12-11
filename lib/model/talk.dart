@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:conferenceapp/common/logger.dart';
 import 'package:conferenceapp/model/agenda.dart';
 import 'package:json_annotation/json_annotation.dart';
@@ -75,6 +76,12 @@ class Talk implements Comparable<Talk> {
   }
 
   factory Talk.fromJson(Map<String, dynamic> json) => _$TalkFromJson(json);
+
+  factory Talk.fromSnapshot(DocumentSnapshot snapshot) {
+    final data = snapshot.data() as Map<String, dynamic>;
+
+    return Talk.fromJson(data);
+  }
 
   Map<String, dynamic> toJson() => _$TalkToJson(this);
 

@@ -254,7 +254,7 @@ class BlocProviders extends StatelessWidget {
         BlocProvider<AgendaBloc>(
           create: (BuildContext context) =>
               AgendaBloc(RepositoryProvider.of<TalkRepository>(context))
-                // ..add(InitAgenda()),
+                ..add(InitAgenda()),
         ),
         BlocProvider<TicketBloc>(
           create: (BuildContext context) => TicketBloc(

@@ -6,7 +6,9 @@ import 'package:conferenceapp/agenda/repository/talks_repository.dart';
 import './bloc.dart';
 
 class AgendaBloc extends Bloc<AgendaEvent, AgendaState> {
-  AgendaBloc(this.talksRepository) : super(InitialAgendaState());
+  AgendaBloc(this.talksRepository) : super(InitialAgendaState()) {
+    on<AgendaEvent>((event, emit) => mapEventToState(InitAgenda()));
+  }
 
   @override
   String toString() => 'AgendaBloc';
@@ -19,6 +21,7 @@ class AgendaBloc extends Bloc<AgendaEvent, AgendaState> {
   Stream<AgendaState> mapEventToState(
     AgendaEvent event,
   ) async* {
+    print('log apa ${event}');
     if (event is InitAgenda) {
       yield* mapInitToState(event);
     }
@@ -31,11 +34,15 @@ class AgendaBloc extends Bloc<AgendaEvent, AgendaState> {
   }
 
   Stream<AgendaState> mapInitToState(InitAgenda event) async* {
+    print('log gaskeun');
     yield LoadingAgendaState();
     talksSubscription.cancel();
     talksSubscription = talksRepository.talks().listen(
-          (talks) => add(AgendaUpdated(talks)),
-        );
+      (talks) {
+        print('log talks $talks');
+        add(AgendaUpdated(talks));
+      },
+    );
   }
 
   Stream<AgendaState> mapUpdateToState(AgendaUpdated event) async* {
