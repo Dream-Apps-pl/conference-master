@@ -1,7 +1,6 @@
 import 'package:conferenceapp/agenda/helpers/agenda_layout_helper.dart';
 import 'package:conferenceapp/agenda/widgets/talk_card.dart';
 import 'package:conferenceapp/agenda/widgets/talk_hour.dart';
-import 'package:conferenceapp/model/agenda.dart';
 import 'package:conferenceapp/model/talk.dart';
 import 'package:conferenceapp/talk/talk_page.dart';
 import 'package:flutter/material.dart';
@@ -44,21 +43,13 @@ class NewPopulatedAgendaDayListContent extends StatelessWidget {
                 AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
             itemCount: snapshot.length,
             itemBuilder: (context, index) {
-              Talk _firstTalk;
-              Talk _secondTalk;
+              Talk? _firstTalk;
+              Talk? _secondTalk;
 
               final _thisHoursTalks = snapshot[index];
 
-              //TODO: make it independent of rooms number
-              // _firstTalk = _thisHoursTalks.data;
               _firstTalk = _thisHoursTalks.data;
-              // .firstWhere(
-              //   (t) => t.room.id != TalkType.advanced.toString(),
-              // );
               _secondTalk = _thisHoursTalks.data;
-              // .firstWhere(
-              //   (t) => t.room.id == TalkType.advanced.toString(),
-              // );
 
               final firstChild = getCompactTalkCards(
                   _firstTalk, _secondTalk, favoriteTalks, context);
@@ -83,17 +74,21 @@ class NewPopulatedAgendaDayListContent extends StatelessWidget {
                 AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
             itemCount: snapshot.length,
             itemBuilder: (context, index) {
-              Talk _firstTalk;
-              Talk _secondTalk;
+              Talk? _firstTalk;
+              Talk? _secondTalk;
 
               final _thisHoursTalks = snapshot[index];
 
-              //TODO: make it independent of rooms number
-              _firstTalk = _thisHoursTalks.data;
+              if (_thisHoursTalks.data.type == TalkType.beginner) {
+                _firstTalk = _thisHoursTalks.data;
+              } else {
+                _secondTalk = _thisHoursTalks.data;
+              }
+              // _firstTalk = _thisHoursTalks.data;
               // .firstWhere(
               //   (t) => t.room.id != TalkType.advanced.toString(),
               // );
-              _secondTalk = _thisHoursTalks.data;
+              // _secondTalk = _thisHoursTalks.data;
               // .firstWhere(
               //   (t) => t.room.id == TalkType.advanced.toString(),
               // );
@@ -116,8 +111,8 @@ class NewPopulatedAgendaDayListContent extends StatelessWidget {
     );
   }
 
-  Column getNormalTalkCards(Talk _firstTalk, List<String> favoriteTalks,
-      BuildContext context, Talk _secondTalk) {
+  Column getNormalTalkCards(Talk? _firstTalk, List<String> favoriteTalks,
+      BuildContext context, Talk? _secondTalk) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
@@ -130,15 +125,15 @@ class NewPopulatedAgendaDayListContent extends StatelessWidget {
             compact: false,
             onTap: () => onTap(context, _firstTalk),
           ),
-        // if (_secondTalk != null)
-        //   TalkCard(
-        //     key: ValueKey(_secondTalk.id),
-        //     talk: _secondTalk,
-        //     isFavorite: favoriteTalks.any((t) => t.id == _secondTalk.id),
-        //     first: false,
-        //     compact: false,
-        //     onTap: () => onTap(context, _secondTalk),
-        //   ),
+        if (_secondTalk != null)
+          TalkCard(
+            key: ValueKey(_secondTalk.id),
+            talk: _secondTalk,
+            isFavorite: favoriteTalks.contains(_secondTalk.id),
+            first: false,
+            compact: false,
+            onTap: () => onTap(context, _secondTalk),
+          ),
       ],
     );
   }

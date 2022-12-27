@@ -1,12 +1,7 @@
-import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:conferenceapp/agenda/bloc/bloc.dart';
 import 'package:conferenceapp/agenda/helpers/agenda_layout_helper.dart';
-import 'package:conferenceapp/agenda/repository/contentful_talks_repository.dart';
-import 'package:conferenceapp/agenda/repository/file_storage.dart';
 import 'package:conferenceapp/agenda/repository/firestore_talks_repository.dart';
-import 'package:conferenceapp/agenda/repository/reactive_talks_repository.dart';
 import 'package:conferenceapp/agenda/repository/talks_repository.dart';
 import 'package:conferenceapp/common/logger.dart';
 import 'package:conferenceapp/main_page/home_page.dart';
@@ -19,11 +14,9 @@ import 'package:conferenceapp/profile/user_repository.dart';
 import 'package:conferenceapp/rate/repository/firestore_ratings_repository.dart';
 import 'package:conferenceapp/rate/repository/ratings_repository.dart';
 import 'package:conferenceapp/sponsors/sponsors_repository.dart';
-import 'package:conferenceapp/talk/talk_page.dart';
 import 'package:conferenceapp/ticket/bloc/bloc.dart';
 import 'package:conferenceapp/ticket/repository/ticket_repository.dart';
 import 'package:conferenceapp/utils/color.dart';
-import 'package:conferenceapp/utils/contentful_client.dart';
 import 'package:dynamic_themes/dynamic_themes.dart';
 import 'package:feature_discovery/feature_discovery.dart';
 import 'package:firebase_analytics/observer.dart';
@@ -36,7 +29,6 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'config.dart';
 import 'utils/analytics.dart';
 
 class MyApp extends StatelessWidget {
@@ -143,16 +135,11 @@ class VariousProviders extends StatefulWidget {
 
 class _VariousProvidersState extends State<VariousProviders> {
   late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
-  late ContentfulClient contentfulClient;
 
   @override
   void initState() {
     super.initState();
     flutterLocalNotificationsPlugin = new FlutterLocalNotificationsPlugin();
-    contentfulClient = ContentfulClient(
-      appConfig!.contentfulSpace,
-      appConfig!.contentfulApiKey,
-    );
 
     initializeRemoteNotifications();
     initializeLocalNotifications();
@@ -228,9 +215,6 @@ class _VariousProvidersState extends State<VariousProviders> {
         Provider<FlutterLocalNotificationsPlugin>.value(
           value: flutterLocalNotificationsPlugin,
         ),
-        Provider<ContentfulClient>.value(
-          value: contentfulClient,
-        ),
         // FutureProvider<FirebaseRemoteConfig>(
         //   create: (_) async => initializeRemoteConfig(),
         //   initialData: FirebaseRemoteConfig.instance,
@@ -277,7 +261,6 @@ class RepositoryProviders extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final sharedPreferences = Provider.of<SharedPreferences>(context);
-    final client = Provider.of<ContentfulClient>(context);
 
     return RepositoryProvider(
       create: (_) =>
@@ -285,14 +268,13 @@ class RepositoryProviders extends StatelessWidget {
       child: RepositoryProvider(
         create: _userRepositoryBuilder,
         child: RepositoryProvider<TalkRepository>(
-          create: (context) => _talksRepositoryBuilder(context, client),
+          create: (context) => _talksRepositoryBuilder(context),
           child: RepositoryProvider(
             create: _favoritesRepositoryBuilder,
             child: RepositoryProvider(
-              create: (context) => _sponsorsRepositoryBuilder(context, client),
+              create: (context) => _sponsorsRepositoryBuilder(context),
               child: RepositoryProvider(
-                create: (context) =>
-                    _organizersRepositoryBuilder(context, client),
+                create: (context) => _organizersRepositoryBuilder(context),
                 child: RepositoryProvider(
                   create: _ticketRepositoryBuilder,
                   child: RepositoryProvider(
@@ -331,18 +313,12 @@ class RepositoryProviders extends StatelessWidget {
     );
   }
 
-  SponsorsRepository _sponsorsRepositoryBuilder(
-      BuildContext context, ContentfulClient client) {
-    return SponsorsRepository(
-      client,
-    );
+  SponsorsRepository _sponsorsRepositoryBuilder(BuildContext context) {
+    return SponsorsRepository();
   }
 
-  OrganizersRepository _organizersRepositoryBuilder(
-      BuildContext context, ContentfulClient client) {
-    return OrganizersRepository(
-      client,
-    );
+  OrganizersRepository _organizersRepositoryBuilder(BuildContext context) {
+    return OrganizersRepository();
   }
 
   FirestoreNotificationsRepository _notificationsRepositoryBuilder(
@@ -365,8 +341,7 @@ class RepositoryProviders extends StatelessWidget {
     );
   }
 
-  TalkRepository _talksRepositoryBuilder(
-      BuildContext context, ContentfulClient client) {
+  TalkRepository _talksRepositoryBuilder(BuildContext context) {
     final sharedPrefs = Provider.of<SharedPreferences>(context, listen: false);
     final cache = sharedPrefs.getInt('cache_duration') ?? 90;
     return FirestoreTalkRepository();

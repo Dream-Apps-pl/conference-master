@@ -1,5 +1,5 @@
 import 'dart:math' as math;
-import 'package:conferenceapp/model/agenda.dart';
+
 import 'package:conferenceapp/model/room.dart';
 import 'package:conferenceapp/model/talk.dart';
 import 'package:flutter/material.dart';

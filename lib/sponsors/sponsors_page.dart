@@ -21,7 +21,7 @@ class SponsorsPage extends StatelessWidget {
       body: Container(
         color: Colors.white,
         child: FutureBuilder<List<Sponsor>>(
-          future: sponsorsRepository.fetchSponsors(),
+          // future: sponsorsRepository.fetchSponsors(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               final elems = <Widget>[];

@@ -9,6 +9,8 @@ import 'room.dart';
 
 part 'talk.g.dart';
 
+enum TalkType { beginner, advanced, other }
+
 enum DayType { one, two }
 
 @JsonSerializable(explicitToJson: true)

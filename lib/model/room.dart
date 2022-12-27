@@ -1,4 +1,4 @@
-import 'package:conferenceapp/model/agenda.dart';
+import 'package:conferenceapp/model/talk.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:equatable/equatable.dart';
 

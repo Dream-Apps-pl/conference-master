@@ -18,7 +18,12 @@ class AppThemes {
 final themeCollection = ThemeCollection(
   themes: {
     AppThemes.LightBlue: ThemeData(primarySwatch: Colors.blue),
-    AppThemes.LightOrange: ThemeData.dark(),
+    AppThemes.LightOrange: ThemeData.from(
+      colorScheme: ColorScheme.dark(
+        primary: Colors.red,
+        secondary: Colors.red,
+      ),
+    ),
     AppThemes.Dark: ThemeData.dark(),
   },
   fallbackTheme: ThemeData.light(),
