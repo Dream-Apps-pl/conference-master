@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloud_firestore_odm/cloud_firestore_odm.dart';
-import 'package:conferenceapp/model/agenda.dart';
 import 'package:conferenceapp/model/timestamp_converter.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -11,7 +10,7 @@ part 'talk.g.dart';
 
 enum TalkType { beginner, advanced, other }
 
-enum DayType { one, two }
+enum DayType { one, two, three }
 
 @JsonSerializable(explicitToJson: true)
 class Talk implements Comparable<Talk> {

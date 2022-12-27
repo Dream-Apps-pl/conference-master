@@ -7,7 +7,7 @@
 
 // enum TalkType { beginner, advanced, other }
 
-// enum Day { day_one, day_two }
+// enum Day { day_one, day_two, day_three }
 
 // @JsonSerializable(explicitToJson: true)
 // class Agenda extends EntryCollection<AgendaFields> {
@@ -80,25 +80,31 @@
 //   @override
 //   List<Object> get props => [title, day, time];
 
-//   static Day _dayFromJson(String value) {
-//     if (value == 'day one') {
-//       return Day.day_one;
-//     }
-//     if (value == 'day two') {
-//       return Day.day_two;
-//     }
-//     return Day.day_one;
-//   }
+  // static Day _dayFromJson(String value) {
+  //   if (value == 'day one') {
+  //     return Day.day_one;
+  //   }
+  //   if (value == 'day two') {
+  //     return Day.day_two;
+  //   }
+  //   if (value == 'day three') {
+  //     return Day.day_three;
+  //   }
+  //   return Day.day_one;
+  // }
 
-//   static String _dayToJson(Day day) {
-//     if (day == Day.day_one) {
-//       return 'day one';
-//     }
-//     if (day == Day.day_two) {
-//       return 'day two';
-//     }
-//     return '';
-//   }
+  // static String _dayToJson(Day day) {
+  //   if (day == Day.day_one) {
+  //     return 'day one';
+  //   }
+  //   if (day == Day.day_two) {
+  //     return 'day two';
+  //   }
+  //   if (day == Day.day_three) {
+  //     return 'day three';
+  //   }
+  //   return '';
+  // }
 
 //   @override
 //   String toString() {
