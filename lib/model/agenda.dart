@@ -9,7 +9,7 @@ part 'agenda.g.dart';
 
 enum TalkType { beginner, advanced, other }
 
-enum Day { day_one, day_two }
+enum Day { day_one, day_two, day_three }
 
 @JsonSerializable(explicitToJson: true)
 class Agenda extends EntryCollection<AgendaFields> {
@@ -89,6 +89,9 @@ class Fields extends Equatable {
     if (value == 'day two') {
       return Day.day_two;
     }
+    if (value == 'day three') {
+      return Day.day_three;
+    }
     return Day.day_one;
   }
 
@@ -98,6 +101,9 @@ class Fields extends Equatable {
     }
     if (day == Day.day_two) {
       return 'day two';
+    }
+    if (day == Day.day_three) {
+      return 'day three';
     }
     return '';
   }

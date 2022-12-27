@@ -1414,4 +1414,5 @@ const _$TalkTypeEnumMap = {
 const _$DayTypeEnumMap = {
   DayType.one: 'one',
   DayType.two: 'two',
+  DayType.three: 'three',
 };

@@ -9,7 +9,7 @@ import 'room.dart';
 
 part 'talk.g.dart';
 
-enum DayType { one, two }
+enum DayType { one, two, three }
 
 @JsonSerializable(explicitToJson: true)
 class Talk implements Comparable<Talk> {
