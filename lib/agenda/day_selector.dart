@@ -68,13 +68,15 @@ class DaySelector extends StatelessWidget {
         return Stack(
           children: <Widget>[
             AnimatedPositioned(
-              top: 0,
               bottom: 0,
               left: selectedDay == 0
                   ? 0
-                  : (MediaQuery.of(context).size.width - 24) / 2,
+                  : (MediaQuery.of(context).size.width - 24) / 3,
+              top: selectedDay == 0
+                  ? (MediaQuery.of(context).size.width - 24) / 3
+                  : 0,
               right: selectedDay == 0
-                  ? (MediaQuery.of(context).size.width - 24) / 2
+                  ? (MediaQuery.of(context).size.width - 24) / 3
                   : 0,
               duration: Duration(milliseconds: 300),
               child: Container(
@@ -130,7 +132,7 @@ class DaySelector extends StatelessWidget {
                     type: MaterialType.transparency,
                     child: Semantics(
                       button: true,
-                      enabled: selectedDay != 1,
+                      enabled: selectedDay == 1,
                       hint: 'Select day no. 2',
                       child: InkWell(
                         onTap: () {
@@ -148,6 +150,46 @@ class DaySelector extends StatelessWidget {
                                 'Day 2',
                                 style: TextStyle(
                                   color: selectedDay != 0
+                                      ? Theme.of(context).brightness ==
+                                              Brightness.light
+                                          ? Theme.of(context).primaryColor
+                                          : Colors.white
+                                      : Theme.of(context).brightness ==
+                                              Brightness.light
+                                          ? bgColor
+                                          : Colors.grey[300],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Material(
+                    type: MaterialType.transparency,
+                    child: Semantics(
+                      button: true,
+                      enabled: selectedDay == 3,
+                      hint: 'Select day no. 3',
+                      child: InkWell(
+                        onTap: () {
+                          pageController.animateToPage(
+                            0,
+                            duration: Duration(milliseconds: 300),
+                            curve: Curves.easeOut,
+                          );
+                        },
+                        child: Container(
+                          child: Padding(
+                            padding: const EdgeInsets.all(8),
+                            child: Center(
+                              child: Text(
+                                'Day 3',
+                                style: TextStyle(
+                                  color: selectedDay == 2
                                       ? Theme.of(context).brightness ==
                                               Brightness.light
                                           ? Theme.of(context).primaryColor

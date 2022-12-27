@@ -91,6 +91,15 @@ class _AgendaPageState extends State<AgendaPage> {
                                     element.data.day == DayType.two)
                                 .toList(),
                           ),
+                          NewPopulatedAgendaDayListContent(
+                            favoriteTalks: fav,
+                            compact: compact,
+                            layoutHelper: layoutHelper,
+                            snapshot: talkSnapshot.docs
+                                .where((element) =>
+                                    element.data.day == DayType.three)
+                                .toList(),
+                          ),
                         ],
                       );
                       // return Text("${talkSnapshot.docs.first.data.title}");

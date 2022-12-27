@@ -5,7 +5,7 @@ publish_to: none
 version: 1.0.0+1
 
 environment:
-  sdk: '>=2.16.0 <3.3.9'
+  sdk: '>=2.16.0 <3.3.10'
 
 dependencies:
   flutter:
@@ -20,10 +20,13 @@ dependencies:
   csv: ^5.0.1
   dotted_border: ^2.0.0+3
 
+  # device_preview: ^1.1.0
+  # preview: ^0.0.8
+
 #  dynamic_theme: ^1.0.1
   dynamic_themes: ^1.1.0
 
-
+  js: ^0.6.2
   equatable: ^2.0.5
   expandable: ^5.0.1
   extended_image: ^6.3.4

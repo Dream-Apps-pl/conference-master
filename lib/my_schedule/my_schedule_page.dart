@@ -91,6 +91,16 @@ class _MySchedulePageState extends State<MySchedulePage> {
                                   fav.contains(element.data.id))
                               .toList(),
                         ),
+                        NewPopulatedAgendaDayListContent(
+                          favoriteTalks: fav,
+                          compact: compact,
+                          layoutHelper: layoutHelper,
+                          snapshot: talkSnapshot.docs
+                              .where((element) =>
+                                  element.data.day == DayType.three &&
+                                  fav.contains(element.data.id))
+                              .toList(),
+                        ),
                       ],
                     );
                     // return Text("${talkSnapshot.docs.first.data.title}");

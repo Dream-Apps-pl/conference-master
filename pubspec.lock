@@ -77,14 +77,14 @@ packages:
       name: build_resolvers
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.10"
+    version: "2.1.0"
   build_runner:
     dependency: "direct dev"
     description:
       name: build_runner
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.3.0"
+    version: "2.3.3"
   build_runner_core:
     dependency: transitive
     description:
@@ -119,28 +119,28 @@ packages:
       name: camera_android
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.10.0+4"
+    version: "0.10.2"
   camera_avfoundation:
     dependency: transitive
     description:
       name: camera_avfoundation
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.9.8+6"
+    version: "0.9.10"
   camera_platform_interface:
     dependency: transitive
     description:
       name: camera_platform_interface
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.3.1"
+    version: "2.3.2"
   camera_web:
     dependency: transitive
     description:
       name: camera_web
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.3.0+1"
+    version: "0.3.1"
   change_app_package_name:
     dependency: "direct main"
     description:
@@ -189,7 +189,7 @@ packages:
       name: cloud_firestore_odm_generator
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.0-dev.43"
+    version: "1.0.0-dev.44"
   cloud_firestore_platform_interface:
     dependency: transitive
     description:
@@ -210,7 +210,7 @@ packages:
       name: code_builder
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.3.0"
+    version: "4.4.0"
   collection:
     dependency: "direct main"
     description:
@@ -406,21 +406,21 @@ packages:
       name: firebase_auth
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.2.2"
+    version: "4.2.3"
   firebase_auth_platform_interface:
     dependency: transitive
     description:
       name: firebase_auth_platform_interface
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "6.11.3"
+    version: "6.11.6"
   firebase_auth_web:
     dependency: "direct main"
     description:
       name: firebase_auth_web
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "5.2.2"
+    version: "5.2.3"
   firebase_core:
     dependency: "direct main"
     description:
@@ -448,21 +448,21 @@ packages:
       name: firebase_messaging
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "14.1.4"
+    version: "14.2.0"
   firebase_messaging_platform_interface:
     dependency: transitive
     description:
       name: firebase_messaging_platform_interface
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.2.8"
+    version: "4.2.9"
   firebase_messaging_web:
     dependency: transitive
     description:
       name: firebase_messaging_web
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.2.9"
+    version: "3.2.10"
   firebase_performance:
     dependency: "direct main"
     description:
@@ -544,7 +544,7 @@ packages:
       name: flutter_custom_clippers
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.0"
+    version: "2.1.0"
   flutter_local_notifications:
     dependency: "direct main"
     description:
@@ -596,7 +596,7 @@ packages:
       name: fluttertoast
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "8.1.1"
+    version: "8.1.2"
   freezed_annotation:
     dependency: transitive
     description:
@@ -610,7 +610,7 @@ packages:
       name: frontend_server_client
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.3"
+    version: "3.2.0"
   glob:
     dependency: transitive
     description:
@@ -787,7 +787,7 @@ packages:
     source: hosted
     version: "1.0.3"
   js:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: js
       url: "https://pub.dartlang.org"
@@ -855,7 +855,7 @@ packages:
       name: mime
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.2"
+    version: "1.0.3"
   mobile_scanner:
     dependency: "direct main"
     description:
@@ -1053,7 +1053,7 @@ packages:
       name: quiver
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.1.0"
+    version: "3.2.1"
   recase:
     dependency: transitive
     description:
@@ -1102,7 +1102,7 @@ packages:
       name: shared_preferences_linux
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.1"
+    version: "2.1.2"
   shared_preferences_macos:
     dependency: transitive
     description:
@@ -1130,7 +1130,7 @@ packages:
       name: shared_preferences_windows
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.1"
+    version: "2.1.2"
   shelf:
     dependency: transitive
     description:
@@ -1282,7 +1282,7 @@ packages:
       name: timezone
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.9.0"
+    version: "0.9.1"
   timing:
     dependency: transitive
     description:
@@ -1408,7 +1408,7 @@ packages:
       name: win32
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.1.2"
+    version: "3.1.3"
   xdg_directories:
     dependency: transitive
     description:

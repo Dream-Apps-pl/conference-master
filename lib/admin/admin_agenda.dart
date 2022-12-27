@@ -65,6 +65,16 @@ class _AdminAgendaState extends State<AdminAgenda> {
                         });
                       },
                     ),
+                    SizedBox(width: 5),
+                    ChoiceChip(
+                      label: Text('Day Three'),
+                      selected: _value == 3,
+                      onSelected: (bool selected) {
+                        setState(() {
+                          _value = selected ? 3 : null;
+                        });
+                      },
+                    ),
                   ],
                 ),
               ),
@@ -301,6 +311,16 @@ class _AdminAgendaState extends State<AdminAgenda> {
       } else {
         _room = Room('B', '1');
       }
+
+      // if (_value == 1) {
+      //   DayType.one;
+      // }
+      // if (_value == 2) {
+      //   DayType.two;
+      // } else {
+      //   DayType.three;
+      // }
+
       Talk _talk = Talk(
         '${uuid.v1()}',
         _titleController.text,
@@ -310,7 +330,7 @@ class _AdminAgendaState extends State<AdminAgenda> {
         DateTime.parse(endDate!),
         _room,
         _talkType!,
-        _value == 1 ? DayType.one : DayType.two,
+        _value == 1 ? DayType.one : DayType.two, //DayType.three ??
       );
       FirestoreService()
           .addTalk(_talk)
