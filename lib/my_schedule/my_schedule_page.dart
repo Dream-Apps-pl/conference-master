@@ -1,11 +1,8 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloud_firestore_odm/cloud_firestore_odm.dart';
 import 'package:conferenceapp/agenda/bloc/bloc.dart';
 import 'package:conferenceapp/agenda/day_selector.dart';
 import 'package:conferenceapp/agenda/helpers/agenda_layout_helper.dart';
 import 'package:conferenceapp/agenda/widgets/new_populated_agenda_list.dart';
-import 'package:conferenceapp/agenda/widgets/new_populated_agenda_table.dart';
-import 'package:conferenceapp/model/agendas.dart';
 import 'package:conferenceapp/model/talk.dart';
 import 'package:conferenceapp/profile/auth_repository.dart';
 import 'package:flutter/material.dart';

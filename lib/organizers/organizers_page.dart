@@ -18,7 +18,7 @@ class OrganizersPage extends StatelessWidget {
       ),
       body: Container(
         child: FutureBuilder<List<Organizer>>(
-          future: organizersRepository.fetchOrganizers(),
+          // future: organizersRepository.fetchOrganizers(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               final organizers = snapshot.data?.toList();

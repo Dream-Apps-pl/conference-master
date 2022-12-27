@@ -60,8 +60,8 @@ class _AgendaPageState extends State<AgendaPage> {
                       Widget? child) {
                     if (snapshot.hasError) {
                       return Center(
-                          child:
-                              Text('An error has occured! ${snapshot.error}'));
+                        child: Text('An error has occured! ${snapshot.error}'),
+                      );
                     }
                     if (snapshot.hasData) {
                       TalkQuerySnapshot talkSnapshot = snapshot.requireData;

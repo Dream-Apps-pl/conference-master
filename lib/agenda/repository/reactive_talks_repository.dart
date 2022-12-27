@@ -33,26 +33,21 @@ import 'dart:async';
 import 'package:conferenceapp/model/talk.dart';
 import 'package:rxdart/rxdart.dart';
 
-import 'contentful_talks_repository.dart';
 import 'talks_repository.dart';
 
 class ReactiveTalksRepository implements TalkRepository {
-  final ContentfulTalksRepository _repository;
   final BehaviorSubject<List<Talk>> _subject;
   bool _loaded = false;
 
   ReactiveTalksRepository({
     required repository,
     List<Talk>? seedValue,
-  })  : this._repository = repository,
-        this._subject = BehaviorSubject<List<Talk>>.seeded(seedValue!);
+  }) : this._subject = BehaviorSubject<List<Talk>>.seeded(seedValue!);
 
   Future<void> addNewTalk(Talk talk) async {
     _subject.add(List.unmodifiable([]
       ..addAll(_subject.value)
       ..add(talk)));
-
-    await _repository.saveTalks(_subject.value);
   }
 
   Future<void> deleteTalk(List<String> idList) async {
@@ -64,8 +59,6 @@ class ReactiveTalksRepository implements TalkRepository {
         },
       )),
     );
-
-    await _repository.saveTalks(_subject.value);
   }
 
   @override
@@ -119,7 +112,5 @@ class ReactiveTalksRepository implements TalkRepository {
         (prev, entity) => prev..add(entity.id == update.id ? update : entity),
       )),
     );
-
-    await _repository.saveTalks(_subject.value);
   }
 }

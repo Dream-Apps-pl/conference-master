@@ -1,5 +1,4 @@
 import 'package:conferenceapp/agenda/repository/firestore_service_repository.dart';
-import 'package:conferenceapp/model/agenda.dart';
 import 'package:conferenceapp/model/author.dart';
 import 'package:conferenceapp/model/room.dart';
 import 'package:conferenceapp/model/talk.dart';
