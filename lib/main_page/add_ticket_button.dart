@@ -25,7 +25,7 @@ class AddTicketButton extends StatelessWidget {
                     title: Text('Add your ticket'),
                     description: Text(
                         'Tap this button to add your ticket. You\'ll need your order or ticket number.'),
-                    backgroundColor: Theme.of(context).primaryColor,
+                    // backgroundColor: Theme.of(context).primaryColor,
                     onComplete: () async {
                       return true;
                     },
@@ -34,7 +34,7 @@ class AddTicketButton extends StatelessWidget {
                     child: Icon(LineIcons.alternateTicket),
                   ),
                   shape: StadiumBorder(),
-                  backgroundColor: Theme.of(context).primaryColor,
+                  // backgroundColor: Theme.of(context).primaryColor,
                   tooltip: 'Add your ticket',
                   isExtended: true,
                   label: Text(

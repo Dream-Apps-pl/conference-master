@@ -1,5 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: type=lint
+
 part of 'talk_list.dart';
 
 // **************************************************************************
@@ -12,6 +14,11 @@ TalkList _$TalkListFromJson(Map json) => TalkList(
           .map((e) => Talk.fromJson(Map<String, dynamic>.from(e as Map)))
           .toList(),
     );
+
+const _$TalkListFieldMap = <String, String>{
+  'day': 'day',
+  'talks': 'talks',
+};
 
 Map<String, dynamic> _$TalkListToJson(TalkList instance) => <String, dynamic>{
       'day': dateTimeToTimeStamp(instance.day),

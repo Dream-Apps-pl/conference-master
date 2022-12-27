@@ -74,19 +74,20 @@ class _ScanPartyPageContentState extends State<ScanPartyPageContent> {
   }
 
   Widget _cameraPreviewWidget() {
-    return MobileScanner(
-        controller: MobileScannerController(
-            facing: CameraFacing.front, torchEnabled: true),
-        onDetect: (capture) {
-          final List<Barcode> barcodes = capture.barcodes;
-          if (barcodes == null) {
-            showInSnackBar('Nie ma takiego biletu ❗️❗️❗️❗️', Colors.red);
-            debugPrint('Failed to scan Barcode');
-          } else {
-            final String code = barcodes.first.rawValue!;
-            showInSnackBar('Uczestnik już skanował bilet na imprezę');
-          }
-        });
+    return SizedBox();
+    // return MobileScanner(
+    //     controller: MobileScannerController(
+    //         facing: CameraFacing.front, torchEnabled: true),
+    //     onDetect: (capture) {
+    //       final List<Barcode> barcodes = capture.barcodes;
+    //       if (barcodes == null) {
+    //         showInSnackBar('Nie ma takiego biletu ❗️❗️❗️❗️', Colors.red);
+    //         debugPrint('Failed to scan Barcode');
+    //       } else {
+    //         final String code = barcodes.first.rawValue!;
+    //         showInSnackBar('Uczestnik już skanował bilet na imprezę');
+    //       }
+    //     });
   }
 
   void showInSnackBar(String message, [Color color = Colors.green]) {

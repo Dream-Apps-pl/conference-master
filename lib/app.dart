@@ -207,12 +207,12 @@ class _VariousProvidersState extends State<VariousProviders> {
   Future onSelectNotification(String payload) async {
     logger.info('notification payload: ' + payload);
 
-    navigatorKey.currentState?.push(
-      MaterialPageRoute(
-        builder: (context) => TalkPage(payload),
-        settings: RouteSettings(name: 'agenda/$payload'),
-      ),
-    );
+    // navigatorKey.currentState?.push(
+    //   MaterialPageRoute(
+    //     builder: (context) => TalkPage(payload),
+    //     settings: RouteSettings(name: 'agenda/$payload'),
+    //   ),
+    // );
   }
 
   @override
@@ -231,11 +231,11 @@ class _VariousProvidersState extends State<VariousProviders> {
         Provider<ContentfulClient>.value(
           value: contentfulClient,
         ),
-        FutureProvider<FirebaseRemoteConfig>(
-          create: (_) async => initializeRemoteConfig(),
-          initialData: FirebaseRemoteConfig.instance,
-          lazy: false,
-        ),
+        // FutureProvider<FirebaseRemoteConfig>(
+        //   create: (_) async => initializeRemoteConfig(),
+        //   initialData: FirebaseRemoteConfig.instance,
+        //   lazy: false,
+        // ),
       ],
       child: widget.child,
     );

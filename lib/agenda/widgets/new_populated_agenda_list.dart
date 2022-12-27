@@ -1,91 +1,36 @@
-import 'package:collection/collection.dart';
 import 'package:conferenceapp/agenda/helpers/agenda_layout_helper.dart';
 import 'package:conferenceapp/agenda/widgets/talk_card.dart';
+import 'package:conferenceapp/agenda/widgets/talk_hour.dart';
 import 'package:conferenceapp/model/agenda.dart';
-import 'package:conferenceapp/model/room.dart';
 import 'package:conferenceapp/model/talk.dart';
-import 'package:conferenceapp/profile/favorites_repository.dart';
 import 'package:conferenceapp/talk/talk_page.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:provider/provider.dart';
 
-import 'animated_room_indicator.dart';
-import 'talk_hour.dart';
-
-class PopulatedAgendaDayList extends StatelessWidget {
-  const PopulatedAgendaDayList(
-    this.talksInDay,
-    this.rooms, {
+class NewPopulatedAgendaDayListContent extends StatelessWidget {
+  const NewPopulatedAgendaDayListContent({
     Key? key,
-  }) : super(key: key);
-
-  final List<Talk> talksInDay;
-  final List<Room> rooms;
-
-  @override
-  Widget build(BuildContext context) {
-    final talksPerHour =
-        groupBy<Talk, DateTime>(talksInDay, (t) => t.startTime);
-
-    final favoritesRepository =
-        RepositoryProvider.of<FavoritesRepository>(context);
-    return StreamBuilder<List<Talk>>(
-      stream: favoritesRepository.favoriteTalks,
-      builder: (context, snapshot) {
-        final layoutHelper = Provider.of<AgendaLayoutHelper>(context);
-        final compact = layoutHelper.isCompact();
-        return Stack(
-          children: <Widget>[
-            PopulatedAgendaDayListContent(
-              talksPerHour: talksPerHour,
-              rooms: rooms,
-              compact: compact,
-              layoutHelper: layoutHelper,
-              snapshot: snapshot,
-            ),
-            Positioned(
-              top: 0,
-              left: 0,
-              right: 0,
-              child: AnimatedRoomIndicator(
-                compact: compact,
-                rooms: rooms,
-              ),
-            ),
-          ],
-        );
-      },
-    );
-  }
-}
-
-class PopulatedAgendaDayListContent extends StatelessWidget {
-  const PopulatedAgendaDayListContent({
-    Key? key,
-    required this.talksPerHour,
+    required this.favoriteTalks,
     required this.compact,
     required this.layoutHelper,
     required this.snapshot,
-    required this.rooms,
   }) : super(key: key);
 
-  final Map<DateTime, List<Talk>> talksPerHour;
-  final List<Room> rooms;
+  // final List<Talk> talksPerHour;
+  final List<String> favoriteTalks;
   final bool compact;
   final AgendaLayoutHelper layoutHelper;
-  final AsyncSnapshot<List<Talk>> snapshot;
+  final List<TalkQueryDocumentSnapshot> snapshot;
 
   @override
   Widget build(BuildContext context) {
-    final hours = talksPerHour.keys.toList();
+    // final hours = talksPerHour.keys.toList();
 
-    if (hours.isEmpty) {
-      return Center(
-        child: Text('No talks on this day'),
-      );
-    }
-    final favoriteTalks = snapshot.data ?? [];
+    // if (hours.isEmpty) {
+    //   return Center(
+    //     child: Text('No talks on this day'),
+    //   );
+    // }
+    // final List<String> favoriteTalks = [];
 
     final listCompact = compact
         ? ListView.builder(
@@ -97,20 +42,23 @@ class PopulatedAgendaDayListContent extends StatelessWidget {
             ),
             physics:
                 AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
-            itemCount: talksPerHour.length,
+            itemCount: snapshot.length,
             itemBuilder: (context, index) {
               Talk _firstTalk;
               Talk _secondTalk;
 
-              final _thisHoursTalks = talksPerHour[hours[index]];
+              final _thisHoursTalks = snapshot[index];
 
               //TODO: make it independent of rooms number
-              _firstTalk = _thisHoursTalks!.firstWhere(
-                (t) => t.room.id != TalkType.advanced.toString(),
-              );
-              _secondTalk = _thisHoursTalks.firstWhere(
-                (t) => t.room.id == TalkType.advanced.toString(),
-              );
+              // _firstTalk = _thisHoursTalks.data;
+              _firstTalk = _thisHoursTalks.data;
+              // .firstWhere(
+              //   (t) => t.room.id != TalkType.advanced.toString(),
+              // );
+              _secondTalk = _thisHoursTalks.data;
+              // .firstWhere(
+              //   (t) => t.room.id == TalkType.advanced.toString(),
+              // );
 
               final firstChild = getCompactTalkCards(
                   _firstTalk, _secondTalk, favoriteTalks, context);
@@ -133,20 +81,22 @@ class PopulatedAgendaDayListContent extends StatelessWidget {
             ),
             physics:
                 AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
-            itemCount: talksPerHour.length,
+            itemCount: snapshot.length,
             itemBuilder: (context, index) {
               Talk _firstTalk;
               Talk _secondTalk;
 
-              final _thisHoursTalks = talksPerHour[hours[index]];
+              final _thisHoursTalks = snapshot[index];
 
               //TODO: make it independent of rooms number
-              _firstTalk = _thisHoursTalks!.firstWhere(
-                (t) => t.room.id != TalkType.advanced.toString(),
-              );
-              _secondTalk = _thisHoursTalks.firstWhere(
-                (t) => t.room.id == TalkType.advanced.toString(),
-              );
+              _firstTalk = _thisHoursTalks.data;
+              // .firstWhere(
+              //   (t) => t.room.id != TalkType.advanced.toString(),
+              // );
+              _secondTalk = _thisHoursTalks.data;
+              // .firstWhere(
+              //   (t) => t.room.id == TalkType.advanced.toString(),
+              // );
 
               final secondChild = getNormalTalkCards(
                   _firstTalk, favoriteTalks, context, _secondTalk);
@@ -166,7 +116,7 @@ class PopulatedAgendaDayListContent extends StatelessWidget {
     );
   }
 
-  Column getNormalTalkCards(Talk _firstTalk, List<Talk> favoriteTalks,
+  Column getNormalTalkCards(Talk _firstTalk, List<String> favoriteTalks,
       BuildContext context, Talk _secondTalk) {
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -175,26 +125,26 @@ class PopulatedAgendaDayListContent extends StatelessWidget {
           TalkCard(
             key: ValueKey(_firstTalk.id),
             talk: _firstTalk,
-            isFavorite: favoriteTalks.any((t) => t.id == _firstTalk.id),
+            isFavorite: favoriteTalks.contains(_firstTalk.id),
             first: true,
             compact: false,
             onTap: () => onTap(context, _firstTalk),
           ),
-        if (_secondTalk != null)
-          TalkCard(
-            key: ValueKey(_secondTalk.id),
-            talk: _secondTalk,
-            isFavorite: favoriteTalks.any((t) => t.id == _secondTalk.id),
-            first: false,
-            compact: false,
-            onTap: () => onTap(context, _secondTalk),
-          ),
+        // if (_secondTalk != null)
+        //   TalkCard(
+        //     key: ValueKey(_secondTalk.id),
+        //     talk: _secondTalk,
+        //     isFavorite: favoriteTalks.any((t) => t.id == _secondTalk.id),
+        //     first: false,
+        //     compact: false,
+        //     onTap: () => onTap(context, _secondTalk),
+        //   ),
       ],
     );
   }
 
   Row getCompactTalkCards(Talk _firstTalk, Talk _secondTalk,
-      List<Talk> favoriteTalks, BuildContext context) {
+      List<String> favoriteTalks, BuildContext context) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -204,7 +154,7 @@ class PopulatedAgendaDayListContent extends StatelessWidget {
             child: TalkCard(
               key: ValueKey(_firstTalk.id),
               talk: _firstTalk,
-              isFavorite: favoriteTalks.any((t) => t.id == _firstTalk.id),
+              isFavorite: favoriteTalks.contains(_firstTalk.id),
               first: true,
               compact: true,
               onTap: () => onTap(context, _firstTalk),
@@ -215,7 +165,7 @@ class PopulatedAgendaDayListContent extends StatelessWidget {
             child: TalkCard(
               key: ValueKey(_firstTalk.id),
               talk: _firstTalk,
-              isFavorite: favoriteTalks.any((t) => t.id == _firstTalk.id),
+              isFavorite: favoriteTalks.contains(_firstTalk.id),
               first: true,
               compact: true,
               onTap: () => onTap(context, _firstTalk),
@@ -232,7 +182,7 @@ class PopulatedAgendaDayListContent extends StatelessWidget {
             child: TalkCard(
               key: ValueKey(_secondTalk.id),
               talk: _secondTalk,
-              isFavorite: favoriteTalks.any((t) => t.id == _secondTalk.id),
+              isFavorite: favoriteTalks.contains(_firstTalk.id),
               first: false,
               compact: true,
               onTap: () => onTap(context, _secondTalk),

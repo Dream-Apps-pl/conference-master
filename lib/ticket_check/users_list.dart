@@ -60,7 +60,7 @@ class _UsersListPageState extends State<UsersListPage> {
           FocusScope.of(context).requestFocus(FocusNode());
         },
         child: StreamBuilder<bool>(
-            stream: authRepo.isAdmin,
+            stream: authRepo.isAdmin(),
             builder: (context, isAdmin) {
               return StreamBuilder<QuerySnapshot>(
                 stream: tickets,

@@ -1,4 +1,3 @@
-import 'package:conferenceapp/common/logger.dart';
 import 'package:conferenceapp/model/talk.dart';
 import 'package:conferenceapp/utils/contentful_client.dart';
 
@@ -15,19 +14,19 @@ class ContentfulTalksRepository {
     required this.cacheDuration,
   });
 
-  Future<List<Talk>> loadTalks([bool force = false]) async {
-    try {
-      final cached = await fileStorage.loadItems();
-      if ((force || await cacheExpired())) {
-        return fetchTalks();
-      } else {
-        return cached;
-      }
-    } catch (e, s) {
-      logger.errorException(e, s);
-      return fetchTalks();
-    }
-  }
+  // Future<List<Talk>> loadTalks([bool force = false]) async {
+  //   try {
+  //     final cached = await fileStorage.loadItems();
+  //     if ((force || await cacheExpired())) {
+  //       return fetchTalks();
+  //     } else {
+  //       return cached;
+  //     }
+  //   } catch (e, s) {
+  //     logger.errorException(e, s);
+  //     return fetchTalks();
+  //   }
+  // }
 
   Future<bool> cacheExpired() async {
     final lastModified = await fileStorage.lastModified();
@@ -36,18 +35,18 @@ class ContentfulTalksRepository {
         .isBefore(DateTime.now().subtract(cacheDuration));
   }
 
-  Future<List<Talk>> fetchTalks() async {
-    try {
-      final talks = await client.fetchTalks();
+  // Future<List<Talk>> fetchTalks() async {
+  //   try {
+  //     final talks = await client.fetchTalks();
 
-      await fileStorage.saveItems(talks);
+  //     await fileStorage.saveItems(talks);
 
-      return talks;
-    } catch (e, s) {
-      logger.errorException(e, s);
-      return <Talk>[];
-    }
-  }
+  //     return talks;
+  //   } catch (e, s) {
+  //     logger.errorException(e, s);
+  //     return <Talk>[];
+  //   }
+  // }
 
   Future saveTalks(List<Talk> talks) {
     return Future.wait<dynamic>([

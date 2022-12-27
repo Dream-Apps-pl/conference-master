@@ -204,17 +204,17 @@ class _ProfilePageState extends State<ProfilePage> {
                       'Created by Dominik Roszkowski (roszkowski.dev), Maciek Korzeniewski (@korzonkiee), Marcin Szałek (fidev.io) and Robert Odrowąż-Sypniewski for the Flutter Europe conference');
             },
           ),
-          if (Provider.of<FirebaseRemoteConfig>(context, listen: false)
-              .getBool('service_login_enabled'))
-            ListTile(
-              title: Text('Service login'),
-              subtitle: Text('You can check tickets if you\'re authorized'),
-              trailing: Icon(LineIcons.angleRight),
-              contentPadding: EdgeInsets.only(left: 16.0, right: 24.0),
-              onTap: () {
-                AuthenticatorButton().showLoginDialog(context);
-              },
-            ),
+          // if (Provider.of<FirebaseRemoteConfig>(context, listen: false)
+          //     .getBool('service_login_enabled'))
+          //   ListTile(
+          //     title: Text('Service login'),
+          //     subtitle: Text('You can check tickets if you\'re authorized'),
+          //     trailing: Icon(LineIcons.angleRight),
+          //     contentPadding: EdgeInsets.only(left: 16.0, right: 24.0),
+          //     onTap: () {
+          //       AuthenticatorButton().showLoginDialog(context);
+          //     },
+          //   ),
           Visibility(
             visible: authVisible,
             child: AuthenticatorButton(),
@@ -266,6 +266,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
   void changeBrightness() {
     final target = Theme.of(context).brightness == Brightness.dark ? 0 : 1;
+    print('target $target');
     final paramValue = target == 0 ? 'light' : 'dark';
     analytics!.logEvent(
       name: 'settings_theme',

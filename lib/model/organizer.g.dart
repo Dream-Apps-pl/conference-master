@@ -1,5 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: type=lint
+
 part of 'organizer.dart';
 
 // **************************************************************************
@@ -15,6 +17,13 @@ Organizers _$OrganizersFromJson(Map<String, dynamic> json) => Organizers(
           .toList(),
     );
 
+const _$OrganizersFieldMap = <String, String>{
+  'total': 'total',
+  'skip': 'skip',
+  'limit': 'limit',
+  'items': 'items',
+};
+
 Map<String, dynamic> _$OrganizersToJson(Organizers instance) =>
     <String, dynamic>{
       'total': instance.total,
@@ -29,6 +38,11 @@ OrganizerFields _$OrganizerFieldsFromJson(Map<String, dynamic> json) =>
       Organizer.fromJson(json['fields'] as Map<String, dynamic>),
     );
 
+const _$OrganizerFieldsFieldMap = <String, String>{
+  'sys': 'sys',
+  'fields': 'fields',
+};
+
 Map<String, dynamic> _$OrganizerFieldsToJson(OrganizerFields instance) =>
     <String, dynamic>{
       'sys': instance.sys?.toJson(),
@@ -42,6 +56,14 @@ Organizer _$OrganizerFromJson(Map json) => Organizer(
       _storeDocumentAsString(json['longBio'] as Map),
       json['order'] as int,
     );
+
+const _$OrganizerFieldMap = <String, String>{
+  'name': 'name',
+  'picture': 'picture',
+  'bio': 'bio',
+  'longBio': 'longBio',
+  'order': 'order',
+};
 
 Map<String, dynamic> _$OrganizerToJson(Organizer instance) => <String, dynamic>{
       'name': instance.name,

@@ -4,11 +4,7 @@ import 'package:equatable/equatable.dart';
 
 part 'room.g.dart';
 
-@JsonSerializable(
-  nullable: false,
-  explicitToJson: true,
-  anyMap: true,
-)
+@JsonSerializable(explicitToJson: true)
 class Room extends Equatable {
   final String name;
   final String id;

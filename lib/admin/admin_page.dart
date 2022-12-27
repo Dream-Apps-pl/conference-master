@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:conferenceapp/admin/admin_agenda.dart';
 import 'package:conferenceapp/common/europe_text_field.dart';
 import 'package:conferenceapp/common/logger.dart';
 import 'package:conferenceapp/model/notification.dart';
@@ -27,35 +28,49 @@ class AdminPage extends StatelessWidget {
         child: Column(
           children: <Widget>[
             ListTile(
-              title: Text('Load tickets from csv'),
-              subtitle: Text(
-                  'Select attendees.csv from Eventil to upload into Firestore. Will overwrite the existing database.'),
-              trailing: Icon(LineIcons.file),
+              title: Text('Add Agenda'),
+              subtitle: Text('Input agenda to show on agenda page'),
+              trailing: Icon(LineIcons.database),
               onTap: () async {
-                final res = await handleCsvTickets();
-                if (res == false) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text('Error during loading of the tickets.'),
-                      behavior: SnackBarBehavior.floating,
-                    ),
-                  );
-                }
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => AdminAgenda(),
+                    settings: RouteSettings(name: 'admin/agenda'),
+                  ),
+                );
               },
             ),
-            ListTile(
-              title: Text('Add notification'),
-              subtitle: Text(
-                  'Notification will be visible on notifications page for all attendees.'),
-              trailing: Icon(LineIcons.exclamation),
-              onTap: () async => await handleAddingNotification(context),
-            ),
-            ListTile(
-              title: Text('Create new ticketer'),
-              subtitle: Text('This allows to create new ticketer'),
-              trailing: Icon(LineIcons.smilingFace),
-              onTap: () async => await handleCreateNewUser(context),
-            ),
+            // ListTile(
+            //   title: Text('Load tickets from csv'),
+            //   subtitle: Text(
+            //       'Select attendees.csv from Eventil to upload into Firestore. Will overwrite the existing database.'),
+            //   trailing: Icon(LineIcons.file),
+            //   onTap: () async {
+            //     final res = await handleCsvTickets();
+            //     if (res == false) {
+            //       ScaffoldMessenger.of(context).showSnackBar(
+            //         SnackBar(
+            //           content: Text('Error during loading of the tickets.'),
+            //           behavior: SnackBarBehavior.floating,
+            //         ),
+            //       );
+            //     }
+            //   },
+            // ),
+            // ListTile(
+            //   title: Text('Add notification'),
+            //   subtitle: Text(
+            //       'Notification will be visible on notifications page for all attendees.'),
+            //   trailing: Icon(LineIcons.exclamation),
+            //   onTap: () async => await handleAddingNotification(context),
+            // ),
+            // ListTile(
+            //   title: Text('Create new ticketer'),
+            //   subtitle: Text('This allows to create new ticketer'),
+            //   trailing: Icon(LineIcons.smilingFace),
+            //   onTap: () async => await handleCreateNewUser(context),
+            // ),
             ListTile(
               title: Text('Logout'),
               trailing: Icon(LineIcons.sign),

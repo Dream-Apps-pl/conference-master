@@ -305,7 +305,8 @@ final _talks = <Talk>[
       DateTime(2020, 1, 23, 9, 0),
       DateTime(2020, 1, 23, 9, 45),
       _rA,
-      TalkType.beginner),
+      TalkType.beginner,
+      DayType.one),
   Talk(
       '2',
       _titles[2],
@@ -314,7 +315,7 @@ final _talks = <Talk>[
       DateTime(2020, 1, 23, 10, 0),
       DateTime(2020, 1, 23, 9, 45),
       _rA,
-      TalkType.beginner),
+      TalkType.beginner, DayType.one),
   Talk(
       '3',
       _titles[3],
@@ -323,7 +324,7 @@ final _talks = <Talk>[
       DateTime(2020, 1, 23, 10, 0),
       DateTime(2020, 1, 23, 9, 45),
       _rB,
-      TalkType.beginner),
+      TalkType.beginner, DayType.one),
   Talk(
       '4',
       _titles[4],
@@ -332,7 +333,7 @@ final _talks = <Talk>[
       DateTime(2020, 1, 23, 11, 0),
       DateTime(2020, 1, 23, 9, 45),
       _rA,
-      TalkType.beginner),
+      TalkType.beginner, DayType.one),
   Talk(
       '5',
       _titles[5],
@@ -341,7 +342,7 @@ final _talks = <Talk>[
       DateTime(2020, 1, 23, 11, 0),
       DateTime(2020, 1, 23, 9, 45),
       _rB,
-      TalkType.beginner),
+      TalkType.beginner, DayType.one),
   Talk(
       '6',
       _titles[6],
@@ -350,7 +351,7 @@ final _talks = <Talk>[
       DateTime(2020, 1, 23, 12, 0),
       DateTime(2020, 1, 23, 9, 45),
       _rA,
-      TalkType.beginner),
+      TalkType.beginner, DayType.one),
   Talk(
       '7',
       _titles[7],
@@ -359,7 +360,7 @@ final _talks = <Talk>[
       DateTime(2020, 1, 23, 12, 0),
       DateTime(2020, 1, 23, 9, 45),
       _rB,
-      TalkType.beginner),
+      TalkType.beginner, DayType.one),
   Talk(
       '8',
       _titles[8],
@@ -368,7 +369,7 @@ final _talks = <Talk>[
       DateTime(2020, 1, 23, 13, 0),
       DateTime(2020, 1, 23, 9, 45),
       _rA,
-      TalkType.beginner),
+      TalkType.beginner, DayType.one),
   Talk(
       '9',
       _titles[9],
@@ -377,7 +378,7 @@ final _talks = <Talk>[
       DateTime(2020, 1, 23, 13, 0),
       DateTime(2020, 1, 23, 9, 45),
       _rB,
-      TalkType.beginner),
+      TalkType.beginner, DayType.one),
   Talk(
       '10',
       _titles[10],
@@ -386,7 +387,7 @@ final _talks = <Talk>[
       DateTime(2020, 1, 23, 15, 0),
       DateTime(2020, 1, 23, 9, 45),
       _rA,
-      TalkType.beginner),
+      TalkType.beginner, DayType.one),
   Talk(
       '11',
       _titles[11],
@@ -395,7 +396,7 @@ final _talks = <Talk>[
       DateTime(2020, 1, 23, 15, 0),
       DateTime(2020, 1, 23, 9, 45),
       _rB,
-      TalkType.beginner),
+      TalkType.beginner, DayType.one),
   Talk(
       '12',
       _titles[12],
@@ -404,7 +405,7 @@ final _talks = <Talk>[
       DateTime(2020, 1, 23, 16, 0),
       DateTime(2020, 1, 23, 9, 45),
       _rA,
-      TalkType.beginner),
+      TalkType.beginner, DayType.one),
   Talk(
       '13',
       _titles[13],
@@ -413,7 +414,7 @@ final _talks = <Talk>[
       DateTime(2020, 1, 23, 16, 0),
       DateTime(2020, 1, 23, 9, 45),
       _rB,
-      TalkType.beginner),
+      TalkType.beginner, DayType.one),
   Talk(
       '15',
       _titles[15],
@@ -422,7 +423,7 @@ final _talks = <Talk>[
       DateTime(2020, 1, 23, 17, 0),
       DateTime(2020, 1, 23, 9, 45),
       _rA,
-      TalkType.beginner),
+      TalkType.beginner, DayType.one),
   Talk(
       '16',
       _titles[16],
@@ -431,7 +432,7 @@ final _talks = <Talk>[
       DateTime(2020, 1, 23, 17, 0),
       DateTime(2020, 1, 23, 9, 45),
       _rB,
-      TalkType.beginner),
+      TalkType.beginner, DayType.one),
   //Day2
   Talk(
       '17',
@@ -441,7 +442,7 @@ final _talks = <Talk>[
       DateTime(2020, 1, 24, 9, 0),
       DateTime(2020, 1, 23, 9, 45),
       _rA,
-      TalkType.beginner),
+      TalkType.beginner, DayType.one),
   Talk(
       '19',
       _titles[19],
@@ -450,7 +451,7 @@ final _talks = <Talk>[
       DateTime(2020, 1, 24, 10, 0),
       DateTime(2020, 1, 23, 9, 45),
       _rA,
-      TalkType.beginner),
+      TalkType.beginner, DayType.one),
   Talk(
       '20',
       _titles[20],
@@ -459,7 +460,7 @@ final _talks = <Talk>[
       DateTime(2020, 1, 24, 10, 0),
       DateTime(2020, 1, 23, 9, 45),
       _rB,
-      TalkType.beginner),
+      TalkType.beginner, DayType.one),
   Talk(
       '21',
       _titles[21],
@@ -468,7 +469,7 @@ final _talks = <Talk>[
       DateTime(2020, 1, 24, 11, 0),
       DateTime(2020, 1, 23, 9, 45),
       _rA,
-      TalkType.beginner),
+      TalkType.beginner, DayType.one),
   Talk(
       '22',
       _titles[22],
@@ -477,7 +478,7 @@ final _talks = <Talk>[
       DateTime(2020, 1, 24, 11, 0),
       DateTime(2020, 1, 23, 9, 45),
       _rB,
-      TalkType.beginner),
+      TalkType.beginner, DayType.one),
   Talk(
       '23',
       _titles[23],
@@ -486,7 +487,7 @@ final _talks = <Talk>[
       DateTime(2020, 1, 24, 12, 0),
       DateTime(2020, 1, 23, 9, 45),
       _rA,
-      TalkType.beginner),
+      TalkType.beginner, DayType.one),
   Talk(
       '24',
       _titles[24],
@@ -495,7 +496,7 @@ final _talks = <Talk>[
       DateTime(2020, 1, 24, 12, 0),
       DateTime(2020, 1, 23, 9, 45),
       _rB,
-      TalkType.beginner),
+      TalkType.beginner, DayType.one),
   Talk(
       '25',
       _titles[25],
@@ -504,7 +505,7 @@ final _talks = <Talk>[
       DateTime(2020, 1, 24, 15, 0),
       DateTime(2020, 1, 23, 9, 45),
       _rA,
-      TalkType.beginner),
+      TalkType.beginner, DayType.one),
   Talk(
       '26',
       _titles[26],
@@ -513,7 +514,7 @@ final _talks = <Talk>[
       DateTime(2020, 1, 24, 15, 0),
       DateTime(2020, 1, 23, 9, 45),
       _rB,
-      TalkType.beginner),
+      TalkType.beginner, DayType.one),
   Talk(
       '27',
       _titles[27],
@@ -522,7 +523,7 @@ final _talks = <Talk>[
       DateTime(2020, 1, 24, 16, 0),
       DateTime(2020, 1, 23, 9, 45),
       _rA,
-      TalkType.beginner),
+      TalkType.beginner, DayType.one),
   Talk(
       '28',
       _titles[28],
@@ -531,7 +532,7 @@ final _talks = <Talk>[
       DateTime(2020, 1, 24, 16, 0),
       DateTime(2020, 1, 23, 9, 45),
       _rB,
-      TalkType.beginner),
+      TalkType.beginner, DayType.one),
   Talk(
       '29',
       _titles[29],
@@ -540,5 +541,5 @@ final _talks = <Talk>[
       DateTime(2020, 1, 24, 17, 0),
       DateTime(2020, 1, 23, 9, 45),
       _rA,
-      TalkType.beginner),
+      TalkType.beginner, DayType.one),
 ];

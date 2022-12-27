@@ -93,23 +93,23 @@ class ReactiveTalksRepository implements TalkRepository {
 
   @override
   void refresh() {
-    _repository.loadTalks(true).then((entities) {
-      _subject.add(List<Talk>.unmodifiable(
-        []..addAll(entities),
-      ));
-    });
+    // _repository.loadTalks(true).then((entities) {
+    //   _subject.add(List<Talk>.unmodifiable(
+    //     []..addAll(entities),
+    //   ));
+    // });
   }
 
   void _loadTodos() {
     _loaded = true;
 
-    _repository.loadTalks().then((entities) {
-      _subject.add(List<Talk>.unmodifiable(
-        []
-          ..addAll(_subject.value)
-          ..addAll(entities),
-      ));
-    });
+    // _repository.loadTalks().then((entities) {
+    //   _subject.add(List<Talk>.unmodifiable(
+    //     []
+    //       ..addAll(_subject.value)
+    //       ..addAll(entities),
+    //   ));
+    // });
   }
 
   Future<void> updateTodo(Talk update) async {

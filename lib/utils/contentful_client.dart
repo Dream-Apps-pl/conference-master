@@ -11,23 +11,23 @@ class ContentfulClient {
 
   const ContentfulClient(this.space, this.apiKey);
 
-  Future<List<Talk>> fetchTalks() async {
-    try {
-      final _client = Client(BearerTokenHTTPClient(apiKey), spaceId: space);
+  // Future<List<Talk>> fetchTalks() async {
+  //   try {
+  //     final _client = Client(BearerTokenHTTPClient(apiKey), spaceId: space);
 
-      final data = await _client.getEntries<AgendaFields>(
-        {
-          'content_type': 'programme',
-          'limit': '100',
-        },
-        AgendaFields.fromJson,
-      );
-      return data.items.map<Talk>((talk) => Talk.fromContentful(talk)).toList();
-    } catch (e) {
-      logger.errorException(e);
-      return null!;
-    }
-  }
+  //     final data = await _client.getEntries<AgendaFields>(
+  //       {
+  //         'content_type': 'programme',
+  //         'limit': '100',
+  //       },
+  //       AgendaFields.fromJson,
+  //     );
+  //     return data.items.map<Talk>((talk) => Talk.fromContentful(talk)).toList();
+  //   } catch (e) {
+  //     logger.errorException(e);
+  //     return null!;
+  //   }
+  // }
 
   Future<List<Sponsor>> fetchSponsors() async {
     try {

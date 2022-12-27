@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:conferenceapp/common/logger.dart';
 import 'package:conferenceapp/model/user.dart';
 import 'package:conferenceapp/profile/auth_repository.dart';
+import 'package:contentful_rich_text/types/types.dart';
 import 'package:rxdart/rxdart.dart';
 
 class UserRepository {
@@ -13,6 +14,7 @@ class UserRepository {
 
   UserRepository(this._authRepository, this._firestore) {
     this.user.listen((user) {
+      print('log id $user');
       _cachedUser = user;
     });
   }
@@ -32,27 +34,21 @@ class UserRepository {
       ).asBroadcastStream();
 
   Future<void> addTalkToFavorites(String talkId) async {
-    if (_cachedUser.favoriteTalksIds.contains(talkId)) {
-      return;
-    }
-
-    logger.setDeviceString('userId', _cachedUser.userId);
-
-    await _firestore.doc('users/${_cachedUser.userId}').set({
-      'userId': _cachedUser.userId,
-      'favoriteTalksIds': _cachedUser.favoriteTalksIds..add(talkId),
-      'updated': DateTime.now(),
-    });
+    logger.setDeviceString('userId', _authRepository.idUser);
+    await _firestore.doc('users/${_authRepository.idUser}').update(
+      {
+        'userId': _authRepository.idUser,
+        'favoriteTalksIds': FieldValue.arrayUnion([talkId]),
+        'updated': DateTime.now(),
+      },
+    );
   }
 
   Future<void> removeTalkFromFavorites(String talkId) async {
-    if (!_cachedUser.favoriteTalksIds.contains(talkId)) {
-      return;
-    }
-    await _firestore.doc('users/${_cachedUser.userId}').set({
-      'userId': _cachedUser.userId,
-      'favoriteTalksIds': _cachedUser.favoriteTalksIds..remove(talkId),
-      'updated': DateTime.now(),
+    await _firestore.doc('users/${_authRepository.idUser}').update({
+      'userId': _authRepository.idUser,
+      'favoriteTalksIds': FieldValue.arrayRemove([talkId]),
+      'updated': DateTime.now()
     });
   }
 

@@ -63,8 +63,9 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<bool>(
-        stream: RepositoryProvider.of<AuthRepository>(context).isAdmin,
+        stream: RepositoryProvider.of<AuthRepository>(context).isAdmin(),
         builder: (context, snapshot) {
+          // final isAdmin = true;
           final isAdmin = snapshot.data == true;
           return StreamBuilder<bool>(
               stream: RepositoryProvider.of<AuthRepository>(context).isTicketer,
@@ -197,7 +198,7 @@ class _HomePageState extends State<HomePage> {
           await Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => TalkPage(res.id),
+              builder: (context) => TalkPage(res),
               settings: RouteSettings(name: 'agenda/${res.id}'),
             ),
           );

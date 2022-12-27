@@ -1,13 +1,8 @@
-import 'package:conferenceapp/model/agenda.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:conferenceapp/utils/contentful_helper.dart';
 
 part 'author.g.dart';
 
-@JsonSerializable(
-  ignoreUnannotated: false,
-  anyMap: true,
-)
+@JsonSerializable(explicitToJson: true)
 class Author {
   Author(
     this.id,
@@ -20,17 +15,6 @@ class Author {
 
   factory Author.fromJson(Map<String, dynamic> json) => _$AuthorFromJson(json);
   Map<String, dynamic> toJson() => _$AuthorToJson(this);
-
-  factory Author.fromSpeaker(ContentfulSpeaker speaker) {
-    return Author(
-      speaker.sys!.id,
-      speaker.fields!.name,
-      speaker.fields!.longBio.toSimpleString(),
-      speaker.fields!.bio.toSimpleString(),
-      speaker.fields!.twitter,
-      speaker.fields!.picture.fields!.file!.url.replaceAll("//", "http://"),
-    );
-  }
 
   final String id;
   final String name;

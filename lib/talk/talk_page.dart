@@ -1,7 +1,5 @@
 // ignore_for_file: unnecessary_null_comparison
 
-// import 'package:add_2_calendar/add_2_calendar.dart';
-import 'package:conferenceapp/agenda/repository/talks_repository.dart';
 import 'package:conferenceapp/agenda/widgets/talk_card_widgets/favorite_button.dart';
 import 'package:conferenceapp/common/logger.dart';
 import 'package:conferenceapp/model/author.dart';
@@ -13,8 +11,6 @@ import 'package:conferenceapp/rate/repository/ratings_repository.dart';
 import 'package:conferenceapp/rate/widgets/review_button.dart';
 import 'package:conferenceapp/rate/widgets/review_text.dart';
 import 'package:conferenceapp/rate/widgets/star_rating.dart';
-import 'package:contentful_rich_text/contentful_rich_text.dart';
-import 'package:contentful_rich_text/types/types.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:expandable/expandable.dart';
 import 'package:extended_image/extended_image.dart';
@@ -24,88 +20,152 @@ import 'package:line_icons/line_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:conferenceapp/utils/contentful_helper.dart';
 
 class TalkPage extends StatelessWidget {
-  TalkPage(this.id);
+  TalkPage(this.data);
 
-  final String id;
+  final Talk data;
 
   @override
   Widget build(BuildContext context) {
-    final talkStream = Provider.of<TalkRepository>(context).talk(id);
-    return StreamBuilder<Talk>(
-      stream: talkStream,
-      builder: (context, snapshot) {
-        final talk = snapshot.hasData ? snapshot.data : null;
-        return Scaffold(
-          floatingActionButton: FloatingActionButton(
-            child: Icon(LineIcons.calendarPlus),
-            tooltip: 'Add to calendar',
-            backgroundColor: Theme.of(context).primaryColor,
-            onPressed: talk != null
-                ? () {
-                    try {
-                      // TODO: add calendar
-                      // final Event event = Event(
-                      //   title: talk.title,
-                      //   description: Document.fromJson(talk.descriptionMap)!
-                      //       .toSimpleString(),
-                      //   location:
-                      //       'Centrum konferencyjne w Centrum Nauki Kopernik, Wybrzeże Kościuszkowskie 20, 00-390 Warszawa',
-                      //   startDate: talk.startTime,
-                      //   endDate: talk.endTime,
-                      //   allDay: false,
-                      // );
+    return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        child: Icon(LineIcons.calendarPlus),
+        tooltip: 'Add to calendar',
+        backgroundColor: Theme.of(context).primaryColor,
+        onPressed: data != null
+            ? () {
+                try {
+                  // TODO: add calendar
+                  // final Event event = Event(
+                  //   title: talk.title,
+                  //   description: Document.fromJson(talk.descriptionMap)!
+                  //       .toSimpleString(),
+                  //   location:
+                  //       'Centrum konferencyjne w Centrum Nauki Kopernik, Wybrzeże Kościuszkowskie 20, 00-390 Warszawa',
+                  //   startDate: talk.startTime,
+                  //   endDate: talk.endTime,
+                  //   allDay: false,
+                  // );
 
-                      // Add2Calendar.addEvent2Cal(event);
-                    } catch (e, s) {
-                      logger.errorException(e, s);
-                    }
-                  }
+                  // Add2Calendar.addEvent2Cal(event);
+                } catch (e, s) {
+                  logger.errorException(e, s);
+                }
+              }
+            : null,
+      ),
+      body: CustomScrollView(
+        physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+        slivers: <Widget>[
+          SliverAppBar(
+            floating: false,
+            pinned: false,
+            backgroundColor: Theme.of(context).brightness == Brightness.light
+                ? Theme.of(context).primaryColor
+                : Theme.of(context).scaffoldBackgroundColor,
+            actions: data != null
+                ? <Widget>[
+                    TalkDetailsFavoriteButton(talk: data),
+                  ]
                 : null,
+            title: data != null ? Text(data.title) : null,
+            centerTitle: false,
           ),
-          body: CustomScrollView(
-            physics:
-                BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
-            slivers: <Widget>[
-              SliverAppBar(
-                floating: false,
-                pinned: false,
-                backgroundColor:
-                    Theme.of(context).brightness == Brightness.light
-                        ? Theme.of(context).primaryColor
-                        : Theme.of(context).scaffoldBackgroundColor,
-                actions: talk != null
-                    ? <Widget>[
-                        TalkDetailsFavoriteButton(talk: talk),
-                      ]
-                    : null,
-                title: talk != null ? Text(talk.title) : null,
-                centerTitle: false,
-              ),
-              (talk != null)
-                  ? SliverList(
-                      delegate: new SliverChildListDelegate([
-                        TopHeader(talk: talk),
-                        TalkTitle(talk: talk),
-                        TalkRating(talk: talk),
-                        if (talk.description != null) TalkDetails(talk: talk),
-                      ]),
-                    )
-                  : SliverFillRemaining(
-                      child: Center(
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: CircularProgressIndicator(),
-                        ),
-                      ),
+          (data != null)
+              ? SliverList(
+                  delegate: new SliverChildListDelegate([
+                    TopHeader(talk: data),
+                    TalkTitle(talk: data),
+                    // TalkRating(talk: talkSnapshot.docs.first.data),
+                    if (data.description != null) TalkDetails(talk: data),
+                  ]),
+                )
+              : SliverFillRemaining(
+                  child: Center(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: CircularProgressIndicator(),
                     ),
-            ],
-          ),
-        );
-      },
+                  ),
+                ),
+        ],
+      ),
     );
+
+    // final talkStream = Provider.of<TalkRepository>(context).talk(id);
+    // return StreamBuilder<Talk>(
+    //   stream: talkStream,
+    //   builder: (context, snapshot) {
+    //     final talk = snapshot.hasData ? snapshot.data : null;
+    //     return Scaffold(
+    //       floatingActionButton: FloatingActionButton(
+    //         child: Icon(LineIcons.calendarPlus),
+    //         tooltip: 'Add to calendar',
+    //         backgroundColor: Theme.of(context).primaryColor,
+    //         onPressed: talk != null
+    //             ? () {
+    //                 try {
+    //                   // TODO: add calendar
+    //                   // final Event event = Event(
+    //                   //   title: talk.title,
+    //                   //   description: Document.fromJson(talk.descriptionMap)!
+    //                   //       .toSimpleString(),
+    //                   //   location:
+    //                   //       'Centrum konferencyjne w Centrum Nauki Kopernik, Wybrzeże Kościuszkowskie 20, 00-390 Warszawa',
+    //                   //   startDate: talk.startTime,
+    //                   //   endDate: talk.endTime,
+    //                   //   allDay: false,
+    //                   // );
+
+    //                   // Add2Calendar.addEvent2Cal(event);
+    //                 } catch (e, s) {
+    //                   logger.errorException(e, s);
+    //                 }
+    //               }
+    //             : null,
+    //       ),
+    //       body: CustomScrollView(
+    //         physics:
+    //             BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+    //         slivers: <Widget>[
+    //           SliverAppBar(
+    //             floating: false,
+    //             pinned: false,
+    //             backgroundColor:
+    //                 Theme.of(context).brightness == Brightness.light
+    //                     ? Theme.of(context).primaryColor
+    //                     : Theme.of(context).scaffoldBackgroundColor,
+    //             actions: talk != null
+    //                 ? <Widget>[
+    //                     TalkDetailsFavoriteButton(talk: talk),
+    //                   ]
+    //                 : null,
+    //             title: talk != null ? Text(talk.title) : null,
+    //             centerTitle: false,
+    //           ),
+    //           (talk != null)
+    //               ? SliverList(
+    //                   delegate: new SliverChildListDelegate([
+    //                     TopHeader(talk: talk),
+    //                     TalkTitle(talk: talk),
+    //                     TalkRating(talk: talk),
+    //                     if (talk.description != null) TalkDetails(talk: talk),
+    //                   ]),
+    //                 )
+    //               : SliverFillRemaining(
+    //                   child: Center(
+    //                     child: Padding(
+    //                       padding: const EdgeInsets.all(8.0),
+    //                       child: CircularProgressIndicator(),
+    //                     ),
+    //                   ),
+    //                 ),
+    //         ],
+    //       ),
+    //     );
+    //   },
+    // );
   }
 }
 
@@ -271,7 +331,7 @@ class TalkDetails extends StatelessWidget {
             ),
           ),
           SizedBox(height: 6),
-          ContentfulRichText(talk.descriptionMap).documentToWidgetTree,
+          // ContentfulRichText(talk.descriptionMap).documentToWidgetTree,
           SizedBox(height: 32),
           Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,

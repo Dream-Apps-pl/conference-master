@@ -3,6 +3,7 @@ import 'package:conferenceapp/model/talk.dart';
 import 'package:conferenceapp/profile/favorites_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_bugfender/js_bugfender.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -24,7 +25,7 @@ class FavoriteButton extends StatelessWidget {
       onPressed: () => _onPressed(context),
       icon: Icon(
         isFavorite ? Icons.favorite : Icons.favorite_border,
-        color: Theme.of(context).accentColor,
+        color: Theme.of(context).colorScheme.secondary,
       ),
     );
   }
@@ -94,8 +95,8 @@ class FavoriteButton extends StatelessWidget {
     final reminderTime = _reminderTime();
 
     final title = '${talk.title}';
-        // (talk.authors.isNotEmpty ? 'by ' : '') +
-        // talk.authors.join(", ");
+    // (talk.authors.isNotEmpty ? 'by ' : '') +
+    // talk.authors.join(", ");
     await flutterLocalNotificationsPlugin.schedule(
       talk.id.hashCode,
       'Next talk starts in 5 minutes',

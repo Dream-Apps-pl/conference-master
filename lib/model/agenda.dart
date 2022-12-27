@@ -11,7 +11,7 @@ enum TalkType { beginner, advanced, other }
 
 enum Day { day_one, day_two }
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class Agenda extends EntryCollection<AgendaFields> {
   Agenda({
     required int total,
@@ -59,9 +59,9 @@ class Fields extends Equatable {
   final String time;
   final String title;
   final TalkType type;
-  final ContentfulSpeaker speaker;
+  final ContentfulSpeaker? speaker;
   @JsonKey(name: 'secondSpeaked')
-  final ContentfulSpeaker secondSpeaker;
+  final ContentfulSpeaker? secondSpeaker;
 
   @JsonKey(ignore: true)
   Document? get descriptionDocument =>
@@ -125,9 +125,9 @@ class ContentfulSpeaker extends Entry<ContentfulSpeakerFields> {
 @JsonSerializable(explicitToJson: true)
 class ContentfulSpeakerFields extends Equatable {
   final String name;
-  final String twitter;
-  final Asset picture;
-  final String topic;
+  final String? twitter;
+  final Asset? picture;
+  final String? topic;
   @JsonKey(fromJson: _documentFromJson, toJson: _documentToJson)
   final Document bio;
   @JsonKey(fromJson: _documentFromJson, toJson: _documentToJson)
@@ -141,5 +141,5 @@ class ContentfulSpeakerFields extends Equatable {
   Map<String, dynamic> toJson() => _$ContentfulSpeakerFieldsToJson(this);
 
   @override
-  List<Object> get props => [name, twitter];
+  List<Object> get props => [name, twitter!];
 }

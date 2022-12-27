@@ -17,15 +17,15 @@ class Speakers extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (talk == null) return Container();
+    if (talk.authors.isEmpty) return Container();
     return Column(
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.end,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        // for (var speaker in talk.authors)
-        //   _TalkSpeaker(speaker: speaker, compact: compact),
-        // if (talk.authors.isEmpty) SizedBox(height: 24)
+        for (var speaker in talk.authors)
+          _TalkSpeaker(speaker: speaker, compact: compact),
+        if (talk.authors.isEmpty) SizedBox(height: 24)
       ],
     );
   }
@@ -48,7 +48,7 @@ class _TalkSpeaker extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
-          if (speaker.avatar != null)
+          if (speaker.avatar.isNotEmpty)
             Container(
               width: 20,
               height: 20,
@@ -85,9 +85,8 @@ class SpeakersHeightEquivalent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (talk == null) return SizedBox(height: 22.0);
-    return SizedBox();
-    // return SizedBox(
-    //     height: talk.authors.isEmpty ? 22.0 : talk.authors.length * 28.0);
+    if (talk.authors.isEmpty) return SizedBox(height: 22.0);
+    return SizedBox(
+        height: talk.authors.isEmpty ? 22.0 : talk.authors.length * 28.0);
   }
 }

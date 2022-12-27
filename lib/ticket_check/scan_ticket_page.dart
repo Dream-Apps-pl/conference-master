@@ -54,19 +54,20 @@ class _ScanTicketPageState extends State<ScanTicketPage> {
   }
 
   Widget _cameraPreviewWidget() {
-    return MobileScanner(
-        controller: MobileScannerController(
-            facing: CameraFacing.front, torchEnabled: true),
-        onDetect: (capture) {
-          final List<Barcode> barcodes = capture.barcodes;
-          if (barcodes.isEmpty) {
-            widget.bloc.add(TicketScanned(barcodes.first.rawValue!));
-            debugPrint('Failed to scan Barcode');
-          } else {
-            final String code = barcodes.first.rawValue!;
-            debugPrint('Barcode found! $code');
-          }
-        });
+    return SizedBox();
+    // return MobileScanner(
+    //     controller: MobileScannerController(
+    //         facing: CameraFacing.front, torchEnabled: true),
+    //     onDetect: (capture) {
+    //       final List<Barcode> barcodes = capture.barcodes;
+    //       if (barcodes.isEmpty) {
+    //         widget.bloc.add(TicketScanned(barcodes.first.rawValue!));
+    //         debugPrint('Failed to scan Barcode');
+    //       } else {
+    //         final String code = barcodes.first.rawValue!;
+    //         debugPrint('Barcode found! $code');
+    //       }
+    //     });
   }
 }
 

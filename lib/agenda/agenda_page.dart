@@ -1,15 +1,14 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:conferenceapp/agenda/bloc/bloc.dart';
-import 'package:conferenceapp/agenda/repository/talks_repository.dart';
-import 'package:conferenceapp/agenda/widgets/talk_card.dart';
-import 'package:conferenceapp/model/room.dart';
+import 'package:cloud_firestore_odm/cloud_firestore_odm.dart';
+import 'package:conferenceapp/agenda/helpers/agenda_layout_helper.dart';
+import 'package:conferenceapp/agenda/widgets/new_populated_agenda_list.dart';
+import 'package:conferenceapp/model/talk.dart';
+import 'package:conferenceapp/profile/auth_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 
 import 'day_selector.dart';
 import 'widgets/loading_agenda_table.dart';
-import 'widgets/populated_agenda_table.dart';
-import 'widgets/talk_card_widgets/talk_title.dart';
 
 class AgendaPage extends StatefulWidget {
   const AgendaPage({
@@ -26,7 +25,6 @@ class _AgendaPageState extends State<AgendaPage> {
 
   @override
   void initState() {
-    // RepositoryProvider.of<TalkRepository>(context).talks();
     super.initState();
     pageController = PageController(initialPage: 0);
     pageController.addListener(() {
@@ -46,47 +44,79 @@ class _AgendaPageState extends State<AgendaPage> {
         if (pageController.hasClients)
           DaySelectorContainer(pageController, currentIndex.value),
         Flexible(
-            child: StreamBuilder<QuerySnapshot>(
-          stream: FirebaseFirestore.instance.collection('talks').snapshots(),
-          builder: ((context, snapshot) {
-            if (snapshot.hasData) {
-              return ListView.builder(
-                  itemCount: snapshot.data?.docs.length ?? 0,
-                  itemBuilder: (context, index) {
-                    DocumentSnapshot doc = snapshot.data!.docs[index];
-                    return Container(
-                      decoration: BoxDecoration(
-                        color: Colors.grey[200],
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
-                      ),
-                      padding: EdgeInsets.all(20),
-                      margin: EdgeInsets.all(5),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          TalkTitleText(
-                            title: doc['title'],
-                            compact: false,
+          child: StreamBuilder<List<dynamic>>(
+              stream:
+                  RepositoryProvider.of<AuthRepository>(context).favorites(),
+              builder: (context, snapshotFavorite) {
+                List<String> fav = snapshotFavorite.data == null
+                    ? []
+                    : List<String>.from(
+                        snapshotFavorite.data as List,
+                      );
+                return FirestoreBuilder<TalkQuerySnapshot>(
+                  ref: talksRef,
+                  builder: (BuildContext context,
+                      AsyncSnapshot<TalkQuerySnapshot> snapshot,
+                      Widget? child) {
+                    if (snapshot.hasError) {
+                      return Center(
+                          child:
+                              Text('An error has occured! ${snapshot.error}'));
+                    }
+                    if (snapshot.hasData) {
+                      TalkQuerySnapshot talkSnapshot = snapshot.requireData;
+                      final layoutHelper =
+                          Provider.of<AgendaLayoutHelper>(context);
+                      final compact = layoutHelper.isCompact();
+                      return PageView(
+                        controller: pageController,
+                        physics: AlwaysScrollableScrollPhysics(
+                            parent: BouncingScrollPhysics()),
+                        children: <Widget>[
+                          NewPopulatedAgendaDayListContent(
+                            favoriteTalks: fav,
+                            compact: compact,
+                            layoutHelper: layoutHelper,
+                            snapshot: talkSnapshot.docs
+                                .where((element) =>
+                                    element.data.day == DayType.one)
+                                .toList(),
                           ),
-                          SizedBox(height: 20),
-                          Row(
-                            children: [
-                              CircleAvatar(
-                                backgroundImage: NetworkImage(
-                                    doc['authors'].first['avatar']),
-                              ),
-                              SizedBox(width: 10),
-                              Text(doc['authors'].first['name'])
-                            ],
-                          )
+                          NewPopulatedAgendaDayListContent(
+                            favoriteTalks: fav,
+                            compact: compact,
+                            layoutHelper: layoutHelper,
+                            snapshot: talkSnapshot.docs
+                                .where((element) =>
+                                    element.data.day == DayType.two)
+                                .toList(),
+                          ),
                         ],
-                      ),
-                    );
-                  });
-            }
-            return LoadingAgendaTable();
-          }),
-        ))
+                      );
+                      // return Text("${talkSnapshot.docs.first.data.title}");
+                    }
+                    return LoadingAgendaTable();
+                  },
+                );
+              }),
+        ),
+        // Flexible(
+        //   child: FirestoreBuilder<AgendasQuerySnapshot>(
+        //     ref: agendasRef,
+        //     builder: (BuildContext context,
+        //         AsyncSnapshot<AgendasQuerySnapshot> snapshot, Widget? child) {
+        //       if (snapshot.hasData) {
+        //         AgendasQuerySnapshot agendaSnapshot = snapshot.requireData;
+        //         return NewPopulatedAgendaTable(
+        //           agendaSnapshot,
+        //           pageController,
+        //           isAgenda: true,
+        //         );
+        //       }
+        //       return LoadingAgendaTable();
+        //     },
+        //   ),
+        // ),
         // Flexible(
         //   child: BlocBuilder(
         //     bloc: BlocProvider.of<AgendaBloc>(context),

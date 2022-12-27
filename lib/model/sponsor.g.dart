@@ -1,5 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: type=lint
+
 part of 'sponsor.dart';
 
 // **************************************************************************
@@ -15,6 +17,13 @@ Sponsors _$SponsorsFromJson(Map<String, dynamic> json) => Sponsors(
           .toList(),
     );
 
+const _$SponsorsFieldMap = <String, String>{
+  'total': 'total',
+  'skip': 'skip',
+  'limit': 'limit',
+  'items': 'items',
+};
+
 Map<String, dynamic> _$SponsorsToJson(Sponsors instance) => <String, dynamic>{
       'total': instance.total,
       'skip': instance.skip,
@@ -28,6 +37,11 @@ SponsorFields _$SponsorFieldsFromJson(Map<String, dynamic> json) =>
       Sponsor.fromJson(json['fields'] as Map<String, dynamic>),
     );
 
+const _$SponsorFieldsFieldMap = <String, String>{
+  'sys': 'sys',
+  'fields': 'fields',
+};
+
 Map<String, dynamic> _$SponsorFieldsToJson(SponsorFields instance) =>
     <String, dynamic>{
       'sys': instance.sys?.toJson(),
@@ -40,6 +54,13 @@ Sponsor _$SponsorFromJson(Map<String, dynamic> json) => Sponsor(
       json['linkDoStronySponsora'] as String,
       $enumDecode(_$SponsorLevelEnumMap, json['poziomSponsoringu']),
     );
+
+const _$SponsorFieldMap = <String, String>{
+  'name': 'nazwaFirmy',
+  'logo': 'logo',
+  'url': 'linkDoStronySponsora',
+  'level': 'poziomSponsoringu',
+};
 
 Map<String, dynamic> _$SponsorToJson(Sponsor instance) => <String, dynamic>{
       'nazwaFirmy': instance.name,
