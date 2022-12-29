@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:conferenceapp/admin/admin_agenda.dart';
 import 'package:conferenceapp/common/europe_text_field.dart';
 import 'package:conferenceapp/common/logger.dart';
+import 'package:conferenceapp/generated/l10n.dart';
 import 'package:conferenceapp/model/notification.dart';
 import 'package:conferenceapp/notifications/repository/notifications_repository.dart';
 import 'package:conferenceapp/profile/auth_repository.dart';
@@ -28,8 +29,8 @@ class AdminPage extends StatelessWidget {
         child: Column(
           children: <Widget>[
             ListTile(
-              title: Text('Add Agenda'),
-              subtitle: Text('Input agenda to show on agenda page'),
+              title: Text(S.current.agenda),
+              subtitle: Text(S.current.addAgendaDes),
               trailing: Icon(LineIcons.database),
               onTap: () async {
                 Navigator.push(

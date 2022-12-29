@@ -50,9 +50,7 @@ class _AgendaPageState extends State<AgendaPage> {
               builder: (context, snapshotFavorite) {
                 List<String> fav = snapshotFavorite.data == null
                     ? []
-                    : List<String>.from(
-                        snapshotFavorite.data as List,
-                      );
+                    : List<String>.from(snapshotFavorite.data as List);
                 return FirestoreBuilder<TalkQuerySnapshot>(
                   ref: talksRef,
                   builder: (BuildContext context,
@@ -102,45 +100,12 @@ class _AgendaPageState extends State<AgendaPage> {
                           ),
                         ],
                       );
-                      // return Text("${talkSnapshot.docs.first.data.title}");
                     }
                     return LoadingAgendaTable();
                   },
                 );
               }),
         ),
-        // Flexible(
-        //   child: FirestoreBuilder<AgendasQuerySnapshot>(
-        //     ref: agendasRef,
-        //     builder: (BuildContext context,
-        //         AsyncSnapshot<AgendasQuerySnapshot> snapshot, Widget? child) {
-        //       if (snapshot.hasData) {
-        //         AgendasQuerySnapshot agendaSnapshot = snapshot.requireData;
-        //         return NewPopulatedAgendaTable(
-        //           agendaSnapshot,
-        //           pageController,
-        //           isAgenda: true,
-        //         );
-        //       }
-        //       return LoadingAgendaTable();
-        //     },
-        //   ),
-        // ),
-        // Flexible(
-        //   child: BlocBuilder(
-        //     bloc: BlocProvider.of<AgendaBloc>(context),
-        //     builder: (context, AgendaState state) {
-        //       print('log state $state');
-        //       return state is PopulatedAgendaState
-        //           ? PopulatedAgendaTable(
-        //               state.talks,
-        //               state.rooms,
-        //               pageController,
-        //             )
-        //           : LoadingAgendaTable();
-        //     },
-        //   ),
-        // ),
       ],
     );
   }

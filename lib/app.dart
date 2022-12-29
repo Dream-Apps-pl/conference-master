@@ -17,6 +17,7 @@ import 'package:conferenceapp/sponsors/sponsors_repository.dart';
 import 'package:conferenceapp/ticket/bloc/bloc.dart';
 import 'package:conferenceapp/ticket/repository/ticket_repository.dart';
 import 'package:conferenceapp/utils/color.dart';
+import 'package:conferenceapp/utils/languages.dart';
 import 'package:dynamic_themes/dynamic_themes.dart';
 import 'package:feature_discovery/feature_discovery.dart';
 import 'package:firebase_analytics/observer.dart';
@@ -26,10 +27,12 @@ import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'utils/analytics.dart';
+import 'generated/l10n.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({
@@ -47,28 +50,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return DynamicTheme(
       themeCollection: themeCollection,
-      // data: (brightness) => ThemeData(
-      //   primaryColor: blue,
-      //   scaffoldBackgroundColor: brightness == Brightness.light
-      //       ? Colors.grey[100]
-      //       : Colors.grey[850],
-      //   accentColor: orange,
-      //   toggleableActiveColor: orange,
-      //   dividerColor:
-      //       brightness == Brightness.light ? Colors.white : Colors.white54,
-      //   brightness: brightness,
-      //   fontFamily: 'PTSans',
-      //   bottomAppBarTheme: Theme.of(context).bottomAppBarTheme.copyWith(
-      //         elevation: 0,
-      //       ),
-      //   // pageTransitionsTheme: PageTransitionsTheme(
-      //   //   builders: <TargetPlatform, PageTransitionsBuilder>{
-      //   //     TargetPlatform.android: CupertinoPageTransitionsBuilder(),
-      //   //     TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
-      //   //   },
-      //   // ),
-      //   iconTheme: Theme.of(context).iconTheme.copyWith(color: orange),
-      // ),
       builder: (context, theme) {
         return VariousProviders(
           sharedPreferences: sharedPreferences,
@@ -77,34 +58,29 @@ class MyApp extends StatelessWidget {
             child: BlocProviders(
               child: ChangeNotifierProviders(
                 child: FeatureDiscovery(
-                  child: MaterialApp(
-                      debugShowCheckedModeBanner: false,
-                      title: title,
-                      theme: theme,
-                      navigatorKey: navigatorKey,
-                      navigatorObservers: [
-                        FirebaseAnalyticsObserver(analytics: analytics!),
-                      ],
-                      home: HomePage(title: title)),
-                  // child: Snapfeed(
-                  //   projectId: appConfig.snapfeedProjectId,
-                  //   secret: appConfig.snapfeedSecret,
-                  //   config: SnapfeedConfig.defaultConfig(
-                  //     teaserMessage:
-                  //         'Start feedback and navigate to the page you want to ',
-                  //     feedbackMessage:
-                  //         'Write down what\'s on your mind. You can also navigate and draw on the screen for better context. Thanks for helping us out!',
-                  //   ),
-                  //   child: MaterialApp(
-                  //       debugShowCheckedModeBanner: false,
-                  //       title: title,
-                  //       theme: theme,
-                  //       navigatorKey: navigatorKey,
-                  //       navigatorObservers: [
-                  //         FirebaseAnalyticsObserver(analytics: analytics),
-                  //       ],
-                  //       home: HomePage(title: title)),
-                  // ),
+                  child: BlocProvider(
+                    create: (context) => LanguageCubit(),
+                    child: BlocBuilder<LanguageCubit, Locale>(
+                        builder: (context, lang) {
+                      return MaterialApp(
+                          locale: lang,
+                          localizationsDelegates: [
+                            S.delegate,
+                            GlobalMaterialLocalizations.delegate,
+                            GlobalWidgetsLocalizations.delegate,
+                            GlobalCupertinoLocalizations.delegate,
+                          ],
+                          supportedLocales: S.delegate.supportedLocales,
+                          debugShowCheckedModeBanner: false,
+                          title: title,
+                          theme: theme,
+                          navigatorKey: navigatorKey,
+                          navigatorObservers: [
+                            FirebaseAnalyticsObserver(analytics: analytics!),
+                          ],
+                          home: HomePage(title: title));
+                    }),
+                  ),
                 ),
               ),
             ),

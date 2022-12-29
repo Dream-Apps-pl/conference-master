@@ -21,7 +21,6 @@ class AgendaBloc extends Bloc<AgendaEvent, AgendaState> {
   Stream<AgendaState> mapEventToState(
     AgendaEvent event,
   ) async* {
-    print('log apa $event');
     if (event is InitAgenda) {
       yield* mapInitToState(event);
     }

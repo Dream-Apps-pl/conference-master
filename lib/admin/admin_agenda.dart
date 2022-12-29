@@ -1,4 +1,5 @@
 import 'package:conferenceapp/agenda/repository/firestore_service_repository.dart';
+import 'package:conferenceapp/generated/l10n.dart';
 import 'package:conferenceapp/model/author.dart';
 import 'package:conferenceapp/model/room.dart';
 import 'package:conferenceapp/model/talk.dart';
@@ -41,13 +42,13 @@ class _AdminAgendaState extends State<AdminAgenda> {
         child: ListView(
           children: [
             ListTile(
-              title: Text('Agenda'),
+              title: Text(S.current.agenda),
               trailing: Expanded(
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     ChoiceChip(
-                      label: Text('Day One'),
+                      label: Text(S.current.dayOne),
                       selected: _value == 1,
                       onSelected: (bool selected) {
                         setState(() {
@@ -57,7 +58,7 @@ class _AdminAgendaState extends State<AdminAgenda> {
                     ),
                     SizedBox(width: 5),
                     ChoiceChip(
-                      label: Text('Day Two'),
+                      label: Text(S.current.dayTwo),
                       selected: _value == 2,
                       onSelected: (bool selected) {
                         setState(() {
@@ -67,7 +68,7 @@ class _AdminAgendaState extends State<AdminAgenda> {
                     ),
                     SizedBox(width: 5),
                     ChoiceChip(
-                      label: Text('Day Three'),
+                      label: Text(S.current.dayThree),
                       selected: _value == 3,
                       onSelected: (bool selected) {
                         setState(() {
@@ -88,11 +89,11 @@ class _AdminAgendaState extends State<AdminAgenda> {
                     controller: _titleController,
                     validator: (val) {
                       return val?.isEmpty == true
-                          ? 'please put a valid title'
+                          ? S.current.titleValidator
                           : null;
                     },
                     decoration: InputDecoration(
-                      labelText: 'Title',
+                      labelText: S.current.title,
                     ),
                   ),
                   TextFormField(
@@ -100,16 +101,16 @@ class _AdminAgendaState extends State<AdminAgenda> {
                     maxLines: 3,
                     validator: (val) {
                       return val?.isEmpty == true
-                          ? 'please put a description'
+                          ? S.current.descriptionValidator
                           : null;
                     },
                     decoration: InputDecoration(
-                      labelText: 'Description',
+                      labelText: S.current.description,
                     ),
                   ),
                   ListTile(
                     contentPadding: EdgeInsets.zero,
-                    title: const Text('Beginner'),
+                    title: Text(S.current.biginner),
                     leading: Radio<TalkType>(
                       value: TalkType.beginner,
                       groupValue: _talkType,
@@ -122,7 +123,7 @@ class _AdminAgendaState extends State<AdminAgenda> {
                   ),
                   ListTile(
                     contentPadding: EdgeInsets.zero,
-                    title: const Text('Advanced'),
+                    title: Text(S.current.advanced),
                     leading: Radio<TalkType>(
                       value: TalkType.advanced,
                       groupValue: _talkType,
@@ -141,10 +142,10 @@ class _AdminAgendaState extends State<AdminAgenda> {
                           initialValue: '',
                           firstDate: DateTime.now(),
                           lastDate: DateTime(2100),
-                          dateLabelText: 'Start Time',
+                          dateLabelText: S.current.startTime,
                           validator: (val) {
                             return val?.isEmpty == true
-                                ? 'please select a start time'
+                                ? S.current.startTimeValidator
                                 : null;
                           },
                           onChanged: (val) => setState(() {
@@ -162,10 +163,10 @@ class _AdminAgendaState extends State<AdminAgenda> {
                           initialValue: '',
                           firstDate: DateTime.now(),
                           lastDate: DateTime(2100),
-                          dateLabelText: 'End Time',
+                          dateLabelText: S.current.endTime,
                           validator: (val) {
                             return val?.isEmpty == true
-                                ? 'please select a end time'
+                                ? S.current.endTimeValidator
                                 : null;
                           },
                           onChanged: (val) => setState(() {
@@ -181,7 +182,7 @@ class _AdminAgendaState extends State<AdminAgenda> {
                   Padding(
                     padding: const EdgeInsets.only(top: 20.0),
                     child: Text(
-                      'Room Agenda',
+                      S.current.roomAgenda,
                       style: TextStyle(
                         color: Colors.black54,
                         fontSize: 16,
@@ -193,7 +194,7 @@ class _AdminAgendaState extends State<AdminAgenda> {
                       Expanded(
                         child: ListTile(
                           contentPadding: EdgeInsets.zero,
-                          title: const Text('Room A'),
+                          title: Text(S.current.roomA),
                           leading: Radio<RoomType>(
                             value: RoomType.roomA,
                             groupValue: _roomType,
@@ -208,7 +209,7 @@ class _AdminAgendaState extends State<AdminAgenda> {
                       Expanded(
                         child: ListTile(
                           contentPadding: EdgeInsets.zero,
-                          title: const Text('Room B'),
+                          title: Text(S.current.roomB),
                           leading: Radio<RoomType>(
                             value: RoomType.roomB,
                             groupValue: _roomType,
@@ -225,7 +226,7 @@ class _AdminAgendaState extends State<AdminAgenda> {
                   Padding(
                     padding: const EdgeInsets.only(top: 20.0),
                     child: Text(
-                      'Speakers',
+                      S.current.speakers,
                       style: TextStyle(
                         color: Colors.black54,
                         fontSize: 16,
@@ -236,44 +237,46 @@ class _AdminAgendaState extends State<AdminAgenda> {
                     controller: _nameController,
                     validator: (val) {
                       return val?.isEmpty == true
-                          ? 'please put a valid name'
+                          ? S.current.nameValidator
                           : null;
                     },
                     decoration: InputDecoration(
-                      labelText: 'Name',
+                      labelText: S.current.name,
                     ),
                   ),
                   TextFormField(
                     controller: _longBioController,
                     validator: (val) {
-                      return val?.isEmpty == true ? 'please put a bio' : null;
+                      return val?.isEmpty == true
+                          ? S.current.longBioValidator
+                          : null;
                     },
                     maxLines: 3,
                     decoration: InputDecoration(
-                      labelText: 'Long Bio',
+                      labelText: S.current.longBio,
                     ),
                   ),
                   TextFormField(
                     controller: _ocupationController,
                     validator: (val) {
                       return val?.isEmpty == true
-                          ? 'please put a ocapution'
+                          ? S.current.ocupationValidator
                           : null;
                     },
                     decoration: InputDecoration(
-                      labelText: 'Ocupation',
+                      labelText: S.current.ocupation,
                     ),
                   ),
                   TextField(
                     controller: _twitterController,
                     decoration: InputDecoration(
-                      labelText: 'Twitter',
+                      labelText: 'Facebook',
                     ),
                   ),
                   TextField(
                     controller: _avatarController,
                     decoration: InputDecoration(
-                      labelText: 'Link Avatar',
+                      labelText: S.current.linkAvatar,
                     ),
                   ),
                 ],
@@ -283,7 +286,7 @@ class _AdminAgendaState extends State<AdminAgenda> {
               padding: const EdgeInsets.all(20.0),
               child: ElevatedButton(
                 onPressed: _onSaveAgenda,
-                child: Text('Save Agenda'),
+                child: Text(S.current.saveAgenda),
               ),
             )
           ],
@@ -312,14 +315,15 @@ class _AdminAgendaState extends State<AdminAgenda> {
         _room = Room('B', '1');
       }
 
-      // if (_value == 1) {
-      //   DayType.one;
-      // }
-      // if (_value == 2) {
-      //   DayType.two;
-      // } else {
-      //   DayType.three;
-      // }
+      DayType _dayType;
+      if (_value == 1) {
+        _dayType = DayType.one;
+      }
+      if (_value == 2) {
+        _dayType = DayType.two;
+      } else {
+        _dayType = DayType.three;
+      }
 
       Talk _talk = Talk(
         '${uuid.v1()}',
@@ -330,7 +334,7 @@ class _AdminAgendaState extends State<AdminAgenda> {
         DateTime.parse(endDate!),
         _room,
         _talkType!,
-        _value == 1 ? DayType.one : DayType.two, //DayType.three ??
+        _dayType,
       );
       FirestoreService()
           .addTalk(_talk)

@@ -1,3 +1,4 @@
+import 'package:conferenceapp/generated/l10n.dart';
 import 'package:conferenceapp/ticket/bloc/bloc.dart';
 import 'package:conferenceapp/ticket/ticket_page.dart';
 import 'package:feature_discovery/feature_discovery.dart';
@@ -22,10 +23,8 @@ class AddTicketButton extends StatelessWidget {
                   icon: DescribedFeatureOverlay(
                     featureId: 'show_ticket',
                     tapTarget: Icon(LineIcons.alternateTicket),
-                    title: Text('Add your ticket'),
-                    description: Text(
-                        'Tap this button to add your ticket. You\'ll need your order or ticket number.'),
-                    // backgroundColor: Theme.of(context).primaryColor,
+                    title: Text(S.current.addTicket),
+                    description: Text(S.current.addTicketTooltip),
                     onComplete: () async {
                       return true;
                     },
@@ -34,11 +33,10 @@ class AddTicketButton extends StatelessWidget {
                     child: Icon(LineIcons.alternateTicket),
                   ),
                   shape: StadiumBorder(),
-                  // backgroundColor: Theme.of(context).primaryColor,
-                  tooltip: 'Add your ticket',
+                  tooltip: S.current.addTicket,
                   isExtended: true,
                   label: Text(
-                    'Add\nticket',
+                    S.current.addTicket,
                     textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 12),
                   ),
@@ -51,14 +49,13 @@ class AddTicketButton extends StatelessWidget {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(25)),
                   backgroundColor: Theme.of(context).primaryColor,
-                  tooltip: 'Show your ticket',
+                  tooltip: S.current.showTicket,
                   isExtended: true,
                   child: DescribedFeatureOverlay(
                     featureId: 'show_ticket',
                     tapTarget: Icon(LineIcons.alternateTicket),
-                    title: Text('Add your ticket'),
-                    description: Text(
-                        'Tap this button to see your ticket. You should show it during registration or swag pickup.'),
+                    title: Text(S.current.addTicket),
+                    description: Text(S.current.showTicketTooltip),
                     backgroundColor: Theme.of(context).primaryColor,
                     onComplete: () async {
                       return true;

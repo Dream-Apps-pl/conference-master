@@ -1,3 +1,4 @@
+import 'package:conferenceapp/generated/l10n.dart';
 import 'package:conferenceapp/model/notification.dart';
 import 'package:conferenceapp/notifications/repository/notifications_repository.dart';
 import 'package:conferenceapp/notifications/repository/notifications_unread_repository.dart';
@@ -106,7 +107,7 @@ class NotificationsEmptyState extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
-              'Here you will see your notifications and messages from organizers',
+              S.current.noNotification,
               textAlign: TextAlign.center,
             ),
           ),

@@ -4,9 +4,9 @@ import 'package:conferenceapp/common/appbar.dart';
 import 'package:conferenceapp/common/logger.dart';
 import 'package:conferenceapp/force_update/force_update.dart';
 import 'package:conferenceapp/force_update/force_update_dialog.dart';
+import 'package:conferenceapp/generated/l10n.dart';
 import 'package:conferenceapp/main_page/add_ticket_button.dart';
 import 'package:conferenceapp/main_page/learn_features_button.dart';
-import 'package:conferenceapp/model/agenda.dart';
 import 'package:conferenceapp/model/talk.dart';
 import 'package:conferenceapp/my_schedule/my_schedule_page.dart';
 import 'package:conferenceapp/notifications/notifications_page.dart';
@@ -150,21 +150,21 @@ class _HomePageState extends State<HomePage> {
             height: itemHeight,
             child: Icon(LineIcons.calendar),
           ),
-          label: 'Agenda',
+          label: S.current.agenda,
         ),
         BottomNavigationBarItem(
           icon: Icon(LineIcons.calendarCheck),
-          label: 'My Schedule',
+          label: S.current.mySchedule,
         ),
         BottomNavigationBarItem(
           icon: NotificationIndicator(
             child: Icon(LineIcons.bell),
           ),
-          label: 'Notifications',
+          label: S.current.notifications,
         ),
         BottomNavigationBarItem(
           icon: Icon(LineIcons.cog),
-          label: 'Settings',
+          label: S.current.settings,
         ),
         if (isTicketer == true)
           BottomNavigationBarItem(
@@ -174,7 +174,7 @@ class _HomePageState extends State<HomePage> {
         if (isAdmin == true)
           BottomNavigationBarItem(
             icon: Icon(LineIcons.userShield),
-            label: _currentIndex != admin ? 'Admin' : null,
+            label: _currentIndex != admin ? S.current.admin : null,
           ),
       ],
     );

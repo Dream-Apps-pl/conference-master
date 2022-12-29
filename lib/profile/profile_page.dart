@@ -2,11 +2,12 @@ import 'dart:io';
 
 import 'package:conferenceapp/common/appbar.dart';
 import 'package:conferenceapp/common/logger.dart';
+import 'package:conferenceapp/generated/l10n.dart';
 import 'package:conferenceapp/organizers/organizers_page.dart';
 import 'package:conferenceapp/sponsors/sponsors_page.dart';
 import 'package:conferenceapp/utils/analytics.dart';
+import 'package:conferenceapp/utils/languages.dart';
 import 'package:dynamic_themes/dynamic_themes.dart';
-import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bugfender/flutter_bugfender.dart';
@@ -33,25 +34,52 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     final sharedPrefs = Provider.of<SharedPreferences>(context);
+    final defaultLang = Localizations.localeOf(context);
+    context.read<LanguageCubit>().changeStartLang();
     return Positioned.fill(
       child: ListView(
         padding: EdgeInsets.only(bottom: 40),
         physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
         children: <Widget>[
+          ListTile(
+            title: Text(S.current.language),
+            trailing: Expanded(
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  ChoiceChip(
+                    label: Text('Poland'),
+                    selected: defaultLang == Locale('pl') ? true : false,
+                    onSelected: (bool selected) {
+                      context.read<LanguageCubit>().changeLang(context, 'pl');
+                    },
+                  ),
+                  SizedBox(width: 5),
+                  ChoiceChip(
+                    label: Text('English'),
+                    selected: defaultLang == Locale('en') ? true : false,
+                    onSelected: (bool selected) {
+                      context.read<LanguageCubit>().changeLang(context, 'en');
+                    },
+                  ),
+                ],
+              ),
+            ),
+          ),
           SettingsToggle(
-            title: 'Dark Theme',
+            title: S.current.darkTheme,
             onChanged: (_) => changeBrightness(),
             value: Theme.of(context).brightness == Brightness.dark,
           ),
           SettingsToggle(
-            title: 'Reminders',
-            subtitle: 'Disabling reminders won\'t cancel existing reminders',
+            title: S.current.reminders,
+            subtitle: S.current.remindersDes,
             onChanged: changeReminders,
             value: sharedPrefs.getBool('reminders') == true,
           ),
           ListTile(
-            title: Text('Sponsors'),
-            subtitle: Text('See who supported us'),
+            title: Text(S.current.sponsors),
+            subtitle: Text(S.current.sponsorsDes),
             trailing: Icon(LineIcons.angleRight),
             contentPadding: EdgeInsets.only(left: 16.0, right: 24.0),
             onTap: () {
@@ -66,8 +94,8 @@ class _ProfilePageState extends State<ProfilePage> {
             },
           ),
           ListTile(
-            title: Text('Organizers'),
-            subtitle: Text('See who created this event'),
+            title: Text(S.current.organizers),
+            subtitle: Text(S.current.organizersDes),
             trailing: Icon(LineIcons.angleRight),
             contentPadding: EdgeInsets.only(left: 16.0, right: 24.0),
             onTap: () {
@@ -82,8 +110,8 @@ class _ProfilePageState extends State<ProfilePage> {
             },
           ),
           ListTile(
-            title: Text('Code of conduct'),
-            subtitle: Text('Read our rules'),
+            title: Text(S.current.codeOfConduct),
+            subtitle: Text(S.current.codeOfConductDes),
             trailing: Icon(LineIcons.angleRight),
             contentPadding: EdgeInsets.only(left: 16.0, right: 24.0),
             onTap: () async {
@@ -109,9 +137,8 @@ class _ProfilePageState extends State<ProfilePage> {
             },
           ),
           ListTile(
-            title: Text('Send feedback'),
-            subtitle: Text(
-                'Let us know if you find any errors or want to share your feedback with us'),
+            title: Text(S.current.sendFeedback),
+            subtitle: Text(S.current.sendFeedbackDes),
             trailing: Icon(LineIcons.angleRight),
             contentPadding: EdgeInsets.only(left: 16.0, right: 24.0),
             onTap: () async {
@@ -145,7 +172,7 @@ class _ProfilePageState extends State<ProfilePage> {
             },
           ),
           ListTile(
-            title: Text('About'),
+            title: Text(S.current.about),
             trailing: Icon(LineIcons.angleRight),
             contentPadding: EdgeInsets.only(left: 16.0, right: 24.0),
             onTap: () async {
@@ -181,9 +208,8 @@ class _ProfilePageState extends State<ProfilePage> {
             },
           ),
           ListTile(
-            title: Text('Open source licenses'),
-            subtitle:
-                Text('All the awesome libraries we used to create this app'),
+            title: Text(S.current.openSourceLicenses),
+            subtitle: Text(S.current.openSourceLicensesDes),
             trailing: Icon(LineIcons.angleRight),
             contentPadding: EdgeInsets.only(left: 16.0, right: 24.0),
             onTap: () async {

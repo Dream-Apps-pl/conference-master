@@ -68,16 +68,18 @@ class DaySelector extends StatelessWidget {
         return Stack(
           children: <Widget>[
             AnimatedPositioned(
+              top: 0,
               bottom: 0,
               left: selectedDay == 0
                   ? 0
-                  : (MediaQuery.of(context).size.width - 24) / 3,
-              top: selectedDay == 0
-                  ? (MediaQuery.of(context).size.width - 24) / 3
-                  : 0,
+                  : selectedDay == 1
+                      ? (MediaQuery.of(context).size.width - 24) / 3
+                      : (MediaQuery.of(context).size.width - 24) / 1.5,
               right: selectedDay == 0
-                  ? (MediaQuery.of(context).size.width - 24) / 3
-                  : 0,
+                  ? (MediaQuery.of(context).size.width - 24) / 1.5
+                  : selectedDay == 1
+                      ? (MediaQuery.of(context).size.width - 24) / 3
+                      : 0,
               duration: Duration(milliseconds: 300),
               child: Container(
                 color: bgColor,
@@ -149,7 +151,7 @@ class DaySelector extends StatelessWidget {
                               child: Text(
                                 'Day 2',
                                 style: TextStyle(
-                                  color: selectedDay != 0
+                                  color: selectedDay != 0 && selectedDay != 2
                                       ? Theme.of(context).brightness ==
                                               Brightness.light
                                           ? Theme.of(context).primaryColor
@@ -172,12 +174,12 @@ class DaySelector extends StatelessWidget {
                     type: MaterialType.transparency,
                     child: Semantics(
                       button: true,
-                      enabled: selectedDay == 3,
+                      enabled: selectedDay == 2,
                       hint: 'Select day no. 3',
                       child: InkWell(
                         onTap: () {
                           pageController.animateToPage(
-                            0,
+                            2,
                             duration: Duration(milliseconds: 300),
                             curve: Curves.easeOut,
                           );
@@ -189,7 +191,7 @@ class DaySelector extends StatelessWidget {
                               child: Text(
                                 'Day 3',
                                 style: TextStyle(
-                                  color: selectedDay == 2
+                                  color: selectedDay != 0 && selectedDay != 1
                                       ? Theme.of(context).brightness ==
                                               Brightness.light
                                           ? Theme.of(context).primaryColor

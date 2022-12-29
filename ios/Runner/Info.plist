@@ -49,5 +49,10 @@
 	<string>We allow you to add talks to your calendar</string>
 	<key>NSContactsUsageDescription</key>
 	<string>We don't access yout contact data, but we allow you to add talks to your calendar</string>
+	<key>CFBundleLocalizations</key>
+	<array>
+		<string>pl</string>
+		<string>en</string>
+	</array>
 </dict>
 </plist>
