@@ -44,8 +44,7 @@ class _AdminAgendaState extends State<AdminAgenda> {
             ListTile(
               title: Text(S.current.agenda),
               trailing: Expanded(
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
+                child: Wrap(
                   children: [
                     ChoiceChip(
                       label: Text(S.current.dayOne),

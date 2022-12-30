@@ -72,9 +72,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "reminders": MessageLookupByLibrary.simpleMessage("Reminders"),
         "remindersDes": MessageLookupByLibrary.simpleMessage(
             "Disabling reminders won\'t cancel existing reminders"),
-        "roomA": MessageLookupByLibrary.simpleMessage("Room A"),
+        "roomA": MessageLookupByLibrary.simpleMessage("Teaching"),
         "roomAgenda": MessageLookupByLibrary.simpleMessage("Room Agenda"),
-        "roomB": MessageLookupByLibrary.simpleMessage("Room B"),
+        "roomB": MessageLookupByLibrary.simpleMessage("Workshop"),
         "saveAgenda": MessageLookupByLibrary.simpleMessage("Save Agenda"),
         "sendFeedback": MessageLookupByLibrary.simpleMessage("Send feedback"),
         "sendFeedbackDes": MessageLookupByLibrary.simpleMessage(

@@ -38,7 +38,7 @@ class AuthRepository {
   Stream<List<dynamic>> favorites() {
     return FirebaseFirestore.instance
         .collection('users')
-        .doc(_firebaseAuth.currentUser!.uid)
+        .doc(_firebaseAuth.currentUser?.uid)
         .snapshots()
         .map(
       (querySnap) {
@@ -81,7 +81,7 @@ class AuthRepository {
   Stream<bool> isAdmin() {
     return FirebaseFirestore.instance
         .collection('users')
-        .doc(_firebaseAuth.currentUser!.uid)
+        .doc(_firebaseAuth.currentUser?.uid)
         .snapshots()
         .map((querySnap) => (querySnap.data() as dynamic)['isAdmin']);
   }

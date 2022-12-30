@@ -44,8 +44,7 @@ class _ProfilePageState extends State<ProfilePage> {
           ListTile(
             title: Text(S.current.language),
             trailing: Expanded(
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
+              child: Wrap(
                 children: [
                   ChoiceChip(
                     label: Text('Poland'),

@@ -29,7 +29,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "addTicket": MessageLookupByLibrary.simpleMessage("Dodaj bilet"),
         "addTicketTooltip": MessageLookupByLibrary.simpleMessage(
             "Naciśnij, aby dodać bilet. Będziesz potrzebować numeru zamówienia lub biletu."),
-        "admin": MessageLookupByLibrary.simpleMessage("admin"),
+        "admin": MessageLookupByLibrary.simpleMessage("Admin"),
         "advanced": MessageLookupByLibrary.simpleMessage("Zaawansowany"),
         "agenda": MessageLookupByLibrary.simpleMessage("Plan"),
         "biginner": MessageLookupByLibrary.simpleMessage("Początkujący"),
@@ -43,19 +43,19 @@ class MessageLookup extends MessageLookupByLibrary {
         "dayTwo": MessageLookupByLibrary.simpleMessage("Dzień 2"),
         "description": MessageLookupByLibrary.simpleMessage("Opis"),
         "descriptionValidator":
-            MessageLookupByLibrary.simpleMessage("Proszę umieścić opis"),
+            MessageLookupByLibrary.simpleMessage("Proszę podać opis"),
         "endTime": MessageLookupByLibrary.simpleMessage("Czas zakończenia"),
         "endTimeValidator":
             MessageLookupByLibrary.simpleMessage("Wybierz godzinę zakończenia"),
         "language": MessageLookupByLibrary.simpleMessage("Język"),
         "linkAvatar": MessageLookupByLibrary.simpleMessage("Link do zdjęcia"),
-        "longBio": MessageLookupByLibrary.simpleMessage("Długi Opis"),
-        "longBioValidator":
-            MessageLookupByLibrary.simpleMessage("Proszę umieścić opis"),
+        "longBio": MessageLookupByLibrary.simpleMessage("Biografia"),
+        "longBioValidator": MessageLookupByLibrary.simpleMessage(
+            "Proszę umieścić opis dla mówcy"),
         "mySchedule": MessageLookupByLibrary.simpleMessage("Ulubione"),
-        "name": MessageLookupByLibrary.simpleMessage("Nazwa"),
+        "name": MessageLookupByLibrary.simpleMessage("Imię"),
         "nameValidator":
-            MessageLookupByLibrary.simpleMessage("Podaj prawidłową nazwę"),
+            MessageLookupByLibrary.simpleMessage("Podaj prawidłowe imię"),
         "noNotification": MessageLookupByLibrary.simpleMessage(
             "Tutaj zobaczysz swoje powiadomienia i wiadomości od organizatorów"),
         "notifications": MessageLookupByLibrary.simpleMessage("Wiadomości"),
@@ -65,32 +65,32 @@ class MessageLookup extends MessageLookupByLibrary {
         "openSourceLicenses":
             MessageLookupByLibrary.simpleMessage("Licencje open source"),
         "openSourceLicensesDes": MessageLookupByLibrary.simpleMessage(
-            "Wszystkie niesamowite biblioteki, których użyliśmy do stworzenia tej aplikacji"),
+            "Wszystkie biblioteki, których użyliśmy do stworzenia tej aplikacji"),
         "organizers": MessageLookupByLibrary.simpleMessage("Organizatorzy"),
         "organizersDes": MessageLookupByLibrary.simpleMessage(
-            "Zobacz, kto stworzył to wydarzenie"),
+            "Zobacz, kto organizuje to wydarzenie"),
         "reminders": MessageLookupByLibrary.simpleMessage("Przypomnienia"),
         "remindersDes": MessageLookupByLibrary.simpleMessage(
             "Wyłączenie przypomnień nie anuluje istniejących przypomnień"),
-        "roomA": MessageLookupByLibrary.simpleMessage("Wykłady"),
+        "roomA": MessageLookupByLibrary.simpleMessage("Wykład"),
         "roomAgenda": MessageLookupByLibrary.simpleMessage("Rodzaj wykładu"),
-        "roomB": MessageLookupByLibrary.simpleMessage("Ćwiczenia"),
+        "roomB": MessageLookupByLibrary.simpleMessage("Ćwiczenie"),
         "saveAgenda": MessageLookupByLibrary.simpleMessage("Zapisz plan"),
-        "sendFeedback": MessageLookupByLibrary.simpleMessage("Wyślij opinię"),
+        "sendFeedback": MessageLookupByLibrary.simpleMessage("Prześlij opinię"),
         "sendFeedbackDes": MessageLookupByLibrary.simpleMessage(
             "Daj nam znać, jeśli znajdziesz jakieś błędy lub chcesz podzielić się z nami swoją opinią"),
         "settings": MessageLookupByLibrary.simpleMessage("Ustawienia"),
         "showTicket": MessageLookupByLibrary.simpleMessage("Pokaż swój bilet"),
         "showTicketTooltip": MessageLookupByLibrary.simpleMessage(
-            "Naciśnij, aby zobaczyć swój bilet. Powinieneś pokazać go podczas rejestracji lub odbioru łupów."),
+            "Naciśnij, aby zobaczyć swój bilet. Powinieneś pokazać go podczas rejestracji."),
         "speakers": MessageLookupByLibrary.simpleMessage("Nauczyciele"),
-        "sponsors": MessageLookupByLibrary.simpleMessage("sponsorzy"),
+        "sponsors": MessageLookupByLibrary.simpleMessage("Sponsorzy"),
         "sponsorsDes":
-            MessageLookupByLibrary.simpleMessage("Zobacz, kto nas wspierał"),
+            MessageLookupByLibrary.simpleMessage("Zobacz, kto nas wspiera"),
         "startTime": MessageLookupByLibrary.simpleMessage("Czas rozpoczęcia"),
         "startTimeValidator":
             MessageLookupByLibrary.simpleMessage("Wybierz godzinę rozpoczęcia"),
-        "title": MessageLookupByLibrary.simpleMessage("tytuł"),
+        "title": MessageLookupByLibrary.simpleMessage("Tytuł"),
         "titleValidator":
             MessageLookupByLibrary.simpleMessage("Podaj prawidłowy tytuł")
       };

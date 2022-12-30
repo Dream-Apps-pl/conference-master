@@ -460,20 +460,20 @@ class S {
     );
   }
 
-  /// `Room A`
+  /// `Teaching`
   String get roomA {
     return Intl.message(
-      'Room A',
+      'Teaching',
       name: 'roomA',
       desc: '',
       args: [],
     );
   }
 
-  /// `Room B`
+  /// `Workshop`
   String get roomB {
     return Intl.message(
-      'Room B',
+      'Workshop',
       name: 'roomB',
       desc: '',
       args: [],
