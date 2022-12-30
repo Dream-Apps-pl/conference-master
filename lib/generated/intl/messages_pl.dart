@@ -73,9 +73,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "remindersDes": MessageLookupByLibrary.simpleMessage(
             "Wyłączenie przypomnień nie anuluje istniejących przypomnień"),
         "roomA": MessageLookupByLibrary.simpleMessage("Wykład"),
-        "roomAgenda": MessageLookupByLibrary.simpleMessage("Rodzaj wykładu"),
+        "roomAgenda": MessageLookupByLibrary.simpleMessage("Rodzaj wykładu:"),
         "roomB": MessageLookupByLibrary.simpleMessage("Ćwiczenie"),
-        "saveAgenda": MessageLookupByLibrary.simpleMessage("Zapisz plan"),
+        "saveAgenda": MessageLookupByLibrary.simpleMessage("Zapisz wykład"),
         "sendFeedback": MessageLookupByLibrary.simpleMessage("Prześlij opinię"),
         "sendFeedbackDes": MessageLookupByLibrary.simpleMessage(
             "Daj nam znać, jeśli znajdziesz jakieś błędy lub chcesz podzielić się z nami swoją opinią"),
@@ -83,7 +83,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "showTicket": MessageLookupByLibrary.simpleMessage("Pokaż swój bilet"),
         "showTicketTooltip": MessageLookupByLibrary.simpleMessage(
             "Naciśnij, aby zobaczyć swój bilet. Powinieneś pokazać go podczas rejestracji."),
-        "speakers": MessageLookupByLibrary.simpleMessage("Nauczyciele"),
+        "speakers": MessageLookupByLibrary.simpleMessage("Nauczyciel:"),
         "sponsors": MessageLookupByLibrary.simpleMessage("Sponsorzy"),
         "sponsorsDes":
             MessageLookupByLibrary.simpleMessage("Zobacz, kto nas wspiera"),

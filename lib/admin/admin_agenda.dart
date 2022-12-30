@@ -184,7 +184,7 @@ class _AdminAgendaState extends State<AdminAgenda> {
                     child: Text(
                       S.current.roomAgenda,
                       style: TextStyle(
-                        color: Colors.black54,
+                        color: Colors.grey,
                         fontSize: 16,
                       ),
                     ),
@@ -228,7 +228,7 @@ class _AdminAgendaState extends State<AdminAgenda> {
                     child: Text(
                       S.current.speakers,
                       style: TextStyle(
-                        color: Colors.black54,
+                        color: Colors.grey,
                         fontSize: 16,
                       ),
                     ),

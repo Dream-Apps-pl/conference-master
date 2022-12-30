@@ -32,7 +32,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "admin": MessageLookupByLibrary.simpleMessage("Admin"),
         "advanced": MessageLookupByLibrary.simpleMessage("Advanced"),
         "agenda": MessageLookupByLibrary.simpleMessage("Agenda"),
-        "biginner": MessageLookupByLibrary.simpleMessage("Biginner"),
+        "biginner": MessageLookupByLibrary.simpleMessage("Beginner"),
         "codeOfConduct":
             MessageLookupByLibrary.simpleMessage("Code of conduct"),
         "codeOfConductDes":
@@ -73,7 +73,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "remindersDes": MessageLookupByLibrary.simpleMessage(
             "Disabling reminders won\'t cancel existing reminders"),
         "roomA": MessageLookupByLibrary.simpleMessage("Teaching"),
-        "roomAgenda": MessageLookupByLibrary.simpleMessage("Room Agenda"),
+        "roomAgenda": MessageLookupByLibrary.simpleMessage("Teaching form:"),
         "roomB": MessageLookupByLibrary.simpleMessage("Workshop"),
         "saveAgenda": MessageLookupByLibrary.simpleMessage("Save Agenda"),
         "sendFeedback": MessageLookupByLibrary.simpleMessage("Send feedback"),
@@ -83,7 +83,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "showTicket": MessageLookupByLibrary.simpleMessage("Show your ticket"),
         "showTicketTooltip": MessageLookupByLibrary.simpleMessage(
             "Tap this button to see your ticket. You should show it during registration or swag pickup."),
-        "speakers": MessageLookupByLibrary.simpleMessage("Spreakers"),
+        "speakers": MessageLookupByLibrary.simpleMessage("Spreaker:"),
         "sponsors": MessageLookupByLibrary.simpleMessage("Sponsors"),
         "sponsorsDes":
             MessageLookupByLibrary.simpleMessage("See who supported us"),

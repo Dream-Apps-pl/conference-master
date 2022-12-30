@@ -390,10 +390,10 @@ class S {
     );
   }
 
-  /// `Biginner`
+  /// `Beginner`
   String get biginner {
     return Intl.message(
-      'Biginner',
+      'Beginner',
       name: 'biginner',
       desc: '',
       args: [],
@@ -450,10 +450,10 @@ class S {
     );
   }
 
-  /// `Room Agenda`
+  /// `Teaching form:`
   String get roomAgenda {
     return Intl.message(
-      'Room Agenda',
+      'Teaching form:',
       name: 'roomAgenda',
       desc: '',
       args: [],
@@ -480,10 +480,10 @@ class S {
     );
   }
 
-  /// `Spreakers`
+  /// `Spreaker:`
   String get speakers {
     return Intl.message(
-      'Spreakers',
+      'Spreaker:',
       name: 'speakers',
       desc: '',
       args: [],

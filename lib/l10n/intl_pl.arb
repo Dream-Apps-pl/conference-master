@@ -39,10 +39,10 @@
     "startTimeValidator": "Wybierz godzinę rozpoczęcia",
     "endTime": "Czas zakończenia",
     "endTimeValidator": "Wybierz godzinę zakończenia",
-    "roomAgenda": "Rodzaj wykładu",
+    "roomAgenda": "Rodzaj wykładu:",
     "roomA": "Wykład",
     "roomB": "Ćwiczenie",
-    "speakers": "Nauczyciele",
+    "speakers": "Nauczyciel:",
     "name": "Imię",
     "nameValidator": "Podaj prawidłowe imię",
     "longBio": "Biografia",
@@ -50,5 +50,5 @@
     "ocupation": "Zawód",
     "ocupationValidator": "Proszę podać zawód",
     "linkAvatar": "Link do zdjęcia",
-    "saveAgenda": "Zapisz plan"
+    "saveAgenda": "Zapisz wykład"
 }
