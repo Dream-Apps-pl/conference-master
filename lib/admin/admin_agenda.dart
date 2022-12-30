@@ -43,40 +43,41 @@ class _AdminAgendaState extends State<AdminAgenda> {
           children: [
             ListTile(
               title: Text(S.current.agenda),
-              trailing: Expanded(
-                child: Wrap(
-                  children: [
-                    ChoiceChip(
-                      label: Text(S.current.dayOne),
-                      selected: _value == 1,
-                      onSelected: (bool selected) {
-                        setState(() {
-                          _value = selected ? 1 : null;
-                        });
-                      },
-                    ),
-                    SizedBox(width: 5),
-                    ChoiceChip(
-                      label: Text(S.current.dayTwo),
-                      selected: _value == 2,
-                      onSelected: (bool selected) {
-                        setState(() {
-                          _value = selected ? 2 : null;
-                        });
-                      },
-                    ),
-                    SizedBox(width: 5),
-                    ChoiceChip(
-                      label: Text(S.current.dayThree),
-                      selected: _value == 3,
-                      onSelected: (bool selected) {
-                        setState(() {
-                          _value = selected ? 3 : null;
-                        });
-                      },
-                    ),
-                  ],
-                ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 15.0),
+              child: Wrap(
+                children: [
+                  ChoiceChip(
+                    label: Text(S.current.dayOne),
+                    selected: _value == 1,
+                    onSelected: (bool selected) {
+                      setState(() {
+                        _value = selected ? 1 : null;
+                      });
+                    },
+                  ),
+                  SizedBox(width: 5),
+                  ChoiceChip(
+                    label: Text(S.current.dayTwo),
+                    selected: _value == 2,
+                    onSelected: (bool selected) {
+                      setState(() {
+                        _value = selected ? 2 : null;
+                      });
+                    },
+                  ),
+                  SizedBox(width: 5),
+                  ChoiceChip(
+                    label: Text(S.current.dayThree),
+                    selected: _value == 3,
+                    onSelected: (bool selected) {
+                      setState(() {
+                        _value = selected ? 3 : null;
+                      });
+                    },
+                  ),
+                ],
               ),
             ),
             Padding(

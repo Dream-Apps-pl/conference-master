@@ -43,27 +43,26 @@ class _ProfilePageState extends State<ProfilePage> {
         children: <Widget>[
           ListTile(
             title: Text(S.current.language),
-            trailing: Expanded(
-              child: Wrap(
-                children: [
-                  ChoiceChip(
-                    label: Text('Poland'),
-                    selected: defaultLang == Locale('pl') ? true : false,
-                    onSelected: (bool selected) {
-                      context.read<LanguageCubit>().changeLang(context, 'pl');
-                    },
-                  ),
-                  SizedBox(width: 5),
-                  ChoiceChip(
-                    label: Text('English'),
-                    selected: defaultLang == Locale('en') ? true : false,
-                    onSelected: (bool selected) {
-                      context.read<LanguageCubit>().changeLang(context, 'en');
-                    },
-                  ),
-                ],
+          ),
+          Row(
+            children: [
+              SizedBox(width: 15),
+              ChoiceChip(
+                label: Text('Poland'),
+                selected: defaultLang == Locale('pl') ? true : false,
+                onSelected: (bool selected) {
+                  context.read<LanguageCubit>().changeLang(context, 'pl');
+                },
               ),
-            ),
+              SizedBox(width: 5),
+              ChoiceChip(
+                label: Text('English'),
+                selected: defaultLang == Locale('en') ? true : false,
+                onSelected: (bool selected) {
+                  context.read<LanguageCubit>().changeLang(context, 'en');
+                },
+              ),
+            ],
           ),
           SettingsToggle(
             title: S.current.darkTheme,
