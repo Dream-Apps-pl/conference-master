@@ -22,46 +22,46 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
-        "about": MessageLookupByLibrary.simpleMessage("o"),
-        "addAgenda": MessageLookupByLibrary.simpleMessage("Dodaj Agendę"),
+        "about": MessageLookupByLibrary.simpleMessage("O nas"),
+        "addAgenda": MessageLookupByLibrary.simpleMessage("Dodaj Wykład"),
         "addAgendaDes": MessageLookupByLibrary.simpleMessage(
-            "Wprowadź plan do wyświetlenia na stronie planu"),
-        "addTicket": MessageLookupByLibrary.simpleMessage("Dodaj swój bilet"),
+            "Wprowadź wykład do wyświetlenia na stronie planu"),
+        "addTicket": MessageLookupByLibrary.simpleMessage("Dodaj bilet"),
         "addTicketTooltip": MessageLookupByLibrary.simpleMessage(
-            "Dotknij tego przycisku, aby dodać bilet. Będziesz potrzebować numeru zamówienia lub biletu."),
-        "admin": MessageLookupByLibrary.simpleMessage("administrator"),
-        "advanced": MessageLookupByLibrary.simpleMessage("Zaawansowane"),
-        "agenda": MessageLookupByLibrary.simpleMessage("porządek obrad"),
-        "biginner": MessageLookupByLibrary.simpleMessage("bigner"),
+            "Naciśnij, aby dodać bilet. Będziesz potrzebować numeru zamówienia lub biletu."),
+        "admin": MessageLookupByLibrary.simpleMessage("admin"),
+        "advanced": MessageLookupByLibrary.simpleMessage("Zaawansowany"),
+        "agenda": MessageLookupByLibrary.simpleMessage("Plan"),
+        "biginner": MessageLookupByLibrary.simpleMessage("Początkujący"),
         "codeOfConduct":
             MessageLookupByLibrary.simpleMessage("Kodeks postępowania"),
         "codeOfConductDes":
             MessageLookupByLibrary.simpleMessage("Przeczytaj nasze zasady"),
-        "darkTheme": MessageLookupByLibrary.simpleMessage("Ciemny motyw"),
-        "dayOne": MessageLookupByLibrary.simpleMessage("Dzień pierwszy"),
-        "dayThree": MessageLookupByLibrary.simpleMessage("Dzień trzeci"),
-        "dayTwo": MessageLookupByLibrary.simpleMessage("Dzień drugi"),
-        "description": MessageLookupByLibrary.simpleMessage("opis"),
+        "darkTheme": MessageLookupByLibrary.simpleMessage("Tryb Nocny"),
+        "dayOne": MessageLookupByLibrary.simpleMessage("Dzień 1"),
+        "dayThree": MessageLookupByLibrary.simpleMessage("Dzień 3"),
+        "dayTwo": MessageLookupByLibrary.simpleMessage("Dzień 2"),
+        "description": MessageLookupByLibrary.simpleMessage("Opis"),
         "descriptionValidator":
             MessageLookupByLibrary.simpleMessage("Proszę umieścić opis"),
         "endTime": MessageLookupByLibrary.simpleMessage("Czas zakończenia"),
         "endTimeValidator":
             MessageLookupByLibrary.simpleMessage("Wybierz godzinę zakończenia"),
         "language": MessageLookupByLibrary.simpleMessage("Język"),
-        "linkAvatar": MessageLookupByLibrary.simpleMessage("Awatar linku"),
-        "longBio": MessageLookupByLibrary.simpleMessage("Długi Bio"),
+        "linkAvatar": MessageLookupByLibrary.simpleMessage("Link do zdjęcia"),
+        "longBio": MessageLookupByLibrary.simpleMessage("Długi Opis"),
         "longBioValidator":
-            MessageLookupByLibrary.simpleMessage("Proszę umieścić biogram"),
-        "mySchedule": MessageLookupByLibrary.simpleMessage("Mój harmonogram"),
+            MessageLookupByLibrary.simpleMessage("Proszę umieścić opis"),
+        "mySchedule": MessageLookupByLibrary.simpleMessage("Ulubione"),
         "name": MessageLookupByLibrary.simpleMessage("Nazwa"),
         "nameValidator":
             MessageLookupByLibrary.simpleMessage("Podaj prawidłową nazwę"),
         "noNotification": MessageLookupByLibrary.simpleMessage(
             "Tutaj zobaczysz swoje powiadomienia i wiadomości od organizatorów"),
-        "notifications": MessageLookupByLibrary.simpleMessage("Powiadomienia"),
-        "ocupation": MessageLookupByLibrary.simpleMessage("zawód"),
+        "notifications": MessageLookupByLibrary.simpleMessage("Wiadomości"),
+        "ocupation": MessageLookupByLibrary.simpleMessage("Zawód"),
         "ocupationValidator":
-            MessageLookupByLibrary.simpleMessage("Proszę umieścić okaputację"),
+            MessageLookupByLibrary.simpleMessage("Proszę podać zawód"),
         "openSourceLicenses":
             MessageLookupByLibrary.simpleMessage("Licencje open source"),
         "openSourceLicensesDes": MessageLookupByLibrary.simpleMessage(
@@ -72,19 +72,18 @@ class MessageLookup extends MessageLookupByLibrary {
         "reminders": MessageLookupByLibrary.simpleMessage("Przypomnienia"),
         "remindersDes": MessageLookupByLibrary.simpleMessage(
             "Wyłączenie przypomnień nie anuluje istniejących przypomnień"),
-        "roomA": MessageLookupByLibrary.simpleMessage("Pokój A"),
-        "roomAgenda": MessageLookupByLibrary.simpleMessage("Agenda pokoju"),
-        "roomB": MessageLookupByLibrary.simpleMessage("Pokój B"),
-        "saveAgenda":
-            MessageLookupByLibrary.simpleMessage("Zapisz porządek obrad"),
+        "roomA": MessageLookupByLibrary.simpleMessage("Wykłady"),
+        "roomAgenda": MessageLookupByLibrary.simpleMessage("Rodzaj wykładu"),
+        "roomB": MessageLookupByLibrary.simpleMessage("Ćwiczenia"),
+        "saveAgenda": MessageLookupByLibrary.simpleMessage("Zapisz plan"),
         "sendFeedback": MessageLookupByLibrary.simpleMessage("Wyślij opinię"),
         "sendFeedbackDes": MessageLookupByLibrary.simpleMessage(
             "Daj nam znać, jeśli znajdziesz jakieś błędy lub chcesz podzielić się z nami swoją opinią"),
         "settings": MessageLookupByLibrary.simpleMessage("Ustawienia"),
         "showTicket": MessageLookupByLibrary.simpleMessage("Pokaż swój bilet"),
         "showTicketTooltip": MessageLookupByLibrary.simpleMessage(
-            "Dotknij tego przycisku, aby zobaczyć swój bilet. Powinieneś pokazać go podczas rejestracji lub odbioru łupów."),
-        "speakers": MessageLookupByLibrary.simpleMessage("Mówcy"),
+            "Naciśnij, aby zobaczyć swój bilet. Powinieneś pokazać go podczas rejestracji lub odbioru łupów."),
+        "speakers": MessageLookupByLibrary.simpleMessage("Nauczyciele"),
         "sponsors": MessageLookupByLibrary.simpleMessage("sponsorzy"),
         "sponsorsDes":
             MessageLookupByLibrary.simpleMessage("Zobacz, kto nas wspierał"),
