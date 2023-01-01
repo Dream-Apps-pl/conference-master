@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
 def localProperties = new Properties()
-def localPropertiesFile = rootProject.file('local.properties')
+def localPropertiesFile = rootProject.file('local.properties') //'./keystore/key.properties'
 if (localPropertiesFile.exists()) {
     localPropertiesFile.withReader('UTF-8') { reader ->
         localProperties.load(reader)
@@ -56,7 +56,12 @@ android {
                 storePassword System.getenv("ANDROID_KEYSTORE_PASSWORD")
             }
         } else {
-            release { }
+            release { 
+                storeFile file('key.jks')
+                keyAlias 'key'
+                keyPassword 'New$App8#'
+                storePassword 'New$App8#'
+            }
         }
     }
 
@@ -66,9 +71,9 @@ android {
             minifyEnabled true
             shrinkResources true
             zipAlignEnabled true
-//            useProguard true
+            // useProguard true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            // signingConfig signingConfigs.release
+            signingConfig signingConfigs.release
         }
 
         debug {
@@ -76,8 +81,8 @@ android {
             debuggable true
             minifyEnabled false
             shrinkResources false
-//            useProguard false
-            // signingConfig signingConfigs.debug
+            // useProguard false
+            signingConfig signingConfigs.debug
         }
     }
 
@@ -86,21 +91,21 @@ android {
     productFlavors {
         dev {
             dimension "flavor-type"
-            // applicationIdSuffix ".dev"
+            applicationIdSuffix ".dev"
             versionNameSuffix "-dev"
-            manifestPlaceholders = [appName: "Konferencje Sny i Wizje"]
+            manifestPlaceholders = [appName: "Konferencje Sny i Wizje Dev"]
             signingConfig signingConfigs.debug
         }
-//        tst {
-//            dimension "flavor-type"
-//            applicationIdSuffix ".tst"
-//            versionNameSuffix "-tst"
-//            manifestPlaceholders = [appName: "Flutter Europe Tst"]
-//            signingConfig signingConfigs.release
-//        }
+       tst {
+           dimension "flavor-type"
+           applicationIdSuffix ".tst"
+           versionNameSuffix "-tst"
+           manifestPlaceholders = [appName: "Konferencje Sny i Wizje Tst"]
+           signingConfig signingConfigs.release
+       }
         prod {
             dimension "flavor-type"
-            manifestPlaceholders = [appName: "Flutter Europe"]
+            manifestPlaceholders = [appName: "Konferencje Sny i Wizje"]
             signingConfig signingConfigs.release
         }
     }
