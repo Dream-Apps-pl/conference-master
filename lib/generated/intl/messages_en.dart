@@ -38,6 +38,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "codeOfConductDes":
             MessageLookupByLibrary.simpleMessage("Read our rules"),
         "darkTheme": MessageLookupByLibrary.simpleMessage("Dark Theme"),
+        "day1": MessageLookupByLibrary.simpleMessage("Day 1"),
+        "day2": MessageLookupByLibrary.simpleMessage("Day 2"),
+        "day3": MessageLookupByLibrary.simpleMessage("Day 3"),
         "dayOne": MessageLookupByLibrary.simpleMessage("Day One"),
         "dayThree": MessageLookupByLibrary.simpleMessage("Day Three"),
         "dayTwo": MessageLookupByLibrary.simpleMessage("Day Two"),
@@ -76,6 +79,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "roomAgenda": MessageLookupByLibrary.simpleMessage("Teaching form:"),
         "roomB": MessageLookupByLibrary.simpleMessage("Workshop"),
         "saveAgenda": MessageLookupByLibrary.simpleMessage("Save Agenda"),
+        "selectDayNo1":
+            MessageLookupByLibrary.simpleMessage("Select day no. 1"),
+        "selectDayNo2":
+            MessageLookupByLibrary.simpleMessage("Select day no. 2"),
+        "selectDayNo3":
+            MessageLookupByLibrary.simpleMessage("Select day no. 3"),
         "sendFeedback": MessageLookupByLibrary.simpleMessage("Send feedback"),
         "sendFeedbackDes": MessageLookupByLibrary.simpleMessage(
             "Let us know if you find any errors or want to share your feedback with us"),

@@ -38,6 +38,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "codeOfConductDes":
             MessageLookupByLibrary.simpleMessage("Przeczytaj nasze zasady"),
         "darkTheme": MessageLookupByLibrary.simpleMessage("Tryb Nocny"),
+        "day1": MessageLookupByLibrary.simpleMessage("Dzień 1"),
+        "day2": MessageLookupByLibrary.simpleMessage("Dzień 2"),
+        "day3": MessageLookupByLibrary.simpleMessage("Dzień 3"),
         "dayOne": MessageLookupByLibrary.simpleMessage("Dzień 1"),
         "dayThree": MessageLookupByLibrary.simpleMessage("Dzień 3"),
         "dayTwo": MessageLookupByLibrary.simpleMessage("Dzień 2"),
@@ -76,6 +79,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "roomAgenda": MessageLookupByLibrary.simpleMessage("Rodzaj wykładu:"),
         "roomB": MessageLookupByLibrary.simpleMessage("Ćwiczenie"),
         "saveAgenda": MessageLookupByLibrary.simpleMessage("Zapisz wykład"),
+        "selectDayNo1": MessageLookupByLibrary.simpleMessage("Zobacz dzień 1"),
+        "selectDayNo2": MessageLookupByLibrary.simpleMessage("Zobacz dzień 2"),
+        "selectDayNo3": MessageLookupByLibrary.simpleMessage("Zobacz dzień 3"),
         "sendFeedback": MessageLookupByLibrary.simpleMessage("Prześlij opinię"),
         "sendFeedbackDes": MessageLookupByLibrary.simpleMessage(
             "Daj nam znać, jeśli znajdziesz jakieś błędy lub chcesz podzielić się z nami swoją opinią"),

@@ -2,6 +2,8 @@ import 'package:conferenceapp/agenda/bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'package:conferenceapp/generated/l10n.dart';
+
 class DaySelectorContainer extends StatelessWidget {
   const DaySelectorContainer(
     this.pageController,
@@ -95,7 +97,7 @@ class DaySelector extends StatelessWidget {
                     child: Semantics(
                       button: true,
                       enabled: selectedDay != 0,
-                      hint: 'Select day no. 1',
+                      hint: S.current.selectDayNo1,
                       child: InkWell(
                         onTap: () {
                           pageController.animateToPage(
@@ -109,7 +111,7 @@ class DaySelector extends StatelessWidget {
                             padding: const EdgeInsets.all(8),
                             child: Center(
                               child: Text(
-                                'Day 1',
+                                S.of(context).day1,
                                 style: TextStyle(
                                   color: selectedDay == 0
                                       ? Theme.of(context).brightness ==
@@ -135,7 +137,7 @@ class DaySelector extends StatelessWidget {
                     child: Semantics(
                       button: true,
                       enabled: selectedDay == 1,
-                      hint: 'Select day no. 2',
+                      hint: S.of(context).selectDayNo2,
                       child: InkWell(
                         onTap: () {
                           pageController.animateToPage(
@@ -149,7 +151,7 @@ class DaySelector extends StatelessWidget {
                             padding: const EdgeInsets.all(8),
                             child: Center(
                               child: Text(
-                                'Day 2',
+                                S.of(context).day2,
                                 style: TextStyle(
                                   color: selectedDay != 0 && selectedDay != 2
                                       ? Theme.of(context).brightness ==
@@ -175,7 +177,7 @@ class DaySelector extends StatelessWidget {
                     child: Semantics(
                       button: true,
                       enabled: selectedDay == 2,
-                      hint: 'Select day no. 3',
+                      hint: S.of(context).selectDayNo3,
                       child: InkWell(
                         onTap: () {
                           pageController.animateToPage(
@@ -189,7 +191,7 @@ class DaySelector extends StatelessWidget {
                             padding: const EdgeInsets.all(8),
                             child: Center(
                               child: Text(
-                                'Day 3',
+                                S.of(context).day3,
                                 style: TextStyle(
                                   color: selectedDay != 0 && selectedDay != 1
                                       ? Theme.of(context).brightness ==

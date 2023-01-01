@@ -569,6 +569,66 @@ class S {
       args: [],
     );
   }
+
+  /// `Select day no. 3`
+  String get selectDayNo3 {
+    return Intl.message(
+      'Select day no. 3',
+      name: 'selectDayNo3',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select day no. 1`
+  String get selectDayNo1 {
+    return Intl.message(
+      'Select day no. 1',
+      name: 'selectDayNo1',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Day 1`
+  String get day1 {
+    return Intl.message(
+      'Day 1',
+      name: 'day1',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select day no. 2`
+  String get selectDayNo2 {
+    return Intl.message(
+      'Select day no. 2',
+      name: 'selectDayNo2',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Day 2`
+  String get day2 {
+    return Intl.message(
+      'Day 2',
+      name: 'day2',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Day 3`
+  String get day3 {
+    return Intl.message(
+      'Day 3',
+      name: 'day3',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

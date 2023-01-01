@@ -42,10 +42,8 @@ class AnimatedRoomIndicator extends StatelessWidget {
                     Expanded(
                       child: Center(
                         child: Text(
-                          rooms
-                              .firstWhere(
-                                  (t) => t.id == TalkType.beginner.toString())
-                              .name,
+                          'Janusz',
+                          // rooms.firstWhere((t) => t.id == TalkType.beginner.toString()).name,
                           style: TextStyle(color: textColor),
                         ),
                       ),
