@@ -629,6 +629,56 @@ class S {
       args: [],
     );
   }
+
+  /// `Sponsor Level`
+  String get sponsorLevel {
+    return Intl.message(
+      'Sponsor Level',
+      name: 'sponsorLevel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Link Sponsor`
+  String get linkSponsor {
+    return Intl.message(
+      'Link Sponsor',
+      name: 'linkSponsor',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Logo Sponsor`
+  String get logoSponsor {
+    return Intl.message(
+      'Logo Sponsor',
+      name: 'logoSponsor',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Save Sponsor`
+  String get saveSponsor {
+    return Intl.message(
+      'Save Sponsor',
+      name: 'saveSponsor',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Can't be empty`
+  String get cantEmpty {
+    return Intl.message(
+      'Can\'t be empty',
+      name: 'cantEmpty',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

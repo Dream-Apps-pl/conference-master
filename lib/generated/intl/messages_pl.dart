@@ -33,6 +33,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "advanced": MessageLookupByLibrary.simpleMessage("Zaawansowany"),
         "agenda": MessageLookupByLibrary.simpleMessage("Plan"),
         "biginner": MessageLookupByLibrary.simpleMessage("Początkujący"),
+        "cantEmpty": MessageLookupByLibrary.simpleMessage("Nie może być pusty"),
         "codeOfConduct":
             MessageLookupByLibrary.simpleMessage("Kodeks postępowania"),
         "codeOfConductDes":
@@ -52,6 +53,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Wybierz godzinę zakończenia"),
         "language": MessageLookupByLibrary.simpleMessage("Język"),
         "linkAvatar": MessageLookupByLibrary.simpleMessage("Link do zdjęcia"),
+        "linkSponsor":
+            MessageLookupByLibrary.simpleMessage("Linki sponsorowane"),
+        "logoSponsor": MessageLookupByLibrary.simpleMessage("Logo sponsora"),
         "longBio": MessageLookupByLibrary.simpleMessage("Biografia"),
         "longBioValidator": MessageLookupByLibrary.simpleMessage(
             "Proszę umieścić opis dla mówcy"),
@@ -79,6 +83,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "roomAgenda": MessageLookupByLibrary.simpleMessage("Rodzaj wykładu:"),
         "roomB": MessageLookupByLibrary.simpleMessage("Ćwiczenie"),
         "saveAgenda": MessageLookupByLibrary.simpleMessage("Zapisz wykład"),
+        "saveSponsor": MessageLookupByLibrary.simpleMessage("Zapisz sponsora"),
         "selectDayNo1": MessageLookupByLibrary.simpleMessage("Zobacz dzień 1"),
         "selectDayNo2": MessageLookupByLibrary.simpleMessage("Zobacz dzień 2"),
         "selectDayNo3": MessageLookupByLibrary.simpleMessage("Zobacz dzień 3"),
@@ -90,6 +95,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "showTicketTooltip": MessageLookupByLibrary.simpleMessage(
             "Naciśnij, aby zobaczyć swój bilet. Powinieneś pokazać go podczas rejestracji."),
         "speakers": MessageLookupByLibrary.simpleMessage("Nauczyciel:"),
+        "sponsorLevel": MessageLookupByLibrary.simpleMessage("Sponsorzy Level"),
         "sponsors": MessageLookupByLibrary.simpleMessage("Sponsorzy"),
         "sponsorsDes":
             MessageLookupByLibrary.simpleMessage("Zobacz, kto nas wspiera"),

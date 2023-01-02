@@ -33,6 +33,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "advanced": MessageLookupByLibrary.simpleMessage("Advanced"),
         "agenda": MessageLookupByLibrary.simpleMessage("Agenda"),
         "biginner": MessageLookupByLibrary.simpleMessage("Beginner"),
+        "cantEmpty": MessageLookupByLibrary.simpleMessage("Can\'t be empty"),
         "codeOfConduct":
             MessageLookupByLibrary.simpleMessage("Code of conduct"),
         "codeOfConductDes":
@@ -52,6 +53,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Please select a end time"),
         "language": MessageLookupByLibrary.simpleMessage("Language"),
         "linkAvatar": MessageLookupByLibrary.simpleMessage("Link Avatar"),
+        "linkSponsor": MessageLookupByLibrary.simpleMessage("Link Sponsor"),
+        "logoSponsor": MessageLookupByLibrary.simpleMessage("Logo Sponsor"),
         "longBio": MessageLookupByLibrary.simpleMessage("Long Bio"),
         "longBioValidator":
             MessageLookupByLibrary.simpleMessage("Please put a bio"),
@@ -79,6 +82,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "roomAgenda": MessageLookupByLibrary.simpleMessage("Teaching form:"),
         "roomB": MessageLookupByLibrary.simpleMessage("Workshop"),
         "saveAgenda": MessageLookupByLibrary.simpleMessage("Save Agenda"),
+        "saveSponsor": MessageLookupByLibrary.simpleMessage("Save Sponsor"),
         "selectDayNo1":
             MessageLookupByLibrary.simpleMessage("Select day no. 1"),
         "selectDayNo2":
@@ -93,6 +97,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "showTicketTooltip": MessageLookupByLibrary.simpleMessage(
             "Tap this button to see your ticket. You should show it during registration or swag pickup."),
         "speakers": MessageLookupByLibrary.simpleMessage("Spreaker:"),
+        "sponsorLevel": MessageLookupByLibrary.simpleMessage("Sponsor Level"),
         "sponsors": MessageLookupByLibrary.simpleMessage("Sponsors"),
         "sponsorsDes":
             MessageLookupByLibrary.simpleMessage("See who supported us"),

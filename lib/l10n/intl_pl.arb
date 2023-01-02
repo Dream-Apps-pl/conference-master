@@ -56,5 +56,10 @@
   "day1": "Dzień 1",
   "selectDayNo2": "Zobacz dzień 2",
   "day2": "Dzień 2",
-  "day3": "Dzień 3"
+  "day3": "Dzień 3",
+  "sponsorLevel": "Sponsorzy Level",
+  "linkSponsor": "Linki sponsorowane",
+  "logoSponsor": "Logo sponsora",
+  "saveSponsor": "Zapisz sponsora",
+  "cantEmpty": "Nie może być pusty"
 }

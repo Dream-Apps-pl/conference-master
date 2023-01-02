@@ -56,5 +56,10 @@
   "day1": "Day 1",
   "selectDayNo2": "Select day no. 2",
   "day2": "Day 2",
-  "day3": "Day 3"
+  "day3": "Day 3",
+  "sponsorLevel": "Sponsor Level",
+  "linkSponsor": "Link Sponsor",
+  "logoSponsor": "Logo Sponsor",
+  "saveSponsor": "Save Sponsor",
+  "cantEmpty": "Can't be empty"
 }
