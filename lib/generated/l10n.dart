@@ -679,6 +679,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Save Organizer`
+  String get saveOrganizer {
+    return Intl.message(
+      'Save Organizer',
+      name: 'saveOrganizer',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

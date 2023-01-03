@@ -1,12 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:conferenceapp/model/organizer.dart';
 import 'package:conferenceapp/model/sponsor.dart';
 import 'package:conferenceapp/model/talk.dart';
 
 class FirestoreService {
   //instanciar a coleção
   CollectionReference talk = FirebaseFirestore.instance.collection('talks');
-  CollectionReference sponsor = FirebaseFirestore.instance.collection('sponsor');
-
+  CollectionReference sponsor =
+      FirebaseFirestore.instance.collection('sponsor');
+  CollectionReference organizer =
+      FirebaseFirestore.instance.collection('organizer');
   Future<String> addTalk(Talk talkData) {
     //adicionar o objecto em forma de json para a coleção de minions
     return talk
@@ -20,6 +23,14 @@ class FirestoreService {
     return sponsor
         .add(sponsorData.toJson())
         .then((value) => "save sponsor data")
+        .catchError((error) => "someting wrong on:\n $error");
+  }
+
+  Future<String> addOrganizer(Organizer organizerData) {
+    //adicionar o objecto em forma de json para a coleção de minions
+    return organizer
+        .add(organizerData.toJson())
+        .then((value) => "save organizer data")
         .catchError((error) => "someting wrong on:\n $error");
   }
 

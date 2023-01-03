@@ -83,6 +83,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "roomAgenda": MessageLookupByLibrary.simpleMessage("Rodzaj wykładu:"),
         "roomB": MessageLookupByLibrary.simpleMessage("Ćwiczenie"),
         "saveAgenda": MessageLookupByLibrary.simpleMessage("Zapisz wykład"),
+        "saveOrganizer": MessageLookupByLibrary.simpleMessage("Save Organizer"),
         "saveSponsor": MessageLookupByLibrary.simpleMessage("Zapisz sponsora"),
         "selectDayNo1": MessageLookupByLibrary.simpleMessage("Zobacz dzień 1"),
         "selectDayNo2": MessageLookupByLibrary.simpleMessage("Zobacz dzień 2"),

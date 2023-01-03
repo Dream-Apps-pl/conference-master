@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:conferenceapp/admin/admin_agenda.dart';
+import 'package:conferenceapp/admin/admin_organizer.dart';
 import 'package:conferenceapp/admin/admin_sponsor.dart';
 import 'package:conferenceapp/common/europe_text_field.dart';
 import 'package:conferenceapp/common/logger.dart';
@@ -53,6 +54,20 @@ class AdminPage extends StatelessWidget {
                   MaterialPageRoute(
                     builder: (context) => AdminSponsor(),
                     settings: RouteSettings(name: 'admin/sponsor'),
+                  ),
+                );
+              },
+            ),
+            ListTile(
+              title: Text(S.current.organizers),
+              subtitle: Text(S.current.organizersDes),
+              trailing: Icon(LineIcons.objectGroup),
+              onTap: () async {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => AdminOrganizer(),
+                    settings: RouteSettings(name: 'admin/organizer'),
                   ),
                 );
               },

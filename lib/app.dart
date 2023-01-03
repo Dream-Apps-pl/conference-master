@@ -7,13 +7,11 @@ import 'package:conferenceapp/common/logger.dart';
 import 'package:conferenceapp/main_page/home_page.dart';
 import 'package:conferenceapp/notifications/repository/notifications_repository.dart';
 import 'package:conferenceapp/notifications/repository/notifications_unread_repository.dart';
-import 'package:conferenceapp/organizers/organizers_repository.dart';
 import 'package:conferenceapp/profile/auth_repository.dart';
 import 'package:conferenceapp/profile/favorites_repository.dart';
 import 'package:conferenceapp/profile/user_repository.dart';
 import 'package:conferenceapp/rate/repository/firestore_ratings_repository.dart';
 import 'package:conferenceapp/rate/repository/ratings_repository.dart';
-import 'package:conferenceapp/sponsors/sponsors_repository.dart';
 import 'package:conferenceapp/ticket/bloc/bloc.dart';
 import 'package:conferenceapp/ticket/repository/ticket_repository.dart';
 import 'package:conferenceapp/utils/color.dart';
@@ -248,23 +246,17 @@ class RepositoryProviders extends StatelessWidget {
           child: RepositoryProvider(
             create: _favoritesRepositoryBuilder,
             child: RepositoryProvider(
-              create: (context) => _sponsorsRepositoryBuilder(context),
+              create: _ticketRepositoryBuilder,
               child: RepositoryProvider(
-                create: (context) => _organizersRepositoryBuilder(context),
+                create: _notificationsRepositoryBuilder,
                 child: RepositoryProvider(
-                  create: _ticketRepositoryBuilder,
-                  child: RepositoryProvider(
-                    create: _notificationsRepositoryBuilder,
-                    child: RepositoryProvider(
-                      create: (context) =>
-                          _notificationsUnreadStatusRepositoryBuilder(
-                              context, sharedPreferences),
-                      child: RepositoryProvider<RatingsRepository>(
-                        create: (context) => _ratingsRepositoryBuilder(context,
-                            sharedPreferences, FirebaseFirestore.instance),
-                        child: child,
-                      ),
-                    ),
+                  create: (context) =>
+                      _notificationsUnreadStatusRepositoryBuilder(
+                          context, sharedPreferences),
+                  child: RepositoryProvider<RatingsRepository>(
+                    create: (context) => _ratingsRepositoryBuilder(context,
+                        sharedPreferences, FirebaseFirestore.instance),
+                    child: child,
                   ),
                 ),
               ),
@@ -287,14 +279,6 @@ class RepositoryProviders extends StatelessWidget {
       RepositoryProvider.of<TalkRepository>(context),
       RepositoryProvider.of<UserRepository>(context),
     );
-  }
-
-  SponsorsRepository _sponsorsRepositoryBuilder(BuildContext context) {
-    return SponsorsRepository();
-  }
-
-  OrganizersRepository _organizersRepositoryBuilder(BuildContext context) {
-    return OrganizersRepository();
   }
 
   FirestoreNotificationsRepository _notificationsRepositoryBuilder(

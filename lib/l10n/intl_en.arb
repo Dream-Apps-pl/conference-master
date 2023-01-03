@@ -61,5 +61,6 @@
   "linkSponsor": "Link Sponsor",
   "logoSponsor": "Logo Sponsor",
   "saveSponsor": "Save Sponsor",
-  "cantEmpty": "Can't be empty"
+  "cantEmpty": "Can't be empty",
+  "saveOrganizer": "Save Organizer"
 }

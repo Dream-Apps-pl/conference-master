@@ -1,34 +1,32 @@
+import 'package:cloud_firestore_odm/cloud_firestore_odm.dart';
 import 'package:conferenceapp/common/appbar.dart';
 import 'package:conferenceapp/model/organizer.dart';
-import 'package:conferenceapp/organizers/organizers_repository.dart';
 import 'package:contentful_rich_text/contentful_rich_text.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class OrganizersPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final organizersRepository =
-        RepositoryProvider.of<OrganizersRepository>(context);
     return Scaffold(
       appBar: FlutterEuropeAppBar(
         back: true,
         search: false,
       ),
       body: Container(
-        child: FutureBuilder<List<Organizer>>(
-          // future: organizersRepository.fetchOrganizers(),
-          builder: (context, snapshot) {
+        child: FirestoreBuilder<OrganizerQuerySnapshot>(
+          ref: organizerRef,
+          builder: (BuildContext context,
+              AsyncSnapshot<OrganizerQuerySnapshot> snapshot, Widget? child) {
             if (snapshot.hasData) {
-              final organizers = snapshot.data?.toList();
+              OrganizerQuerySnapshot sponsorSnapshot = snapshot.requireData;
 
               return GridView.count(
                 crossAxisCount:
                     MediaQuery.of(context).orientation == Orientation.portrait
                         ? 2
                         : 4,
-                children: organizers!
+                children: sponsorSnapshot.docs
                     .map((f) => Padding(
                           padding: const EdgeInsets.all(12.0),
                           child: InkResponse(
@@ -38,7 +36,7 @@ class OrganizersPage extends StatelessWidget {
                                 Positioned.fill(
                                   child: Container(
                                     child: ExtendedImage.network(
-                                      f.pictureUrl + '?w=360',
+                                      f.data.picture,
                                       fit: BoxFit.cover,
                                     ),
                                   ),
@@ -53,7 +51,7 @@ class OrganizersPage extends StatelessWidget {
                                       child: Padding(
                                         padding: const EdgeInsets.all(4.0),
                                         child: Text(
-                                          f.name,
+                                          f.data.name,
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
                                               color: Colors.white,
@@ -71,13 +69,11 @@ class OrganizersPage extends StatelessWidget {
                                           context: context,
                                           barrierDismissible: true,
                                           builder: (context) => SimpleDialog(
-                                                title: Text(f.name),
+                                                title: Text(f.data.name),
                                                 contentPadding:
                                                     EdgeInsets.all(24.0),
                                                 children: <Widget>[
-                                                  ContentfulRichText(
-                                                          (f.longBioMap))
-                                                      .documentToWidgetTree,
+                                                  Text(f.data.longBio),
                                                 ],
                                               ));
                                     }),

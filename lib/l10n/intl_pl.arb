@@ -61,5 +61,6 @@
   "linkSponsor": "Linki sponsorowane",
   "logoSponsor": "Logo sponsora",
   "saveSponsor": "Zapisz sponsora",
-  "cantEmpty": "Nie może być pusty"
+  "cantEmpty": "Nie może być pusty",
+  "saveOrganizer": "Save Organizer"
 }
