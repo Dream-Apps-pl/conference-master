@@ -1,5 +1,6 @@
 // ignore_for_file: unnecessary_null_comparison
 
+import 'package:add_2_calendar/add_2_calendar.dart';
 import 'package:conferenceapp/agenda/widgets/talk_card_widgets/favorite_button.dart';
 import 'package:conferenceapp/common/logger.dart';
 import 'package:conferenceapp/model/author.dart';
@@ -36,19 +37,17 @@ class TalkPage extends StatelessWidget {
         onPressed: data != null
             ? () {
                 try {
-                  // TODO: add calendar
-                  // final Event event = Event(
-                  //   title: talk.title,
-                  //   description: Document.fromJson(talk.descriptionMap)!
-                  //       .toSimpleString(),
-                  //   location:
-                  //       'Centrum konferencyjne w Centrum Nauki Kopernik, Wybrzeże Kościuszkowskie 20, 00-390 Warszawa',
-                  //   startDate: talk.startTime,
-                  //   endDate: talk.endTime,
-                  //   allDay: false,
-                  // );
+                  final Event event = Event(
+                    title: data.title,
+                    description: data.description,
+                    location:
+                        'Centrum konferencyjne w Centrum Nauki Kopernik, Wybrzeże Kościuszkowskie 20, 00-390 Warszawa',
+                    startDate: data.startTime,
+                    endDate: data.endTime,
+                    allDay: false,
+                  );
 
-                  // Add2Calendar.addEvent2Cal(event);
+                  Add2Calendar.addEvent2Cal(event);
                 } catch (e, s) {
                   logger.errorException(e, s);
                 }
@@ -92,80 +91,6 @@ class TalkPage extends StatelessWidget {
         ],
       ),
     );
-
-    // final talkStream = Provider.of<TalkRepository>(context).talk(id);
-    // return StreamBuilder<Talk>(
-    //   stream: talkStream,
-    //   builder: (context, snapshot) {
-    //     final talk = snapshot.hasData ? snapshot.data : null;
-    //     return Scaffold(
-    //       floatingActionButton: FloatingActionButton(
-    //         child: Icon(LineIcons.calendarPlus),
-    //         tooltip: 'Add to calendar',
-    //         backgroundColor: Theme.of(context).primaryColor,
-    //         onPressed: talk != null
-    //             ? () {
-    //                 try {
-    //                   // TODO: add calendar
-    //                   // final Event event = Event(
-    //                   //   title: talk.title,
-    //                   //   description: Document.fromJson(talk.descriptionMap)!
-    //                   //       .toSimpleString(),
-    //                   //   location:
-    //                   //       'Centrum konferencyjne w Centrum Nauki Kopernik, Wybrzeże Kościuszkowskie 20, 00-390 Warszawa',
-    //                   //   startDate: talk.startTime,
-    //                   //   endDate: talk.endTime,
-    //                   //   allDay: false,
-    //                   // );
-
-    //                   // Add2Calendar.addEvent2Cal(event);
-    //                 } catch (e, s) {
-    //                   logger.errorException(e, s);
-    //                 }
-    //               }
-    //             : null,
-    //       ),
-    //       body: CustomScrollView(
-    //         physics:
-    //             BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
-    //         slivers: <Widget>[
-    //           SliverAppBar(
-    //             floating: false,
-    //             pinned: false,
-    //             backgroundColor:
-    //                 Theme.of(context).brightness == Brightness.light
-    //                     ? Theme.of(context).primaryColor
-    //                     : Theme.of(context).scaffoldBackgroundColor,
-    //             actions: talk != null
-    //                 ? <Widget>[
-    //                     TalkDetailsFavoriteButton(talk: talk),
-    //                   ]
-    //                 : null,
-    //             title: talk != null ? Text(talk.title) : null,
-    //             centerTitle: false,
-    //           ),
-    //           (talk != null)
-    //               ? SliverList(
-    //                   delegate: new SliverChildListDelegate([
-    //                     TopHeader(talk: talk),
-    //                     TalkTitle(talk: talk),
-    //                     TalkRating(talk: talk),
-    //                     if (talk.description != null) TalkDetails(talk: talk),
-    //                   ]),
-    //                 )
-    //               : SliverFillRemaining(
-    //                   child: Center(
-    //                     child: Padding(
-    //                       padding: const EdgeInsets.all(8.0),
-    //                       child: CircularProgressIndicator(),
-    //                     ),
-    //                   ),
-    //                 ),
-    //         ],
-    //       ),
-    //     );
-    //   },
-    // );
   }
 }
 
