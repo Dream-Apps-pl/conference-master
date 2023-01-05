@@ -222,7 +222,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       height: 50,
                     ),
                   ),
-                  applicationName: 'Flutter Europe 2020',
+                  applicationName: 'Konferencje Sny i Wizje',
                   applicationVersion: '${version.version}',
                   applicationLegalese:
                       'Created by Dominik Roszkowski (roszkowski.dev), Maciek Korzeniewski (@korzonkiee), Marcin Szałek (fidev.io) and Robert Odrowąż-Sypniewski for the Flutter Europe conference');
@@ -266,15 +266,15 @@ class _ProfilePageState extends State<ProfilePage> {
   void sendEmail() async {
     final version = await PackageInfo.fromPlatform();
     final platform = Platform.isIOS ? 'iOS' : 'Android';
-    final email = 'dominik@fluttereurope.dev';
-    final subject = 'Feedback about Flutter Europe app';
+    final email = 'piotr@snyiwizje.pl';
+    final subject = 'Informacja zwrotna z aplikacji "Sny i Wizje';
     final body =
-        'Hi! I wanted to share some feedback about Flutter Europe mobile app.<br><br><br>App Version: ${version.version}<br>App Id: ${version.packageName}<br>Platform: $platform';
+        'Cześć! Chciałem podzielić się swoja opinią na temat tej aplikacji mobilnej.<br><br><br>Wersja Aplikacji: ${version.version}<br>App Id: ${version.packageName}<br>Platforma: $platform';
     final url = Uri.encodeFull('mailto:$email?subject=$subject&body=$body');
     if (await canLaunchUrl(Uri.parse(url))) {
       await launchUrl(Uri.parse(url));
     } else {
-      logger.warn('Could not launch $url, trying typical share');
+      logger.warn('Nie mogę wyświetlić $url, przy opcji share');
 
       Share.share(body, subject: body);
     }
