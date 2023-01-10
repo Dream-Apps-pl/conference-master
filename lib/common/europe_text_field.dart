@@ -1,3 +1,4 @@
+import 'package:conferenceapp/generated/l10n.dart';
 import 'package:flutter/material.dart';
 
 class EuropeTextFormField extends StatelessWidget {
@@ -56,10 +57,10 @@ class EuropeTextFormField extends StatelessWidget {
         maxLength: maxLength,
         validator: (value) {
           if (value!.length == 0) {
-            return 'Please fill this field.';
+            return S.current.pleaseFill;
           }
           if (value.length != maxLength) {
-            return 'This field should have $maxLength characters.';
+            return S.current.shouldHave(maxLength!);
           }
           if (additionalValidator != null) return additionalValidator!(value);
           return null;

@@ -1,4 +1,5 @@
 import 'package:conferenceapp/common/europe_text_field.dart';
+import 'package:conferenceapp/generated/l10n.dart';
 import 'package:conferenceapp/ticket_check/scan_ticket_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -37,12 +38,10 @@ class _ManualTicketPageState extends State<ManualTicketPage> {
                 children: <Widget>[
                   Padding(
                     padding: const EdgeInsets.all(30.0),
-                    child: Text(
-                      'Tutaj możesz ręcznie wpisać dane, jeśli nie udało się ich zeskanować',
-                    ),
+                    child: Text(S.current.manualInput),
                   ),
                   EuropeTextFormField(
-                    hint: 'Order number lub ticket number',
+                    hint: S.current.orderNumberOrTicket,
                     maxLength: 20,
                     value: value,
                     onChanged: (val) {
@@ -56,11 +55,10 @@ class _ManualTicketPageState extends State<ManualTicketPage> {
                       if (value.length > 0) onSearch();
                     },
                   ),
-                  Text(
-                      'Numer zamówienia (order no.) ma 9 znaków i zaczyna się od OT'),
-                  Text('Numer biletu (ticket id.) ma 20 znaków'),
+                  Text(S.current.validationOrder),
+                  Text(S.current.validationNumber),
                   ElevatedButton(
-                    child: Text('Szukaj'),
+                    child: Text(S.current.search),
                     onPressed: value.length > 0 ? onSearch : null,
                   ),
                   if (state is TicketScannedState)

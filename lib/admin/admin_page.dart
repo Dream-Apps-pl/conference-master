@@ -125,8 +125,7 @@ class AdminPage extends StatelessWidget {
       notifRepository.addNotification(notification);
       await Future.delayed(Duration(milliseconds: 500));
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text(
-            'Notification will be sent to the users and visible in Notifications panel'),
+        content: Text(S.current.notifAdmin),
       ));
     }
   }
@@ -218,11 +217,11 @@ class _SignupDialogDialogState extends State<SignupDialog> {
   @override
   Widget build(BuildContext context) {
     return SimpleDialog(
-      title: Text('Add new ticketer'),
+      title: Text(S.current.addNewTicker),
       contentPadding: EdgeInsets.all(12.0),
       children: <Widget>[
         EuropeTextFormField(
-          hint: 'Email',
+          hint: S.current.email,
           value: email,
           onChanged: (value) {
             setState(() {
@@ -247,13 +246,13 @@ class _SignupDialogDialogState extends State<SignupDialog> {
                 }
                 Navigator.pop(context);
               },
-              child: Text('Register'),
+              child: Text(S.current.register),
               style: TextButton.styleFrom(backgroundColor: Colors.green),
             ),
             SizedBox(width: 16),
             TextButton(
               onPressed: () => Navigator.pop(context),
-              child: Text('Close'),
+              child: Text(S.current.close),
               style: TextButton.styleFrom(backgroundColor: Colors.red),
             ),
           ],

@@ -1,4 +1,5 @@
 import 'package:conferenceapp/agenda/helpers/agenda_layout_helper.dart';
+import 'package:conferenceapp/generated/l10n.dart';
 import 'package:feature_discovery/feature_discovery.dart';
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
@@ -52,7 +53,7 @@ class FlutterEuropeAppBar extends StatelessWidget
               enabled: true,
               focusable: true,
               child: Tooltip(
-                message: 'Search for a talk or speaker',
+                message: S.current.search,
                 child: Container(
                   child: IconButton(
                     color: Theme.of(context).accentColor,
@@ -83,9 +84,9 @@ class ToggleLayoutButton extends StatelessWidget {
       button: true,
       enabled: true,
       focusable: true,
-      hint: 'Change the layout of the agenda',
+      hint: S.current.hintLayout,
       child: Tooltip(
-        message: 'Change the layout of the agenda',
+        message: S.current.hintLayout,
         child: IconButton(
           color: Theme.of(context).accentColor,
           icon: AnimatedSwitcher(
@@ -113,9 +114,8 @@ class ToggleLayoutButton extends StatelessWidget {
     return DescribedFeatureOverlay(
       featureId: 'show_how_to_toggle_layout',
       tapTarget: icon,
-      title: Text('Toggle agenda layout'),
-      description: Text(
-          'Tap this icon to change layout to full width. Tap anywhere else to dismiss this info.'),
+      title: Text(S.current.toggleLayout),
+      description: Text(S.current.toggleDescription),
       backgroundColor: Theme.of(context).primaryColor,
       onComplete: () async {
         return true;

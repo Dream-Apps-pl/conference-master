@@ -1,4 +1,5 @@
 import 'package:conferenceapp/common/logger.dart';
+import 'package:conferenceapp/generated/l10n.dart';
 import 'package:conferenceapp/ticket_check/bloc/bloc.dart';
 import 'package:conferenceapp/ticket_check/users_list.dart';
 import 'package:flutter/material.dart';
@@ -22,14 +23,13 @@ class _TicketCheckPageState extends State<TicketCheckPage> {
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text(
-                  'Aby zeskanować bilet naciśnij "Skanuj bilety", a następnie skieruj aparat na kod QR na ekranie telefonu uczestnika.'),
+              child: Text(S.current.infoScan),
             ),
             ElevatedButton(
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
-                  'Skanuj bilety',
+                  S.current.scanTicket,
                   style: TextStyle(fontSize: 36),
                 ),
               ),
@@ -55,7 +55,7 @@ class _TicketCheckPageState extends State<TicketCheckPage> {
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
-                  'Sprawdź ręcznie',
+                  S.current.checkManual,
                   style: TextStyle(fontSize: 36),
                 ),
               ),
@@ -84,7 +84,7 @@ class _TicketCheckPageState extends State<TicketCheckPage> {
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
-                  'Kontrola na imprezie',
+                  S.current.controlParty,
                 ),
               ),
               onPressed: () async {
@@ -102,7 +102,7 @@ class _TicketCheckPageState extends State<TicketCheckPage> {
               height: 10,
             ),
             ElevatedButton(
-              child: Text('Przeglądaj sprawdzone'),
+              child: Text(S.current.browseChecked),
               onPressed: () async {
                 try {
                   await Navigator.push(

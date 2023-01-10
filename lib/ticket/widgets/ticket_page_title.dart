@@ -1,3 +1,4 @@
+import 'package:conferenceapp/generated/l10n.dart';
 import 'package:flutter/material.dart';
 
 class TicketPageTitle extends StatelessWidget {
@@ -9,7 +10,7 @@ class TicketPageTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Text(
-        'Your ticket',
+        S.current.yourTicket,
         style: TextStyle(
           fontSize: 22,
           color: Theme.of(context).brightness == Brightness.light

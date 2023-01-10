@@ -1,9 +1,9 @@
+import 'package:conferenceapp/generated/l10n.dart';
 import 'package:conferenceapp/ticket/widgets/ticket_clipper.dart';
 import 'package:conferenceapp/ticket_check/bloc/bloc.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mobile_scanner/mobile_scanner.dart';
 
 class ScanTicketPage extends StatefulWidget {
   final TicketCheckBloc bloc;
@@ -25,7 +25,7 @@ class _ScanTicketPageState extends State<ScanTicketPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Ticket scanning'),
+        title: Text(S.current.ticketScanning),
       ),
       body: BlocBuilder<TicketCheckBloc, TicketCheckState>(
           bloc: widget.bloc,
@@ -124,7 +124,7 @@ class TicketValidated extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               Text(
-                'Bilet sprawdzony',
+                S.current.ticketChecked,
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 12),
@@ -140,10 +140,10 @@ class TicketValidated extends StatelessWidget {
                   ),
                 ),
               ),
-              Text('Zamówienie: ${state?.ticket.orderId}'),
-              Text('Bilet: ${state?.ticket.ticketId}'),
+              Text('${S.current.orderNumber}: ${state?.ticket.orderId}'),
+              Text('${S.current.ticketNumber}: ${state?.ticket.ticketId}'),
               ElevatedButton(
-                child: Text('OK'),
+                child: Text(S.current.ok),
                 onPressed: () {
                   onClose!();
                   // startScanning();
@@ -182,27 +182,27 @@ class TicketInfo extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  'Potwierdź dane z uczestnikiem',
+                  S.current.confirmParticipant,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 18,
                   ),
                 ),
                 SizedBox(height: 12),
-                Text('Zamówienie: ${state.ticket.orderId}'),
-                Text('Numer biletu: ${state.ticket.ticketId}'),
-                Text('Nazwisko: ${state.name}'),
+                Text('${S.current.orderNumber}: ${state.ticket.orderId}'),
+                Text('${S.current.ticketNumber}: ${state.ticket.ticketId}'),
+                Text('${S.current.name}: ${state.name}'),
                 SizedBox(height: 12),
-                Text('Dane techniczne'),
+                Text(S.current.technicalData),
                 Text(state.ticketChecked
-                    ? 'Bilet już sprawdzony'
-                    : 'Bilet jeszcze nie sprawdzony'),
+                    ? S.current.ticketAlreadyChecked
+                    : S.current.ticketNotChecked),
                 Text(
-                    'Pozostało biletów w zamówieniu: ${state.leftTicketsInOrderCount}/${state.ticketsInOrderCount}'),
+                    '${S.current.ticketLeftOrder}: ${state.leftTicketsInOrderCount}/${state.ticketsInOrderCount}'),
                 SizedBox(height: 12),
                 if (state.student)
                   Text(
-                    'Bilet studencki',
+                    S.current.studentTicket,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 24,
@@ -213,7 +213,7 @@ class TicketInfo extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     ElevatedButton(
-                      child: Text('Anuluj'),
+                      child: Text(S.current.cancel),
                       style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.red,
                           textStyle: TextStyle(color: Colors.white)),
@@ -223,7 +223,7 @@ class TicketInfo extends StatelessWidget {
                     ),
                     SizedBox(width: 12),
                     ElevatedButton(
-                      child: Text('Wszystko OK'),
+                      child: Text(S.current.everythingFine),
                       style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.green,
                           textStyle: TextStyle(color: Colors.white)),
@@ -267,7 +267,7 @@ class ScanTopInfo extends StatelessWidget {
               child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              if (scanning) Text('Skanowanie kodu QR'),
+              if (scanning) Text(S.current.qrScanning),
               if (scanning)
                 Padding(
                   padding: const EdgeInsets.all(2.0),

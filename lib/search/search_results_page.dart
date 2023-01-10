@@ -1,4 +1,5 @@
 import 'package:conferenceapp/agenda/bloc/bloc.dart';
+import 'package:conferenceapp/generated/l10n.dart';
 import 'package:conferenceapp/model/talk.dart';
 import 'package:conferenceapp/search/material_search.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +18,7 @@ class SearchResultsPage extends StatelessWidget {
         builder: (context, state) {
           if (state is PopulatedAgendaState)
             return MaterialSearch<Talk>(
-              placeholder: 'Search',
+              placeholder: S.current.searchHint,
               getResults: (String criteria) async {
                 return [...state.talks[0]!, ...state.talks[1]!]
                     .map((Talk v) => new MaterialSearchResult<Talk>(

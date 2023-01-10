@@ -1,3 +1,4 @@
+import 'package:conferenceapp/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 
@@ -19,7 +20,7 @@ class SaveTicketButton extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           Text(
-            'Save',
+            S.current.save,
             style: TextStyle(
               color: Colors.white,
             ),

@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:conferenceapp/generated/l10n.dart';
 import 'package:conferenceapp/profile/auth_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -29,7 +30,7 @@ class _UsersListPageState extends State<UsersListPage> {
             });
           },
           decoration: InputDecoration(
-            hintText: 'Wyszukaj po order ID',
+            hintText: S.current.searchByOrder,
             enabledBorder: UnderlineInputBorder(
               borderSide: BorderSide(
                 color: Colors.white,
@@ -72,7 +73,7 @@ class _UsersListPageState extends State<UsersListPage> {
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
-                              'W sumie sprawdzono: ${list.data?.docs.length}'),
+                              '${S.current.allChecked}: ${list.data?.docs.length}'),
                         ),
                         Flexible(
                           child: TicketsList(list, isAdmin, filter),

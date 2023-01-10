@@ -3,6 +3,7 @@ import 'package:conferenceapp/agenda/bloc/bloc.dart';
 import 'package:conferenceapp/agenda/day_selector.dart';
 import 'package:conferenceapp/agenda/helpers/agenda_layout_helper.dart';
 import 'package:conferenceapp/agenda/widgets/new_populated_agenda_list.dart';
+import 'package:conferenceapp/generated/l10n.dart';
 import 'package:conferenceapp/model/talk.dart';
 import 'package:conferenceapp/profile/auth_repository.dart';
 import 'package:flutter/material.dart';
@@ -53,7 +54,7 @@ class _MySchedulePageState extends State<MySchedulePage> {
                     AsyncSnapshot<TalkQuerySnapshot> snapshot, Widget? child) {
                   if (snapshot.hasError) {
                     return Center(
-                        child: Text('An error has occured! ${snapshot.error}'));
+                        child: Text('${S.current.anError} ${snapshot.error}'));
                   }
                   if (snapshot.hasData) {
                     TalkQuerySnapshot talkSnapshot = snapshot.requireData;

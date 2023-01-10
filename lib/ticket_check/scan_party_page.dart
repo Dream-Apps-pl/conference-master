@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:conferenceapp/generated/l10n.dart';
 import 'package:flutter/material.dart';
-import 'package:mobile_scanner/mobile_scanner.dart';
 
 class ScanPartyPage extends StatelessWidget {
   const ScanPartyPage({Key? key}) : super(key: key);
@@ -9,7 +9,7 @@ class ScanPartyPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Ticket scanning at the party'),
+        title: Text(S.current.scanAtParty),
       ),
       body: ScanPartyPageContent(),
     );

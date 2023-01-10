@@ -1,7 +1,6 @@
 import 'package:cloud_firestore_odm/cloud_firestore_odm.dart';
 import 'package:conferenceapp/common/appbar.dart';
 import 'package:conferenceapp/model/organizer.dart';
-import 'package:contentful_rich_text/contentful_rich_text.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 

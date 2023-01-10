@@ -1,3 +1,4 @@
+import 'package:conferenceapp/generated/l10n.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
@@ -26,27 +27,27 @@ class ConferenceInfo extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      'Venue:',
+                      '${S.current.venue}:',
                       textAlign: TextAlign.left,
                     ),
                     Text(
-                      'Conference Centre',
-                      textAlign: TextAlign.left,
-                      softWrap: true,
-                      maxLines: 2,
-                    ),
-                    Text(
-                      'Copernicus Science Centre',
+                      S.current.conferenceCenter,
                       textAlign: TextAlign.left,
                       softWrap: true,
                       maxLines: 2,
                     ),
                     Text(
-                      'Wybrzeże Kościuszkowskie 20',
+                      S.current.scienceCenter,
+                      textAlign: TextAlign.left,
+                      softWrap: true,
+                      maxLines: 2,
+                    ),
+                    Text(
+                      S.current.wybrzeze,
                       textAlign: TextAlign.left,
                     ),
                     Text(
-                      '00-390 Warsaw',
+                      S.current.warsaw,
                       textAlign: TextAlign.left,
                     ),
                   ],
@@ -56,7 +57,8 @@ class ConferenceInfo extends StatelessWidget {
             IconButton(
               icon: Icon(LineIcons.mapSigns),
               onPressed: () async {
-                if (await canLaunchUrl(Uri.parse('https://goo.gl/maps/ChCCX5G71E5VRmWX6'))) {
+                if (await canLaunchUrl(
+                    Uri.parse('https://goo.gl/maps/ChCCX5G71E5VRmWX6'))) {
                   launchUrl(Uri.parse('https://goo.gl/maps/ChCCX5G71E5VRmWX6'));
                 }
               },

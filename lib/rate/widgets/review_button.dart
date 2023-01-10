@@ -1,3 +1,4 @@
+import 'package:conferenceapp/generated/l10n.dart';
 import 'package:conferenceapp/rate/effects/show_rating_talk_too_early_error.dart';
 import 'package:flutter/material.dart';
 
@@ -20,7 +21,7 @@ class ReviewButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       child: Text(
-        "Write a review",
+        S.current.writeReview,
         style: TextStyle(
           decoration: TextDecoration.underline,
           color: Theme.of(context).primaryColor,
@@ -28,7 +29,8 @@ class ReviewButton extends StatelessWidget {
       ),
       onPressed: () async {
         if (await canReviewDelegate()) {
-          final review = await showWriteReviewModalBottomSheet(context, data: '');
+          final review =
+              await showWriteReviewModalBottomSheet(context, data: '');
           if (review != null) {
             this.onReviewSubmitted(review);
           }

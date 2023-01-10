@@ -1,3 +1,4 @@
+import 'package:conferenceapp/generated/l10n.dart';
 import 'package:flutter/material.dart';
 
 Future<String?> showWriteReviewModalBottomSheet<String>(BuildContext context,
@@ -64,12 +65,14 @@ class _WriteReviewModalBottomSheetState
               autofocus: true,
               maxLength: 200,
               decoration: InputDecoration(
-                hintText: "How did you like the talk? (min. 10 letters).",
+                hintText: S.current.reviewHint,
                 enabledBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Theme.of(context).colorScheme.secondary),
+                  borderSide: BorderSide(
+                      color: Theme.of(context).colorScheme.secondary),
                 ),
                 focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Theme.of(context).colorScheme.secondary),
+                  borderSide: BorderSide(
+                      color: Theme.of(context).colorScheme.secondary),
                 ),
               ),
             ),
@@ -78,12 +81,12 @@ class _WriteReviewModalBottomSheetState
               children: <Widget>[
                 Expanded(
                   child: Text(
-                    "Review will be visible only to the speaker.",
+                    S.current.reviewHintVisible,
                     style: TextStyle(fontStyle: FontStyle.italic),
                   ),
                 ),
                 ElevatedButton(
-                  child: Text("Submit"),
+                  child: Text(S.current.submit),
                   onPressed: this.canSubmit
                       ? () {
                           Navigator.of(context).pop(_controller.text.trim());

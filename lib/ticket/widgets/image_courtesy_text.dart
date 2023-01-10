@@ -1,3 +1,4 @@
+import 'package:conferenceapp/generated/l10n.dart';
 import 'package:flutter/material.dart';
 
 class ImageLicenseText extends StatelessWidget {
@@ -9,7 +10,7 @@ class ImageLicenseText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Text(
-        'Image courtesy of https://undraw.co/',
+        '${S.current.imageCourtesy} https://undraw.co/',
         textAlign: TextAlign.center,
         style: TextStyle(
           color: Theme.of(context).textTheme.bodyText1!.color!.withOpacity(0.5),

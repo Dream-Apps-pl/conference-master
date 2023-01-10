@@ -4,7 +4,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:conferenceapp/common/logger.dart';
 import 'package:conferenceapp/model/user.dart';
 import 'package:conferenceapp/profile/auth_repository.dart';
-import 'package:contentful_rich_text/types/types.dart';
 import 'package:rxdart/rxdart.dart';
 
 class UserRepository {

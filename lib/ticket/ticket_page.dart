@@ -1,6 +1,7 @@
 import 'package:conferenceapp/agenda/widgets/talk_card.dart';
 import 'package:conferenceapp/common/conference_info.dart';
 import 'package:conferenceapp/common/europe_text_field.dart';
+import 'package:conferenceapp/generated/l10n.dart';
 import 'package:conferenceapp/model/ticket.dart';
 import 'package:conferenceapp/model/user.dart';
 import 'package:conferenceapp/profile/user_repository.dart';
@@ -78,7 +79,7 @@ class _TicketPageState extends State<TicketPage> {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
-                          'Show this QR code during registration at the event',
+                          S.current.showQr,
                           textAlign: TextAlign.center,
                         ),
                       ),
@@ -90,7 +91,7 @@ class _TicketPageState extends State<TicketPage> {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
-                          'Ticket validated ✔️',
+                          S.current.ticetValidated,
                           textAlign: TextAlign.center,
                         ),
                       ),
@@ -123,17 +124,17 @@ class _TicketPageState extends State<TicketPage> {
                   children: <Widget>[
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Text('Order number'),
+                      child: Text(S.current.orderNumber),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Text('Ticket number'),
+                      child: Text(S.current.ticketNumber),
                     )
                   ],
                 ),
               if (verifyByOrderNumber && !(state is TicketAddedState))
                 EuropeTextFormField(
-                  hint: 'Order number (OTXXXXXXX)',
+                  hint: S.current.hintOrderNumber,
                   onFieldSubmitted: onSubmit,
                   onChanged: validate,
                   maxLength: 9,
@@ -143,14 +144,14 @@ class _TicketPageState extends State<TicketPage> {
                   textCapitalization: TextCapitalization.characters,
                   additionalValidator: (value) {
                     if (!value!.startsWith('OT') && !value.startsWith('ot')) {
-                      return 'Order number should start with OT';
+                      return S.current.orderNumberValidation;
                     }
                     return null;
                   },
                 ),
               if (verifyByTicketNumber && !(state is TicketAddedState))
                 EuropeTextFormField(
-                  hint: 'Ticket number (xXxXxXxXxXxXxX)',
+                  hint: S.current.ticketNumberHint,
                   onFieldSubmitted: onSubmit,
                   onChanged: validate,
                   maxLength: 20,
@@ -173,7 +174,7 @@ class _TicketPageState extends State<TicketPage> {
               //   focusNode: personalEmailNode,
               //   keyboardType: TextInputType.emailAddress,
               // ),
-              if (state is TicketErrorState) Text('We have some problems 😅'),
+              if (state is TicketErrorState) Text(S.current.weHaveProblem),
               if (!(state is TicketAddedState))
                 SaveTicketButton(
                   enabled: formValid,
@@ -185,7 +186,7 @@ class _TicketPageState extends State<TicketPage> {
                 Padding(
                   padding: const EdgeInsets.all(4.0),
                   child: Text(
-                    'Order number: ${state.ticket.orderId}',
+                    '${S.current.orderNumber}: ${state.ticket.orderId}',
                     textAlign: TextAlign.center,
                   ),
                 ),
@@ -193,7 +194,7 @@ class _TicketPageState extends State<TicketPage> {
                 Padding(
                   padding: const EdgeInsets.all(4.0),
                   child: Text(
-                    'Ticket number: ${state.ticket.ticketId}',
+                    '${S.current.ticketNumber}: ${state.ticket.ticketId}',
                     textAlign: TextAlign.center,
                   ),
                 ),
@@ -207,7 +208,7 @@ class _TicketPageState extends State<TicketPage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
-                      Text('Remove ticket'),
+                      Text(S.current.removeTicket),
                       Icon(LineIcons.trash)
                     ],
                   ),

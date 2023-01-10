@@ -1,5 +1,6 @@
 import 'package:conferenceapp/common/europe_text_field.dart';
 import 'package:conferenceapp/common/logger.dart';
+import 'package:conferenceapp/generated/l10n.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -32,11 +33,11 @@ class AuthenticatorButton extends StatelessWidget {
           title: Column(
             children: <Widget>[
               Text(
-                'Login to continue',
+                S.current.login,
                 textAlign: TextAlign.center,
               ),
               EuropeTextFormField(
-                hint: 'e-mail',
+                hint: S.current.email,
                 keyboardType: TextInputType.emailAddress,
                 onChanged: (value) {
                   username = value;
@@ -48,7 +49,7 @@ class AuthenticatorButton extends StatelessWidget {
               EuropeTextFormField(
                 obscureText: true,
                 keyboardType: TextInputType.visiblePassword,
-                hint: 'password',
+                hint: S.current.password,
                 onChanged: (value) {
                   password = value;
                 },
@@ -57,7 +58,7 @@ class AuthenticatorButton extends StatelessWidget {
           ),
           children: <Widget>[
             TextButton(
-              child: Text('Login'),
+              child: Text(S.current.login),
               onPressed: () async {
                 final FirebaseAuth _auth = FirebaseAuth.instance;
                 try {
@@ -66,7 +67,7 @@ class AuthenticatorButton extends StatelessWidget {
                     password: password,
                   );
                   Fluttertoast.showToast(
-                    msg: "Logged in",
+                    msg: S.current.logged,
                     toastLength: Toast.LENGTH_SHORT,
                     gravity: ToastGravity.CENTER,
                     timeInSecForIosWeb: 1,
@@ -76,7 +77,7 @@ class AuthenticatorButton extends StatelessWidget {
                   Navigator.pop(context);
                 } catch (e) {
                   Fluttertoast.showToast(
-                      msg: "Error during log in",
+                      msg: S.current.errorLogin,
                       toastLength: Toast.LENGTH_SHORT,
                       gravity: ToastGravity.CENTER,
                       timeInSecForIosWeb: 1,
@@ -88,7 +89,7 @@ class AuthenticatorButton extends StatelessWidget {
               },
             ),
             TextButton(
-              child: Text('Register'),
+              child: Text(S.current.register),
               onPressed: () async {
                 final FirebaseAuth _auth = FirebaseAuth.instance;
                 try {
@@ -98,7 +99,7 @@ class AuthenticatorButton extends StatelessWidget {
                   );
                   logger.info(result.toString());
                   Fluttertoast.showToast(
-                    msg: "Registered and logged in",
+                    msg: S.current.registered,
                     toastLength: Toast.LENGTH_SHORT,
                     gravity: ToastGravity.CENTER,
                     timeInSecForIosWeb: 1,
@@ -108,7 +109,7 @@ class AuthenticatorButton extends StatelessWidget {
                   Navigator.pop(context);
                 } catch (e) {
                   Fluttertoast.showToast(
-                    msg: "Error during registration",
+                    msg: S.current.errorRegister,
                     toastLength: Toast.LENGTH_SHORT,
                     gravity: ToastGravity.CENTER,
                     timeInSecForIosWeb: 1,
@@ -122,11 +123,11 @@ class AuthenticatorButton extends StatelessWidget {
               },
             ),
             TextButton(
-              child: Text('Logout'),
+              child: Text(S.current.logout),
               onPressed: () async {
                 final FirebaseAuth _auth = FirebaseAuth.instance;
                 Fluttertoast.showToast(
-                  msg: "Logged out",
+                  msg: S.current.loggedOut,
                   toastLength: Toast.LENGTH_SHORT,
                   gravity: ToastGravity.CENTER,
                   timeInSecForIosWeb: 1,

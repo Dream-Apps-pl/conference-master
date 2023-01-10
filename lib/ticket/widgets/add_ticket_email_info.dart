@@ -1,4 +1,5 @@
 import 'package:conferenceapp/common/logger.dart';
+import 'package:conferenceapp/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -15,7 +16,7 @@ class AddTicketEmailInfo extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Text(
-          'You received your ticket to your e-mail after the purchase. In case of problems contact us at tickets@fluttereurope.dev or ask someone from the staff at the conference.',
+          S.current.notifTicketEmail,
           textAlign: TextAlign.center,
           style: TextStyle(
             color: Theme.of(context).brightness == Brightness.light
@@ -33,8 +34,8 @@ class AddTicketEmailInfo extends StatelessWidget {
     final body =
         'Hi! I have problem with adding ticket in my Flutter Europe conference app.';
     final url = Uri.encodeFull('mailto:$email?subject=$subject&body=$body');
-    if (await canLaunch(url)) {
-      await launch(url);
+    if (await canLaunchUrl(Uri.parse(url))) {
+      await launchUrl(Uri.parse(url));
     } else {
       logger.warn('Could not launch $url, trying typical share');
       Share.share(body, subject: body);

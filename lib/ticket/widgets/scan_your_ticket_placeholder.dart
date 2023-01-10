@@ -1,3 +1,4 @@
+import 'package:conferenceapp/generated/l10n.dart';
 import 'package:flutter/material.dart';
 
 class ScanYourTicketPlaceholder extends StatelessWidget {
@@ -19,7 +20,7 @@ class ScanYourTicketPlaceholder extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Text(
-            'Add your ticket by providing either order number or ticket number',
+            S.current.addTicketNumber,
             textAlign: TextAlign.center,
             style: TextStyle(
               color: Theme.of(context).brightness == Brightness.light
