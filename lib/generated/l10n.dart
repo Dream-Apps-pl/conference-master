@@ -1439,6 +1439,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Dreams and Visions Conferences`
+  String get conferenceTitle {
+    return Intl.message(
+      'Dreams and Visions Conferences',
+      name: 'conferenceTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Feedback from the 'Dreams and Visions' application`
+  String get subject {
+    return Intl.message(
+      'Feedback from the \'Dreams and Visions\' application',
+      name: 'subject',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -137,5 +137,7 @@
   "controlParty": "Kontrola na imprezie",
   "browseChecked": "Przeglądaj zaznaczone",
   "searchByOrder": "Wyszukaj według identyfikatora zamówienia",
-  "allChecked": "Wszystkie zaznaczone"
+  "allChecked": "Wszystkie zaznaczone",
+  "conferenceTitle": "Konferencje Sny i Wizje",
+  "subject": "Informacja zwrotna z aplikacji 'Sny i Wizje'"
 }

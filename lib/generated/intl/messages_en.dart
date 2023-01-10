@@ -54,6 +54,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Read our rules"),
         "conferenceCenter":
             MessageLookupByLibrary.simpleMessage("Conference Centre"),
+        "conferenceTitle": MessageLookupByLibrary.simpleMessage(
+            "Dreams and Visions Conferences"),
         "confirmParticipant": MessageLookupByLibrary.simpleMessage(
             "Confirm the details with the participant"),
         "controlParty":
@@ -190,6 +192,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "startTimeValidator":
             MessageLookupByLibrary.simpleMessage("Please select a start time"),
         "studentTicket": MessageLookupByLibrary.simpleMessage("Student ticket"),
+        "subject": MessageLookupByLibrary.simpleMessage(
+            "Feedback from the \'Dreams and Visions\' application"),
         "submit": MessageLookupByLibrary.simpleMessage("Submit"),
         "technicalData": MessageLookupByLibrary.simpleMessage("Technical data"),
         "ticetValidated":

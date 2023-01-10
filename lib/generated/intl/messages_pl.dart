@@ -56,6 +56,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Przeczytaj nasze zasady"),
         "conferenceCenter":
             MessageLookupByLibrary.simpleMessage("Centrum konferencyjne"),
+        "conferenceTitle":
+            MessageLookupByLibrary.simpleMessage("Konferencje Sny i Wizje"),
         "confirmParticipant": MessageLookupByLibrary.simpleMessage(
             "Potwierdź dane z uczestnikiem"),
         "controlParty":
@@ -194,6 +196,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Wybierz godzinę rozpoczęcia"),
         "studentTicket":
             MessageLookupByLibrary.simpleMessage("Bilet studencki"),
+        "subject": MessageLookupByLibrary.simpleMessage(
+            "Informacja zwrotna z aplikacji \'Sny i Wizje\'"),
         "submit": MessageLookupByLibrary.simpleMessage("Prześlij"),
         "technicalData":
             MessageLookupByLibrary.simpleMessage("Dane techniczne"),

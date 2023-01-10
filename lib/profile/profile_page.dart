@@ -48,7 +48,7 @@ class _ProfilePageState extends State<ProfilePage> {
             children: [
               SizedBox(width: 15),
               ChoiceChip(
-                label: Text('Poland'),
+                label: Text(S.current.poland),
                 selected: defaultLang == Locale('pl') ? true : false,
                 onSelected: (bool selected) {
                   context.read<LanguageCubit>().changeLang(context, 'pl');
@@ -56,7 +56,7 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
               SizedBox(width: 5),
               ChoiceChip(
-                label: Text('English'),
+                label: Text(S.current.english),
                 selected: defaultLang == Locale('en') ? true : false,
                 onSelected: (bool selected) {
                   context.read<LanguageCubit>().changeLang(context, 'en');
@@ -147,23 +147,24 @@ class _ProfilePageState extends State<ProfilePage> {
                 builder: (ctx) => SimpleDialog(
                   children: <Widget>[
                     TextButton(
-                      child: Text('Send e-mail'),
+                      child: Text(S.current.sendEmail),
                       onPressed: () {
                         sendEmail();
                         Navigator.pop(ctx);
                       },
                     ),
-                    TextButton(
-                      child: Text(
-                        'Try Snapfeed\n(User feedback tool for Flutter apps)',
-                        textAlign: TextAlign.center,
-                      ),
-                      onPressed: () {
-                        Navigator.pop(ctx);
-                        logger.info('Feedback button tapped');
-                        //Snapfeed.of(context).startFeedback();
-                      },
-                    )
+                    // not use snapfeed
+                    // TextButton(
+                    //   child: Text(
+                    //     'Try Snapfeed\n(User feedback tool for Flutter apps)',
+                    //     textAlign: TextAlign.center,
+                    //   ),
+                    //   onPressed: () {
+                    //     Navigator.pop(ctx);
+                    //     logger.info('Feedback button tapped');
+                    //     //Snapfeed.of(context).startFeedback();
+                    //   },
+                    // )
                   ],
                 ),
               );
@@ -181,7 +182,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 MaterialPageRoute(
                   builder: (context) => Scaffold(
                     appBar: AppBar(
-                      title: Text('About the app'),
+                      title: Text(S.current.aboutApp),
                     ),
                     body: Padding(
                       padding: EdgeInsets.all(16.0),
@@ -191,7 +192,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             data: text,
                           ),
                           TextButton(
-                            child: Text('Send e-mail'),
+                            child: Text(S.current.sendEmail),
                             onPressed: () {
                               sendEmail();
                               Navigator.pop(context);
@@ -222,7 +223,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       height: 50,
                     ),
                   ),
-                  applicationName: 'Konferencje Sny i Wizje',
+                  applicationName: S.current.conferenceTitle,
                   applicationVersion: '${version.version}',
                   applicationLegalese:
                       'Created by Dominik Roszkowski (roszkowski.dev), Maciek Korzeniewski (@korzonkiee), Marcin Szałek (fidev.io) and Robert Odrowąż-Sypniewski for the Flutter Europe conference');
@@ -267,7 +268,7 @@ class _ProfilePageState extends State<ProfilePage> {
     final version = await PackageInfo.fromPlatform();
     final platform = Platform.isIOS ? 'iOS' : 'Android';
     final email = 'piotr@snyiwizje.pl';
-    final subject = 'Informacja zwrotna z aplikacji "Sny i Wizje';
+    final subject = S.current.subject;
     final body =
         'Cześć! Chciałem podzielić się swoja opinią na temat tej aplikacji mobilnej.<br><br><br>Wersja Aplikacji: ${version.version}<br>App Id: ${version.packageName}<br>Platforma: $platform';
     final url = Uri.encodeFull('mailto:$email?subject=$subject&body=$body');
