@@ -28,7 +28,7 @@ dependencies:
   #  dynamic_theme: ^1.0.1
   dynamic_themes: ^1.1.0
 
-  js: ^0.6.5
+  js: ^0.6.4
   equatable: ^2.0.5
   expandable: ^5.0.1
   extended_image: ^6.3.4
