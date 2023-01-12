@@ -3,9 +3,9 @@ import 'package:url_launcher/url_launcher.dart' as lib;
 
 class UrlLauncher {
   static launch(String url) async {
-    if (await lib.canLaunch(url)) {
+    if (await lib.canLaunchUrl(Uri.parse(url))) {
       try {
-        await lib.launch(url);
+        await lib.launchUrl(Uri.parse(url));
       } catch (e, s) {
         logger.errorException(e, s);
       }

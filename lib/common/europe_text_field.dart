@@ -56,7 +56,7 @@ class EuropeTextFormField extends StatelessWidget {
         keyboardType: keyboardType,
         maxLength: maxLength,
         validator: (value) {
-          if (value!.length == 0) {
+          if (value!.isEmpty) {
             return S.current.pleaseFill;
           }
           if (value.length != maxLength) {

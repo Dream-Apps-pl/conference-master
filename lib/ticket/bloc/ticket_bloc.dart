@@ -28,10 +28,8 @@ class TicketBloc extends Bloc<TicketEvent, TicketState> {
   @override
   String toString() => 'TicketBloc';
 
-  @override
   TicketState get initialState => NoTicketState();
 
-  @override
   Stream<TicketState> mapEventToState(
     TicketEvent event,
   ) async* {
@@ -63,7 +61,7 @@ class TicketBloc extends Bloc<TicketEvent, TicketState> {
   }
 
   Stream<TicketState> mapSaveTicketToState(SaveTicket event) async* {
-    if (event.ticketData.ticketId != null || event.ticketData.orderId != null) {
+    if (event.ticketData.ticketId.isNotEmpty || event.ticketData.orderId.isNotEmpty) {
       yield TicketLoadingState();
       final ticket = Ticket(
           event.ticketData.orderId.toUpperCase(), event.ticketData.ticketId);

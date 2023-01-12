@@ -9,7 +9,7 @@ showForceUpdateDialog(BuildContext context) {
     barrierDismissible: false,
     context: context,
     builder: (context) {
-      return _ForceUpdateDialog();
+      return const _ForceUpdateDialog();
     },
   );
 }
@@ -21,10 +21,10 @@ class _ForceUpdateDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return SimpleDialog(
       title: Text(S.current.outdatedTitle),
-      contentPadding: EdgeInsets.fromLTRB(24.0, 12.0, 24.0, 12.0),
+      contentPadding: const EdgeInsets.fromLTRB(24.0, 12.0, 24.0, 12.0),
       children: <Widget>[
         Text(S.current.outdatedSubtitle),
-        SizedBox(
+        const SizedBox(
           height: 16,
         ),
         Align(
@@ -33,7 +33,7 @@ class _ForceUpdateDialog extends StatelessWidget {
             child: Text(S.current.update),
             onPressed: () {
               final url =
-                  Platform.isAndroid ? StoreUrls.Android : StoreUrls.IOS;
+                  Platform.isAndroid ? StoreUrls.android : StoreUrls.iOS;
 
               UrlLauncher.launch(url);
             },

@@ -7,14 +7,12 @@ extension ContentfulHelper on Document {
       return '';
     }
     try {
-      var buffer = new StringBuffer();
+      var buffer = StringBuffer();
 
-      this.content.forEach((c) {
+      for (var c in content) {
         final content = c['content'] as List<dynamic>;
-        if (content != null) {
-          parseContentNode(content, buffer);
-        }
-      });
+        parseContentNode(content, buffer);
+      }
 
       return buffer.toString();
     } catch (e) {
@@ -25,14 +23,14 @@ extension ContentfulHelper on Document {
   }
 
   void parseContentNode(List<dynamic> content, StringBuffer buffer) {
-    content.forEach((d) {
+    for (var d in content) {
       var content = d['content'] as List<dynamic>;
-      if (content != null) {
+      if (content.isNotEmpty) {
         parseContentNode(content, buffer);
       } else {
         buffer.write(d['value']);
         buffer.write('\n');
       }
-    });
+    }
   }
 }

@@ -12,9 +12,9 @@ class AdminOrganizer extends StatefulWidget {
 
 class _AdminOrganizerState extends State<AdminOrganizer> {
   final _formKey = GlobalKey<FormState>();
-  TextEditingController _nameController = TextEditingController();
-  TextEditingController _longBioController = TextEditingController();
-  TextEditingController _avatarController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _longBioController = TextEditingController();
+  final TextEditingController _avatarController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -76,13 +76,13 @@ class _AdminOrganizerState extends State<AdminOrganizer> {
 
   void _onSaveOrganizer() {
     if (_formKey.currentState!.validate()) {
-      Organizer _organizer = Organizer(
+      Organizer organizer = Organizer(
         _nameController.text,
         _longBioController.text,
         _avatarController.text,
       );
       FirestoreService()
-          .addOrganizer(_organizer)
+          .addOrganizer(organizer)
           .whenComplete(() => Navigator.pop(context));
     }
   }

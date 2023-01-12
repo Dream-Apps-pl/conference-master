@@ -40,7 +40,7 @@ class TicketsList extends StatelessWidget {
                 subtitle: Text('$name | $date'),
                 trailing: isAdmin.hasData && isAdmin.data == true
                     ? IconButton(
-                        icon: Icon(LineIcons.trash),
+                        icon: const Icon(LineIcons.trash),
                         onPressed: () async => await FirebaseFirestore.instance
                             .collection('tickets_checked')
                             .doc(doc['ticketId'])
@@ -51,7 +51,7 @@ class TicketsList extends StatelessWidget {
             },
           );
         } else {
-          return Center(
+          return const Center(
             child: CircularProgressIndicator(),
           );
         }

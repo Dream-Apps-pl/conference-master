@@ -48,7 +48,7 @@ class QrImage extends StatelessWidget {
         alignment: Alignment.center,
       ),
       secondChild: Builder(builder: (BuildContext context) {
-        return SizedBox();
+        return const SizedBox();
       }),
       crossFadeState: CrossFadeState.showSecond,
       duration: const Duration(milliseconds: 250),
@@ -73,7 +73,7 @@ class QrImage extends StatelessWidget {
                   data: data,
                   version: QrVersions.auto,
                   embeddedImage: embeddedImage,
-                  imageSize: Size(200.0, 200.0),
+                  imageSize: const Size(200.0, 200.0),
                 ),
               )
           ],

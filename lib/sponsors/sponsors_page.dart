@@ -33,19 +33,19 @@ class SponsorsPage extends StatelessWidget {
                   padding: const EdgeInsets.all(20.0),
                   child: Text(
                     '${S.current.sponsorLevel}: ${g.toString().split(".")[1]}',
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 28,
                       fontWeight: FontWeight.bold,
                       color: Colors.black,
                     ),
                   ),
                 )));
-                list.forEach(
-                  (s) => elems.add(
+                for (var s in list) {
+                  elems.add(
                     Padding(
                       padding: const EdgeInsets.only(bottom: 26.0, top: 18.0),
                       child: ListTile(
-                        title: Container(
+                        title: SizedBox(
                           width: 560,
                           height: 150,
                           child: ExtendedImage.network(
@@ -62,19 +62,19 @@ class SponsorsPage extends StatelessWidget {
                         },
                       ),
                     ),
-                  ),
-                );
-                elems.add(SizedBox(height: 30));
+                  );
+                }
+                elems.add(const SizedBox(height: 30));
               });
 
               return ListView(
-                physics: AlwaysScrollableScrollPhysics(
+                physics: const AlwaysScrollableScrollPhysics(
                     parent: BouncingScrollPhysics()),
-                padding: EdgeInsets.all(12.0),
+                padding: const EdgeInsets.all(12.0),
                 children: elems,
               );
             } else {
-              return Center(
+              return const Center(
                 child: Padding(
                   padding: EdgeInsets.all(12.0),
                   child: CircularProgressIndicator(),

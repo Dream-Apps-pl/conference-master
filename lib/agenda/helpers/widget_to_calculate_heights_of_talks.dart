@@ -43,11 +43,11 @@ class _WidgetUsedToCalculateHeightsOfTalkCardsState
 
     final widgets = <Widget>[];
     for (var index = 0; index < talksPerHour.length; index++) {
-      final _thisHoursTalks = talksPerHour[hours[index]];
-      final _talk = _thisHoursTalks?.firstWhere(
+      final thisHoursTalks = talksPerHour[hours[index]];
+      final talk = thisHoursTalks?.firstWhere(
         (t) => t.room.id != TalkType.advanced.toString(),
       );
-      final _nextTalk = _thisHoursTalks?.firstWhere(
+      final nextTalk = thisHoursTalks?.firstWhere(
         (t) => t.room.id == TalkType.advanced.toString(),
       );
 
@@ -63,24 +63,24 @@ class _WidgetUsedToCalculateHeightsOfTalkCardsState
                 Opacity(
                   opacity: 0.0,
                   child: CompactLeftTalkContainer(
-                    talk: _talk ?? _nextTalk!,
+                    talk: talk ?? nextTalk!,
                   ),
                 ),
-                if (_talk != null)
+                if (talk != null)
                   Flexible(
                     child: CompactPlaceholderTalkCard(
-                      talk: _talk,
+                      talk: talk,
                       compact: true,
                       helper: layoutHelper,
                     ),
                   )
                 else
                   Flexible(child: Container()),
-                SizedBox(width: 10),
-                if (_nextTalk != null)
+                const SizedBox(width: 10),
+                if (nextTalk != null)
                   Flexible(
                     child: CompactPlaceholderTalkCard(
-                      talk: _nextTalk,
+                      talk: nextTalk,
                       compact: true,
                       helper: layoutHelper,
                     ),
@@ -98,14 +98,14 @@ class _WidgetUsedToCalculateHeightsOfTalkCardsState
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             NormalPlaceholderTalkCard(
-              talk: _talk!,
+              talk: talk!,
               compact: false,
               first: true,
               helper: layoutHelper,
             ),
-            if (_nextTalk != null)
+            if (nextTalk != null)
               NormalPlaceholderTalkCard(
-                talk: _nextTalk,
+                talk: nextTalk,
                 compact: false,
                 first: false,
                 helper: layoutHelper,

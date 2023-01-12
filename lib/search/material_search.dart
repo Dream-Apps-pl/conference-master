@@ -8,11 +8,12 @@ import 'dart:async';
 import 'package:conferenceapp/common/logger.dart';
 import 'package:flutter/material.dart';
 
-typedef String FormFieldFormatter<T>(T v);
-typedef bool MaterialSearchFilter<T>(T v, String c);
-typedef int MaterialSearchSort<T>(T a, T b, String c);
-typedef Future<List<MaterialSearchResult>> MaterialResultsFinder(String c);
-typedef void OnSubmit(dynamic value);
+typedef FormFieldFormatter<T> = String Function(T v);
+typedef MaterialSearchFilter<T> = bool Function(T v, String c);
+typedef MaterialSearchSort<T> = int Function(T a, T b, String c);
+typedef MaterialResultsFinder = Future<List<MaterialSearchResult>> Function(
+    String c);
+typedef OnSubmit = void Function(dynamic value);
 
 class MaterialSearchResult<T> extends StatelessWidget {
   const MaterialSearchResult({
@@ -36,31 +37,29 @@ class MaterialSearchResult<T> extends StatelessWidget {
       context: context,
       word: title,
       criteria: criteria,
-      style: Theme.of(context).textTheme.headline1!,
+      style: Theme.of(context).textTheme.displayLarge!,
     );
     final subtitleWidget = getResultWithEmphasis(
       context: context,
       word: subtitle,
       criteria: criteria,
-      style: Theme.of(context).textTheme.headline1!,
+      style: Theme.of(context).textTheme.displayLarge!,
     );
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
-      child: new Container(
-        child: new Row(
-          children: <Widget>[
-            new Container(width: 70.0, child: new Icon(icon)),
-            new Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  titleWidget!,
-                  if (subtitle != null) subtitleWidget!,
-                ],
-              ),
+      child: Row(
+        children: <Widget>[
+          SizedBox(width: 70.0, child: Icon(icon)),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                titleWidget!,
+                if (subtitle != null) subtitleWidget!,
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -99,7 +98,8 @@ class MaterialSearchResult<T> extends StatelessWidget {
             if (text0.isNotEmpty != null) TextSpan(text: text0),
             if (text1 != null)
               TextSpan(
-                  text: text1, style: TextStyle(fontWeight: FontWeight.bold)),
+                  text: text1,
+                  style: const TextStyle(fontWeight: FontWeight.bold)),
             if (text2 != null) TextSpan(text: text2),
           ],
         ),
@@ -127,7 +127,7 @@ class MaterialSearch<T> extends StatefulWidget {
     required this.getResults,
     required this.filter,
     this.sort,
-    this.limit: 10,
+    this.limit = 10,
     required this.onSelect,
     required this.onSubmit,
     this.barBackgroundColor = Colors.white,
@@ -136,7 +136,7 @@ class MaterialSearch<T> extends StatefulWidget {
   })  : assert(() {
           if (results == null && getResults == null ||
               results != null && getResults != null) {
-            throw new AssertionError(
+            throw AssertionError(
                 'Either provide a function to get the results, or the results.');
           }
 
@@ -158,22 +158,22 @@ class MaterialSearch<T> extends StatefulWidget {
   final Widget? leading;
 
   @override
-  _MaterialSearchState<T> createState() => new _MaterialSearchState<T>();
+  MaterialSearchState<T> createState() => MaterialSearchState<T>();
 }
 
-class _MaterialSearchState<T> extends State<MaterialSearch> {
+class MaterialSearchState<T> extends State<MaterialSearch> {
   bool _loading = false;
   List<MaterialSearchResult<T>> _results = [];
 
   String _criteria = '';
-  TextEditingController _controller = new TextEditingController();
+  final TextEditingController _controller = TextEditingController();
 
   _filter(dynamic v, String c) {
     return v
         .toString()
         .toLowerCase()
         .trim()
-        .contains(new RegExp(r'' + c.toLowerCase().trim() + ''));
+        .contains(RegExp(r'' + c.toLowerCase().trim() + ''));
   }
 
   @override
@@ -198,7 +198,7 @@ class _MaterialSearchState<T> extends State<MaterialSearch> {
 
   late Timer _resultsTimer;
   Future _getResultsDebounced() async {
-    if (_results.length == 0) {
+    if (_results.isEmpty) {
       setState(() {
         logger.info('Setting loading to true');
         _loading = true;
@@ -209,7 +209,7 @@ class _MaterialSearchState<T> extends State<MaterialSearch> {
       _resultsTimer.cancel();
     }
 
-    _resultsTimer = new Timer(new Duration(milliseconds: 100), () async {
+    _resultsTimer = Timer(const Duration(milliseconds: 100), () async {
       if (!mounted) {
         return;
       }
@@ -268,24 +268,24 @@ class _MaterialSearchState<T> extends State<MaterialSearch> {
         FocusScope.of(context).requestFocus(FocusNode());
         return true;
       },
-      child: new Scaffold(
-        appBar: new AppBar(
+      child: Scaffold(
+        appBar: AppBar(
           elevation: 0,
           leading: widget.leading,
           iconTheme: iconTheme,
           backgroundColor: Theme.of(context).brightness == Brightness.light
               ? Theme.of(context).primaryColor
               : Theme.of(context).scaffoldBackgroundColor,
-          title: new TextField(
+          title: TextField(
             controller: _controller,
             autofocus: true,
-            decoration: new InputDecoration.collapsed(
+            decoration: InputDecoration.collapsed(
               hintText: widget.placeholder,
-              hintStyle: TextStyle(
+              hintStyle: const TextStyle(
                 color: Colors.white54,
               ),
             ),
-            style: TextStyle(color: Colors.white),
+            style: const TextStyle(color: Colors.white),
             cursorColor: Colors.white,
             onSubmitted: (String value) {
               if (widget.onSubmit != null) {
@@ -294,11 +294,11 @@ class _MaterialSearchState<T> extends State<MaterialSearch> {
             },
             keyboardAppearance: Theme.of(context).brightness,
           ),
-          actions: _criteria.length == 0
+          actions: _criteria.isEmpty
               ? []
               : [
-                  new IconButton(
-                      icon: new Icon(Icons.clear),
+                  IconButton(
+                      icon: const Icon(Icons.clear),
                       onPressed: () {
                         logger.info('Clear pressed');
                         setState(() {
@@ -308,10 +308,10 @@ class _MaterialSearchState<T> extends State<MaterialSearch> {
                 ],
         ),
         body: _loading
-            ? new Center(
-                child: new Padding(
-                    padding: const EdgeInsets.only(top: 50.0),
-                    child: new CircularProgressIndicator()),
+            ? const Center(
+                child: Padding(
+                    padding: EdgeInsets.only(top: 50.0),
+                    child: CircularProgressIndicator()),
               )
             : ListView.builder(
                 itemCount: results?.length ?? 0,

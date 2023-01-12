@@ -82,11 +82,11 @@ class DaySelector extends StatelessWidget {
                   : selectedDay == 1
                       ? (MediaQuery.of(context).size.width - 24) / 3
                       : 0,
-              duration: Duration(milliseconds: 300),
+              duration: const Duration(milliseconds: 300),
+              curve: Curves.easeOutBack,
               child: Container(
                 color: bgColor,
               ),
-              curve: Curves.easeOutBack,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -102,27 +102,25 @@ class DaySelector extends StatelessWidget {
                         onTap: () {
                           pageController.animateToPage(
                             0,
-                            duration: Duration(milliseconds: 300),
+                            duration: const Duration(milliseconds: 300),
                             curve: Curves.easeOut,
                           );
                         },
-                        child: Container(
-                          child: Padding(
-                            padding: const EdgeInsets.all(8),
-                            child: Center(
-                              child: Text(
-                                S.of(context).day1,
-                                style: TextStyle(
-                                  color: selectedDay == 0
-                                      ? Theme.of(context).brightness ==
-                                              Brightness.light
-                                          ? Theme.of(context).primaryColor
-                                          : Colors.white
-                                      : Theme.of(context).brightness ==
-                                              Brightness.light
-                                          ? bgColor
-                                          : Colors.grey[300],
-                                ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8),
+                          child: Center(
+                            child: Text(
+                              S.of(context).day1,
+                              style: TextStyle(
+                                color: selectedDay == 0
+                                    ? Theme.of(context).brightness ==
+                                            Brightness.light
+                                        ? Theme.of(context).primaryColor
+                                        : Colors.white
+                                    : Theme.of(context).brightness ==
+                                            Brightness.light
+                                        ? bgColor
+                                        : Colors.grey[300],
                               ),
                             ),
                           ),
@@ -142,27 +140,25 @@ class DaySelector extends StatelessWidget {
                         onTap: () {
                           pageController.animateToPage(
                             1,
-                            duration: Duration(milliseconds: 300),
+                            duration: const Duration(milliseconds: 300),
                             curve: Curves.easeOut,
                           );
                         },
-                        child: Container(
-                          child: Padding(
-                            padding: const EdgeInsets.all(8),
-                            child: Center(
-                              child: Text(
-                                S.of(context).day2,
-                                style: TextStyle(
-                                  color: selectedDay != 0 && selectedDay != 2
-                                      ? Theme.of(context).brightness ==
-                                              Brightness.light
-                                          ? Theme.of(context).primaryColor
-                                          : Colors.white
-                                      : Theme.of(context).brightness ==
-                                              Brightness.light
-                                          ? bgColor
-                                          : Colors.grey[300],
-                                ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8),
+                          child: Center(
+                            child: Text(
+                              S.of(context).day2,
+                              style: TextStyle(
+                                color: selectedDay != 0 && selectedDay != 2
+                                    ? Theme.of(context).brightness ==
+                                            Brightness.light
+                                        ? Theme.of(context).primaryColor
+                                        : Colors.white
+                                    : Theme.of(context).brightness ==
+                                            Brightness.light
+                                        ? bgColor
+                                        : Colors.grey[300],
                               ),
                             ),
                           ),
@@ -182,27 +178,25 @@ class DaySelector extends StatelessWidget {
                         onTap: () {
                           pageController.animateToPage(
                             2,
-                            duration: Duration(milliseconds: 300),
+                            duration: const Duration(milliseconds: 300),
                             curve: Curves.easeOut,
                           );
                         },
-                        child: Container(
-                          child: Padding(
-                            padding: const EdgeInsets.all(8),
-                            child: Center(
-                              child: Text(
-                                S.of(context).day3,
-                                style: TextStyle(
-                                  color: selectedDay != 0 && selectedDay != 1
-                                      ? Theme.of(context).brightness ==
-                                              Brightness.light
-                                          ? Theme.of(context).primaryColor
-                                          : Colors.white
-                                      : Theme.of(context).brightness ==
-                                              Brightness.light
-                                          ? bgColor
-                                          : Colors.grey[300],
-                                ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8),
+                          child: Center(
+                            child: Text(
+                              S.of(context).day3,
+                              style: TextStyle(
+                                color: selectedDay != 0 && selectedDay != 1
+                                    ? Theme.of(context).brightness ==
+                                            Brightness.light
+                                        ? Theme.of(context).primaryColor
+                                        : Colors.white
+                                    : Theme.of(context).brightness ==
+                                            Brightness.light
+                                        ? bgColor
+                                        : Colors.grey[300],
                               ),
                             ),
                           ),

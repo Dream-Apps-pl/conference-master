@@ -11,7 +11,7 @@ class ScanPartyPage extends StatelessWidget {
       appBar: AppBar(
         title: Text(S.current.scanAtParty),
       ),
-      body: ScanPartyPageContent(),
+      body: const ScanPartyPageContent(),
     );
   }
 }
@@ -19,10 +19,10 @@ class ScanPartyPage extends StatelessWidget {
 class ScanPartyPageContent extends StatefulWidget {
   const ScanPartyPageContent({Key? key}) : super(key: key);
   @override
-  _ScanPartyPageContentState createState() => _ScanPartyPageContentState();
+  ScanPartyPageContentState createState() => ScanPartyPageContentState();
 }
 
-class _ScanPartyPageContentState extends State<ScanPartyPageContent> {
+class ScanPartyPageContentState extends State<ScanPartyPageContent> {
   bool scanning = true;
   final collection = FirebaseFirestore.instance.collection('party');
 
@@ -55,7 +55,7 @@ class _ScanPartyPageContentState extends State<ScanPartyPageContent> {
                       padding: const EdgeInsets.all(12.0),
                       child: Text(
                         '$length',
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 30,
                           color: Colors.white,
                         ),
@@ -74,7 +74,7 @@ class _ScanPartyPageContentState extends State<ScanPartyPageContent> {
   }
 
   Widget _cameraPreviewWidget() {
-    return SizedBox();
+    return const SizedBox();
     // return MobileScanner(
     //     controller: MobileScannerController(
     //         facing: CameraFacing.front, torchEnabled: true),

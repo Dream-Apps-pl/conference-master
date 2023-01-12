@@ -21,7 +21,7 @@ class ScanTicketCard extends StatelessWidget {
         vertical: 50.0,
       ),
       child: TalkCardDecoration(
-        child: Container(
+        child: SizedBox(
           height: 200,
           child: Center(
             child: Column(
@@ -30,25 +30,25 @@ class ScanTicketCard extends StatelessWidget {
                 Text(
                   title,
                   textAlign: TextAlign.center,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 22,
                   ),
                 ),
-                SizedBox(height: 16),
-                if (value != null)
+                const SizedBox(height: 16),
+                if (value.isNotEmpty)
                   Text(
                     value,
                     textAlign: TextAlign.center,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 22,
                     ),
                   ),
-                if (value != null && hint != null) ...{
-                  SizedBox(height: 10),
+                if (hint.isNotEmpty) ...{
+                  const SizedBox(height: 10),
                   Text(
                     hint,
                     textAlign: TextAlign.center,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 14,
                     ),
                   ),

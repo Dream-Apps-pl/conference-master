@@ -25,6 +25,7 @@ class TicketAddedState extends TicketState {
 }
 
 class TicketValidatedState extends TicketAddedState {
+  @override
   final Ticket ticket;
 
   TicketValidatedState(this.ticket) : super(ticket);

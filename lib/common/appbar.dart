@@ -7,13 +7,14 @@ import 'package:provider/provider.dart';
 
 class FlutterEuropeAppBar extends StatelessWidget
     implements PreferredSizeWidget {
+  // ignore: prefer_const_constructors_in_immutables
   FlutterEuropeAppBar({
     Key? key,
     this.back = false,
     this.search = true,
     this.layoutSelector = false,
     this.onSearch,
-  })  : preferredSize = Size.fromHeight(kToolbarHeight),
+  })  : preferredSize = const Size.fromHeight(kToolbarHeight),
         super(key: key);
 
   final bool back;
@@ -23,29 +24,29 @@ class FlutterEuropeAppBar extends StatelessWidget
 
   @override
   Widget build(BuildContext context) {
-    final imageHeight = 48.0;
+    const imageHeight = 48.0;
     return AppBar(
       centerTitle: true,
       title: AnimatedSwitcher(
-        duration: Duration(milliseconds: 500),
+        duration: const Duration(milliseconds: 500),
         child: Theme.of(context).brightness == Brightness.light
             ? Image.asset(
                 'assets/flutter_europe.png',
                 height: imageHeight,
-                key: ValueKey('logo_image_1'),
+                key: const ValueKey('logo_image_1'),
               )
             : Image.asset(
                 'assets/flutter_europe_dark.png',
                 height: imageHeight,
-                key: ValueKey('logo_image_2'),
+                key: const ValueKey('logo_image_2'),
               ),
       ),
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       elevation: 0,
-      brightness: Theme.of(context).brightness,
+      // brightness: Theme.of(context).brightness,
       iconTheme: Theme.of(context)
           .iconTheme
-          .copyWith(color: Theme.of(context).accentColor),
+          .copyWith(color: Theme.of(context).colorScheme.secondary),
       leading: back
           ? null
           : Semantics(
@@ -54,17 +55,15 @@ class FlutterEuropeAppBar extends StatelessWidget
               focusable: true,
               child: Tooltip(
                 message: S.current.search,
-                child: Container(
-                  child: IconButton(
-                    color: Theme.of(context).accentColor,
-                    icon: Icon(Icons.search),
-                    onPressed: onSearch,
-                  ),
+                child: IconButton(
+                  color: Theme.of(context).colorScheme.secondary,
+                  icon: const Icon(Icons.search),
+                  onPressed: onSearch,
                 ),
               ),
             ),
       actions: <Widget>[
-        layoutSelector ? ToggleLayoutButton() : Container(),
+        layoutSelector ? const ToggleLayoutButton() : Container(),
       ],
     );
   }
@@ -88,17 +87,17 @@ class ToggleLayoutButton extends StatelessWidget {
       child: Tooltip(
         message: S.current.hintLayout,
         child: IconButton(
-          color: Theme.of(context).accentColor,
+          color: Theme.of(context).colorScheme.secondary,
           icon: AnimatedSwitcher(
-              duration: Duration(milliseconds: 500),
+              duration: const Duration(milliseconds: 500),
               child: Provider.of<AgendaLayoutHelper>(context, listen: false)
                       .isCompact()
-                  ? Icon(
+                  ? const Icon(
                       LineIcons.database,
                       size: 24,
                       key: ValueKey('icon0'),
                     )
-                  : Icon(
+                  : const Icon(
                       LineIcons.columns,
                       size: 22,
                       key: ValueKey('icon1'),

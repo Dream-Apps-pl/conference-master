@@ -15,14 +15,14 @@ class AddTicketButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<TicketBloc, TicketState>(
       builder: (context, state) => Padding(
-        padding: EdgeInsets.all(12.0),
+        padding: const EdgeInsets.all(12.0),
         child: state is NoTicketState
             ? Padding(
                 padding: const EdgeInsets.only(bottom: 36),
                 child: FloatingActionButton.extended(
                   icon: DescribedFeatureOverlay(
                     featureId: 'show_ticket',
-                    tapTarget: Icon(LineIcons.alternateTicket),
+                    tapTarget: const Icon(LineIcons.alternateTicket),
                     title: Text(S.current.addTicket),
                     description: Text(S.current.addTicketTooltip),
                     onComplete: () async {
@@ -30,15 +30,15 @@ class AddTicketButton extends StatelessWidget {
                     },
                     targetColor: Colors.white,
                     textColor: Colors.white,
-                    child: Icon(LineIcons.alternateTicket),
+                    child: const Icon(LineIcons.alternateTicket),
                   ),
-                  shape: StadiumBorder(),
+                  shape: const StadiumBorder(),
                   tooltip: S.current.addTicket,
                   isExtended: true,
                   label: Text(
                     S.current.addTicket,
                     textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 12),
+                    style: const TextStyle(fontSize: 12),
                   ),
                   onPressed: () => onPressed(context),
                 ),
@@ -53,7 +53,7 @@ class AddTicketButton extends StatelessWidget {
                   isExtended: true,
                   child: DescribedFeatureOverlay(
                     featureId: 'show_ticket',
-                    tapTarget: Icon(LineIcons.alternateTicket),
+                    tapTarget: const Icon(LineIcons.alternateTicket),
                     title: Text(S.current.addTicket),
                     description: Text(S.current.showTicketTooltip),
                     backgroundColor: Theme.of(context).primaryColor,
@@ -62,7 +62,7 @@ class AddTicketButton extends StatelessWidget {
                     },
                     targetColor: Colors.white,
                     textColor: Colors.white,
-                    child: Icon(LineIcons.alternateTicket),
+                    child: const Icon(LineIcons.alternateTicket),
                   ),
                   onPressed: () => onPressed(context),
                 ),
@@ -75,8 +75,8 @@ class AddTicketButton extends StatelessWidget {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => TicketPage(),
-        settings: RouteSettings(name: '/home/ticket_page'),
+        builder: (context) => const TicketPage(),
+        settings: const RouteSettings(name: '/home/ticket_page'),
       ),
     );
   }

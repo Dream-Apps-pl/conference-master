@@ -18,13 +18,13 @@ class ReviewText extends StatelessWidget {
           final review =
               await showWriteReviewModalBottomSheet(context, data: this.review);
 
-          this.onReviewSubmitted(review!);
+          onReviewSubmitted(review!);
         },
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Text(
-            "\"" + this.review + "\"",
-            style: TextStyle(fontStyle: FontStyle.italic),
+            "\"$review\"",
+            style: const TextStyle(fontStyle: FontStyle.italic),
             textAlign: TextAlign.center,
           ),
         ),

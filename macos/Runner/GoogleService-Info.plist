@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>181287176766-7ktq7jgv9rkpok3iciq4vg2agsnpn9ft.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.181287176766-7ktq7jgv9rkpok3iciq4vg2agsnpn9ft</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCNcfB9zvVd77TJIuswzhx4Y7pV2PyuuYk</string>
+	<key>GCM_SENDER_ID</key>
+	<string>181287176766</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.dreamapps.wydarzeniasnyiwizje.conferenceapp</string>
+	<key>PROJECT_ID</key>
+	<string>comdreamappswydarzeniasiw</string>
+	<key>STORAGE_BUCKET</key>
+	<string>comdreamappswydarzeniasiw.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:181287176766:ios:41a503872aeff41d691f6f</string>
+</dict>
+</plist>

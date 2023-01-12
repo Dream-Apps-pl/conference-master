@@ -1,5 +1,6 @@
-import 'package:conferenceapp/utils/analytics.dart';
+import 'package:conferenceapp/common/logger.dart';
 import 'package:conferenceapp/model/talk.dart';
+import 'package:conferenceapp/utils/analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -41,8 +42,8 @@ class AgendaLayoutHelper with ChangeNotifier {
     }
   }
 
-  final _compactTalkHeights = Map<String, double>();
-  final _normalTalkHeights = Map<String, double>();
+  final _compactTalkHeights = <String, double>{};
+  final _normalTalkHeights = <String, double>{};
 
   double? compactHeight(Talk? talk, Talk? nextTalk) {
     try {
@@ -75,7 +76,9 @@ class AgendaLayoutHelper with ChangeNotifier {
       }
       final heightN = _normalTalkHeights[nextTalk.id];
       return heightT! + heightN!;
-    } catch (e) {}
+    } catch (e) {
+      Logger().info(e.toString());
+    }
     return 100;
   }
 

@@ -15,7 +15,7 @@ class ConferenceInfo extends StatelessWidget {
       padding: const EdgeInsets.all(12.0),
       child: DottedBorder(
         borderType: BorderType.Rect,
-        dashPattern: [4, 4],
+        dashPattern: const [4, 4],
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
@@ -55,7 +55,7 @@ class ConferenceInfo extends StatelessWidget {
               ),
             ),
             IconButton(
-              icon: Icon(LineIcons.mapSigns),
+              icon: const Icon(LineIcons.mapSigns),
               onPressed: () async {
                 if (await canLaunchUrl(
                     Uri.parse('https://goo.gl/maps/ChCCX5G71E5VRmWX6'))) {

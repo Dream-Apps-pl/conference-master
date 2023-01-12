@@ -66,7 +66,7 @@ class FavoriteButton extends StatelessWidget {
         'We\'ll let you know when the talk starts$suffix',
       ),
       behavior: SnackBarBehavior.floating,
-      backgroundColor: Theme.of(context).accentColor,
+      backgroundColor: Theme.of(context).colorScheme.secondary,
     ));
   }
 
@@ -74,26 +74,26 @@ class FavoriteButton extends StatelessWidget {
       FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin,
       FavoritesRepository favoritesRepo,
       Talk talk) async {
-    final androidPlatformChannelSpecifics = AndroidNotificationDetails(
+    const androidPlatformChannelSpecifics = AndroidNotificationDetails(
       'notifications',
       'App Notifications',
       importance: Importance.max,
       priority: Priority.max,
       ticker: 'Flutter Europe',
     );
-    final iOSPlatformChannelSpecifics = DarwinNotificationDetails(
+    const iOSPlatformChannelSpecifics = DarwinNotificationDetails(
       presentAlert: true,
       presentBadge: true,
       presentSound: true,
     );
 
-    final platformChannelSpecifics = NotificationDetails(
+    const platformChannelSpecifics = NotificationDetails(
         android: androidPlatformChannelSpecifics,
         iOS: iOSPlatformChannelSpecifics);
 
     final reminderTime = _reminderTime();
 
-    final title = '${talk.title}';
+    final title = talk.title;
     // (talk.authors.isNotEmpty ? 'by ' : '') +
     // talk.authors.join(", ");
     await flutterLocalNotificationsPlugin.schedule(
@@ -119,17 +119,17 @@ class FavoriteButton extends StatelessWidget {
 
   DateTime _reminderTime() {
     if (appConfig?.flavor != 'prod') {
-      return DateTime.now().add(Duration(seconds: 20));
+      return DateTime.now().add(const Duration(seconds: 20));
     } else {
-      return talk.startTime.subtract(Duration(minutes: 5));
+      return talk.startTime.subtract(const Duration(minutes: 5));
     }
   }
 
   DateTime _ratingTime() {
     if (appConfig?.flavor != 'prod') {
-      return DateTime.now().add(Duration(seconds: 40));
+      return DateTime.now().add(const Duration(seconds: 40));
     } else {
-      return talk.endTime.subtract(Duration(minutes: 5));
+      return talk.endTime.subtract(const Duration(minutes: 5));
     }
   }
 

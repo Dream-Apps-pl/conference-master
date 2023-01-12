@@ -17,10 +17,8 @@ class TicketCheckBloc extends Bloc<TicketCheckEvent, TicketCheckState> {
   @override
   String toString() => 'TicketCheckBloc';
 
-  @override
   TicketCheckState get initialState => NoTicketCheckState();
 
-  @override
   Stream<TicketCheckState> mapEventToState(
     TicketCheckEvent event,
   ) async* {
@@ -78,7 +76,7 @@ class TicketCheckBloc extends Bloc<TicketCheckEvent, TicketCheckState> {
       final ticketId = values[2];
       final matchingTickets = await getMatchingTickets(orderId, ticketId);
 
-      if (matchingTickets.length > 0) {
+      if (matchingTickets.isNotEmpty) {
         final matchingCheckedTickets =
             await getMatchingCheckedTickets(matchingTickets);
         if (matchingCheckedTickets.length == matchingTickets.length) {
@@ -94,7 +92,6 @@ class TicketCheckBloc extends Bloc<TicketCheckEvent, TicketCheckState> {
 
         final matchingOrderId = selectedTicket['orderId'];
         final matchingTicketId = selectedTicket['ticketId'];
-        final matchingEmail = selectedTicket['email'];
         final matchingName = selectedTicket['name'];
         final matchingType = selectedTicket['type'];
 
@@ -121,12 +118,12 @@ class TicketCheckBloc extends Bloc<TicketCheckEvent, TicketCheckState> {
 
   void filterCheccked(List matchingTickets, List matchingCheckedTickets,
       List matchingTicketsWithoutChecked) {
-    matchingTickets.forEach((n) {
+    for (var n in matchingTickets) {
       if (matchingCheckedTickets.firstWhere(
               (m) => m['ticketId'] == n['ticketId'],
               orElse: () => null) ==
           null) matchingTicketsWithoutChecked.add(n);
-    });
+    }
     // return matchingTicketsWithoutChecked.first;
   }
 
@@ -166,8 +163,4 @@ class TicketCheckBloc extends Bloc<TicketCheckEvent, TicketCheckState> {
     return ticketCollection;
   }
 
-  @override
-  Future<void> close() {
-    return super.close();
-  }
 }

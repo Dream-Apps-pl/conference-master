@@ -43,11 +43,11 @@ class TitleWrapper extends StatelessWidget {
 class TalkTitle extends StatelessWidget {
   const TalkTitle({
     Key? key,
-    required this.talk,
+    this.talk,
     required this.compact,
   }) : super(key: key);
 
-  final Talk talk;
+  final Talk? talk;
   final bool compact;
 
   @override
@@ -58,9 +58,9 @@ class TalkTitle extends StatelessWidget {
       children: <Widget>[
         Flexible(
           child: Padding(
-            padding: EdgeInsets.only(right: 18.0),
+            padding: const EdgeInsets.only(right: 18.0),
             child: TalkTitleText(
-              title: talk.title,
+              title: talk?.title ?? '',
               compact: compact,
             ),
           ),

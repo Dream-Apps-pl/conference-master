@@ -2,11 +2,11 @@ import 'package:conferenceapp/config.dart';
 import 'package:conferenceapp/main_common.dart';
 
 void main() {
-  final space = 'CONTENTFUL_SPACE';
-  final apiKey = 'CONTENTFUL_API_KEY';
-  final snapfeedProjectId = 'SNAPFEED_PROJECTID';
-  final snapfeedSecret = 'SNAPFEED_SECRET';
-  final bugfenderKey = 'BUGFENDER_KEY';
+  const space = 'CONTENTFUL_SPACE';
+  const apiKey = 'CONTENTFUL_API_KEY';
+  const snapfeedProjectId = 'SNAPFEED_PROJECTID';
+  const snapfeedSecret = 'SNAPFEED_SECRET';
+  const bugfenderKey = 'BUGFENDER_KEY';
 
   final config = AppConfig(
     contentfulApiKey: apiKey,

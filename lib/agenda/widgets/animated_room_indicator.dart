@@ -18,12 +18,12 @@ class AnimatedRoomIndicator extends StatelessWidget {
         ? Colors.black54
         : Colors.grey[100];
     return AnimatedSwitcher(
-      duration: Duration(milliseconds: 600),
+      duration: const Duration(milliseconds: 600),
       switchInCurve: Curves.easeOut,
       switchOutCurve: Curves.easeOut,
       transitionBuilder: (Widget child, Animation<double> animation) {
         final offsetAnimation =
-            Tween<Offset>(begin: Offset(0.0, -1.0), end: Offset(0.0, 0.0))
+            Tween<Offset>(begin: const Offset(0.0, -1.0), end: const Offset(0.0, 0.0))
                 .animate(animation);
         return SlideTransition(
           position: offsetAnimation,
@@ -31,14 +31,14 @@ class AnimatedRoomIndicator extends StatelessWidget {
         );
       },
       child: !compact
-          ? SizedBox()
+          ? const SizedBox()
           : Container(
               color: Theme.of(context).scaffoldBackgroundColor,
               child: Padding(
                 padding: const EdgeInsets.only(top: 4.0, bottom: 4.0),
                 child: Row(
                   children: <Widget>[
-                    SizedBox(width: 36),
+                    const SizedBox(width: 36),
                     Expanded(
                       child: Center(
                         child: Text(

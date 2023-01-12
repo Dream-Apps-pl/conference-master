@@ -16,23 +16,23 @@ class SaveTicketButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
+      onPressed: enabled ? onSave : null,
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           Text(
             S.current.save,
-            style: TextStyle(
+            style: const TextStyle(
               color: Colors.white,
             ),
           ),
-          SizedBox(width: 6),
-          Icon(
+          const SizedBox(width: 6),
+          const Icon(
             LineIcons.checkCircle,
             color: Colors.white,
           )
         ],
       ),
-      onPressed: enabled ? onSave : null,
     );
   }
 }

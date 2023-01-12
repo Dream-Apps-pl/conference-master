@@ -14,14 +14,13 @@ import 'package:conferenceapp/rate/repository/firestore_ratings_repository.dart'
 import 'package:conferenceapp/rate/repository/ratings_repository.dart';
 import 'package:conferenceapp/ticket/bloc/bloc.dart';
 import 'package:conferenceapp/ticket/repository/ticket_repository.dart';
-import 'package:conferenceapp/utils/color.dart';
 import 'package:conferenceapp/utils/languages.dart';
-import 'package:dynamic_themes/dynamic_themes.dart';
 import 'package:feature_discovery/feature_discovery.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -29,63 +28,98 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'utils/analytics.dart';
 import 'generated/l10n.dart';
+import 'utils/analytics.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({
     Key? key,
     required this.title,
     required this.sharedPreferences,
-    required this.firebaseMessaging,
+    this.firebaseMessaging,
   }) : super(key: key);
 
   final String title;
   final SharedPreferences sharedPreferences;
-  final FirebaseMessaging firebaseMessaging;
+  final FirebaseMessaging? firebaseMessaging;
 
   @override
   Widget build(BuildContext context) {
-    return DynamicTheme(
-      themeCollection: themeCollection,
-      builder: (context, theme) {
-        return VariousProviders(
-          sharedPreferences: sharedPreferences,
-          firebaseMessaging: firebaseMessaging,
-          child: RepositoryProviders(
-            child: BlocProviders(
-              child: ChangeNotifierProviders(
-                child: FeatureDiscovery(
-                  child: BlocProvider(
-                    create: (context) => LanguageCubit(),
-                    child: BlocBuilder<LanguageCubit, Locale>(
-                        builder: (context, lang) {
-                      return MaterialApp(
-                          locale: lang,
-                          localizationsDelegates: [
-                            S.delegate,
-                            GlobalMaterialLocalizations.delegate,
-                            GlobalWidgetsLocalizations.delegate,
-                            GlobalCupertinoLocalizations.delegate,
-                          ],
-                          supportedLocales: S.delegate.supportedLocales,
-                          debugShowCheckedModeBanner: false,
-                          title: title,
-                          theme: theme,
-                          navigatorKey: navigatorKey,
-                          navigatorObservers: [
-                            FirebaseAnalyticsObserver(analytics: analytics!),
-                          ],
-                          home: HomePage(title: title));
-                    }),
-                  ),
-                ),
+    return VariousProviders(
+      sharedPreferences: sharedPreferences,
+      firebaseMessaging: firebaseMessaging,
+      child: RepositoryProviders(
+        child: BlocProviders(
+          child: ChangeNotifierProviders(
+            child: FeatureDiscovery(
+              child: BlocProvider(
+                create: (context) => LanguageCubit(),
+                child: BlocBuilder<LanguageCubit, Locale>(
+                    builder: (context, lang) {
+                  return MaterialApp(
+                      locale: lang,
+                      localizationsDelegates: const [
+                        S.delegate,
+                        GlobalMaterialLocalizations.delegate,
+                        GlobalWidgetsLocalizations.delegate,
+                        GlobalCupertinoLocalizations.delegate,
+                      ],
+                      supportedLocales: S.delegate.supportedLocales,
+                      debugShowCheckedModeBanner: false,
+                      title: title,
+                      navigatorKey: navigatorKey,
+                      navigatorObservers: [
+                        FirebaseAnalyticsObserver(analytics: analytics!),
+                      ],
+                      home: HomePage(title: title));
+                }),
               ),
             ),
           ),
-        );
-      },
+        ),
+      ),
     );
+    // return DynamicTheme(
+    //   themeCollection: themeCollection,
+    //   defaultThemeId: AppThemes.lightBlue,
+    //   builder: (context, theme) {
+    //     return VariousProviders(
+    //       sharedPreferences: sharedPreferences,
+    //       firebaseMessaging: firebaseMessaging,
+    //       child: RepositoryProviders(
+    //         child: BlocProviders(
+    //           child: ChangeNotifierProviders(
+    //             child: FeatureDiscovery(
+    //               child: BlocProvider(
+    //                 create: (context) => LanguageCubit(),
+    //                 child: BlocBuilder<LanguageCubit, Locale>(
+    //                     builder: (context, lang) {
+    //                   return MaterialApp(
+    //                       locale: lang,
+    //                       localizationsDelegates: const [
+    //                         S.delegate,
+    //                         GlobalMaterialLocalizations.delegate,
+    //                         GlobalWidgetsLocalizations.delegate,
+    //                         GlobalCupertinoLocalizations.delegate,
+    //                       ],
+    //                       supportedLocales: S.delegate.supportedLocales,
+    //                       debugShowCheckedModeBanner: false,
+    //                       title: title,
+    //                       theme: theme,
+    //                       navigatorKey: navigatorKey,
+    //                       navigatorObservers: [
+    //                         FirebaseAnalyticsObserver(analytics: analytics!),
+    //                       ],
+    //                       home: HomePage(title: title));
+    //                 }),
+    //               ),
+    //             ),
+    //           ),
+    //         ),
+    //       ),
+    //     );
+    //   },
+    // );
   }
 }
 
@@ -94,29 +128,29 @@ final navigatorKey = GlobalKey<NavigatorState>();
 class VariousProviders extends StatefulWidget {
   final Widget child;
   final SharedPreferences sharedPreferences;
-  final FirebaseMessaging firebaseMessaging;
+  final FirebaseMessaging? firebaseMessaging;
 
   const VariousProviders({
     Key? key,
     required this.child,
     required this.sharedPreferences,
-    required this.firebaseMessaging,
+    this.firebaseMessaging,
   }) : super(key: key);
 
   @override
-  _VariousProvidersState createState() => _VariousProvidersState();
+  VariousProvidersState createState() => VariousProvidersState();
 }
 
-class _VariousProvidersState extends State<VariousProviders> {
+class VariousProvidersState extends State<VariousProviders> {
   late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
 
   @override
   void initState() {
     super.initState();
-    flutterLocalNotificationsPlugin = new FlutterLocalNotificationsPlugin();
+    flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
     initializeRemoteNotifications();
-    initializeLocalNotifications();
+    if (!kIsWeb) initializeLocalNotifications();
   }
 
   Future<FirebaseRemoteConfig> initializeRemoteConfig() async {
@@ -132,7 +166,7 @@ class _VariousProvidersState extends State<VariousProviders> {
 
   void initializeLocalNotifications() {
     var initializationSettingsAndroid =
-        new AndroidInitializationSettings('app_icon');
+        const AndroidInitializationSettings('app_icon');
     final initializationSettingsIOS = DarwinInitializationSettings(
         onDidReceiveLocalNotification: onDidReceiveLocalNotification);
     var initializationSettings = InitializationSettings(
@@ -142,14 +176,14 @@ class _VariousProvidersState extends State<VariousProviders> {
 
   void initializeRemoteNotifications() {
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      print('Got a message whilst in the foreground!');
-      print('Message data: ${message.data}');
+      Logger().info('Got a message whilst in the foreground!');
+      Logger().info('Message data: ${message.data}');
 
       if (message.notification != null) {
-        print('Message also contained a notification: ${message.notification}');
+        Logger().info('Message also contained a notification: ${message.notification}');
       }
     });
-    widget.firebaseMessaging.subscribeToTopic('notifications');
+    widget.firebaseMessaging?.subscribeToTopic('notifications');
     final reminders = widget.sharedPreferences.getBool('reminders');
     if (reminders == null) {
       widget.sharedPreferences.setBool('reminders', true);
@@ -166,7 +200,7 @@ class _VariousProvidersState extends State<VariousProviders> {
   }
 
   Future onSelectNotification(String payload) async {
-    logger.info('notification payload: ' + payload);
+    logger.info('notification payload: $payload');
 
     // navigatorKey.currentState?.push(
     //   MaterialPageRoute(
@@ -184,7 +218,7 @@ class _VariousProvidersState extends State<VariousProviders> {
           value: widget.sharedPreferences,
         ),
         Provider<FirebaseMessaging>.value(
-          value: widget.firebaseMessaging,
+          value: widget.firebaseMessaging!,
         ),
         Provider<FlutterLocalNotificationsPlugin>.value(
           value: flutterLocalNotificationsPlugin,
@@ -254,8 +288,8 @@ class RepositoryProviders extends StatelessWidget {
                       _notificationsUnreadStatusRepositoryBuilder(
                           context, sharedPreferences),
                   child: RepositoryProvider<RatingsRepository>(
-                    create: (context) => _ratingsRepositoryBuilder(context,
-                        sharedPreferences, FirebaseFirestore.instance),
+                    create: (context) => _ratingsRepositoryBuilder(
+                        context, sharedPreferences, FirebaseFirestore.instance),
                     child: child,
                   ),
                 ),

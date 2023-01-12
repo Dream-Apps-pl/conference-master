@@ -16,12 +16,12 @@ class SearchResultsPage extends StatelessWidget {
     return BlocBuilder<AgendaBloc, AgendaState>(
         bloc: BlocProvider.of<AgendaBloc>(context),
         builder: (context, state) {
-          if (state is PopulatedAgendaState)
+          if (state is PopulatedAgendaState) {
             return MaterialSearch<Talk>(
               placeholder: S.current.searchHint,
               getResults: (String criteria) async {
                 return [...state.talks[0]!, ...state.talks[1]!]
-                    .map((Talk v) => new MaterialSearchResult<Talk>(
+                    .map((Talk v) => MaterialSearchResult<Talk>(
                           icon: v.authors.length > 1
                               ? LineIcons.users
                               : LineIcons.user,
@@ -40,8 +40,9 @@ class SearchResultsPage extends StatelessWidget {
                 Navigator.pop<Talk>(context, value);
               },
             );
-          else
+          } else {
             return Container();
+          }
         });
   }
 

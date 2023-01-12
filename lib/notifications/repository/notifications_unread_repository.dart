@@ -41,7 +41,7 @@ class AppNotificationsUnreadStatusRepository {
   bool _combine(List<AppNotification> list, int lastRead) {
     if (lastRead != null) {
       final time = DateTime.fromMicrosecondsSinceEpoch(lastRead);
-      if (list.isNotEmpty && list.length > 0) {
+      if (list.isNotEmpty && list.isNotEmpty) {
         return list.first.dateTime.compareTo(time) > 0;
       }
       return false;

@@ -5,26 +5,26 @@ extension ColorExt on String {
   Color? hexToColor() {
     if (this == '') return null;
 
-    return new Color(int.parse(this.substring(1, 7), radix: 16) + 0xFF000000);
+    return Color(int.parse(substring(1, 7), radix: 16) + 0xFF000000);
   }
 }
 
 class AppThemes {
-  static const int LightBlue = 0;
-  static const int LightOrange = 1;
-  static const int Dark = 2;
+  static const int lightBlue = 0;
+  static const int lightOrange = 1;
+  static const int dark = 2;
 }
 
 final themeCollection = ThemeCollection(
   themes: {
-    AppThemes.LightBlue: ThemeData(primarySwatch: Colors.blue),
-    AppThemes.LightOrange: ThemeData.from(
-      colorScheme: ColorScheme.dark(
+    AppThemes.lightBlue: ThemeData(primarySwatch: Colors.blue),
+    AppThemes.lightOrange: ThemeData.from(
+      colorScheme: const ColorScheme.dark(
         primary: Colors.red,
         secondary: Colors.red,
       ),
     ),
-    AppThemes.Dark: ThemeData.dark(),
+    AppThemes.dark: ThemeData.dark(),
   },
   fallbackTheme: ThemeData.light(),
 );

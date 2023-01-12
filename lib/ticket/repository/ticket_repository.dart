@@ -3,15 +3,13 @@ import 'dart:convert';
 import 'package:conferenceapp/common/logger.dart';
 import 'package:conferenceapp/model/ticket.dart';
 import 'package:conferenceapp/profile/user_repository.dart';
-// import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class TicketRepository {
-  final UserRepository _userRepository;
 
   final String _ticketKey = 'ticket';
 
-  TicketRepository(this._userRepository);
+  TicketRepository(UserRepository of);
 
   Future<Ticket?> getTicket() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();

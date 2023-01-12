@@ -42,7 +42,7 @@ class _WriteReviewModalBottomSheetState
   }
 
   void canSubmitListener() {
-    this.setState(() {
+    setState(() {
       canSubmit = _controller.text.length >= 10;
     });
   }
@@ -82,16 +82,16 @@ class _WriteReviewModalBottomSheetState
                 Expanded(
                   child: Text(
                     S.current.reviewHintVisible,
-                    style: TextStyle(fontStyle: FontStyle.italic),
+                    style: const TextStyle(fontStyle: FontStyle.italic),
                   ),
                 ),
                 ElevatedButton(
-                  child: Text(S.current.submit),
-                  onPressed: this.canSubmit
+                  onPressed: canSubmit
                       ? () {
                           Navigator.of(context).pop(_controller.text.trim());
                         }
                       : null,
+                  child: Text(S.current.submit),
                 ),
               ],
             )

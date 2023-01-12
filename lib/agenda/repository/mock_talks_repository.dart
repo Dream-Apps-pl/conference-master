@@ -6,6 +6,7 @@ import 'package:conferenceapp/model/talk.dart';
 class MockTalksRepository implements TalkRepository {
   @override
   Stream<List<Talk>> talks() => Stream.fromIterable(Iterable.castFrom(_talks));
+  @override
   Stream<Talk> talk(id) => Stream.fromFuture(Future.value(_talks[0]));
 
   @override
@@ -14,8 +15,8 @@ class MockTalksRepository implements TalkRepository {
   }
 }
 
-final _rA = Room('A', '0');
-final _rB = Room('B', '1');
+const _rA = Room('A', '0');
+const _rB = Room('B', '1');
 
 final _authors = [
   Author(

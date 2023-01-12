@@ -26,104 +26,102 @@ class AdminPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Center(
-        child: Column(
-          children: <Widget>[
-            ListTile(
-              title: Text(S.current.agenda),
-              subtitle: Text(S.current.addAgendaDes),
-              trailing: Icon(LineIcons.database),
-              onTap: () async {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => AdminAgenda(),
-                    settings: RouteSettings(name: 'admin/agenda'),
-                  ),
-                );
-              },
-            ),
-            ListTile(
-              title: Text(S.current.sponsors),
-              subtitle: Text(S.current.sponsorsDes),
-              trailing: Icon(LineIcons.ad),
-              onTap: () async {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => AdminSponsor(),
-                    settings: RouteSettings(name: 'admin/sponsor'),
-                  ),
-                );
-              },
-            ),
-            ListTile(
-              title: Text(S.current.organizers),
-              subtitle: Text(S.current.organizersDes),
-              trailing: Icon(LineIcons.objectGroup),
-              onTap: () async {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => AdminOrganizer(),
-                    settings: RouteSettings(name: 'admin/organizer'),
-                  ),
-                );
-              },
-            ),
-            // ListTile(
-            //   title: Text('Load tickets from csv'),
-            //   subtitle: Text(
-            //       'Select attendees.csv from Eventil to upload into Firestore. Will overwrite the existing database.'),
-            //   trailing: Icon(LineIcons.file),
-            //   onTap: () async {
-            //     final res = await handleCsvTickets();
-            //     if (res == false) {
-            //       ScaffoldMessenger.of(context).showSnackBar(
-            //         SnackBar(
-            //           content: Text('Error during loading of the tickets.'),
-            //           behavior: SnackBarBehavior.floating,
-            //         ),
-            //       );
-            //     }
-            //   },
-            // ),
-            // ListTile(
-            //   title: Text('Add notification'),
-            //   subtitle: Text(
-            //       'Notification will be visible on notifications page for all attendees.'),
-            //   trailing: Icon(LineIcons.exclamation),
-            //   onTap: () async => await handleAddingNotification(context),
-            // ),
-            // ListTile(
-            //   title: Text('Create new ticketer'),
-            //   subtitle: Text('This allows to create new ticketer'),
-            //   trailing: Icon(LineIcons.smilingFace),
-            //   onTap: () async => await handleCreateNewUser(context),
-            // ),
-            ListTile(
-              title: Text('Logout'),
-              trailing: Icon(LineIcons.sign),
-              onTap: () async => await handleLogout(context),
-            ),
-            Spacer(),
-          ],
-        ),
+    return Center(
+      child: Column(
+        children: <Widget>[
+          ListTile(
+            title: Text(S.current.agenda),
+            subtitle: Text(S.current.addAgendaDes),
+            trailing: const Icon(LineIcons.database),
+            onTap: () async {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const AdminAgenda(),
+                  settings: const RouteSettings(name: 'admin/agenda'),
+                ),
+              );
+            },
+          ),
+          ListTile(
+            title: Text(S.current.sponsors),
+            subtitle: Text(S.current.sponsorsDes),
+            trailing: const Icon(LineIcons.ad),
+            onTap: () async {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const AdminSponsor(),
+                  settings: const RouteSettings(name: 'admin/sponsor'),
+                ),
+              );
+            },
+          ),
+          ListTile(
+            title: Text(S.current.organizers),
+            subtitle: Text(S.current.organizersDes),
+            trailing: const Icon(LineIcons.objectGroup),
+            onTap: () async {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const AdminOrganizer(),
+                  settings: const RouteSettings(name: 'admin/organizer'),
+                ),
+              );
+            },
+          ),
+          // ListTile(
+          //   title: Text('Load tickets from csv'),
+          //   subtitle: Text(
+          //       'Select attendees.csv from Eventil to upload into Firestore. Will overwrite the existing database.'),
+          //   trailing: Icon(LineIcons.file),
+          //   onTap: () async {
+          //     final res = await handleCsvTickets();
+          //     if (res == false) {
+          //       ScaffoldMessenger.of(context).showSnackBar(
+          //         SnackBar(
+          //           content: Text('Error during loading of the tickets.'),
+          //           behavior: SnackBarBehavior.floating,
+          //         ),
+          //       );
+          //     }
+          //   },
+          // ),
+          // ListTile(
+          //   title: Text('Add notification'),
+          //   subtitle: Text(
+          //       'Notification will be visible on notifications page for all attendees.'),
+          //   trailing: Icon(LineIcons.exclamation),
+          //   onTap: () async => await handleAddingNotification(context),
+          // ),
+          // ListTile(
+          //   title: Text('Create new ticketer'),
+          //   subtitle: Text('This allows to create new ticketer'),
+          //   trailing: Icon(LineIcons.smilingFace),
+          //   onTap: () async => await handleCreateNewUser(context),
+          // ),
+          ListTile(
+            title: const Text('Logout'),
+            trailing: const Icon(LineIcons.sign),
+            onTap: () async => await handleLogout(context),
+          ),
+          const Spacer(),
+        ],
       ),
     );
   }
 
   Future handleAddingNotification(BuildContext context) async {
     final notification = await showDialog<AppNotification>(
-      builder: (context) => NotificationDialog(),
+      builder: (context) => const NotificationDialog(),
       context: context,
     );
     if (notification != null) {
       final notifRepository =
           RepositoryProvider.of<FirestoreNotificationsRepository>(context);
       notifRepository.addNotification(notification);
-      await Future.delayed(Duration(milliseconds: 500));
+      await Future.delayed(const Duration(milliseconds: 500));
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(S.current.notifAdmin),
       ));
@@ -132,7 +130,7 @@ class AdminPage extends StatelessWidget {
 
   Future handleCreateNewUser(BuildContext context) async {
     await showDialog(
-      builder: (context) => SignupDialog(),
+      builder: (context) => const SignupDialog(),
       context: context,
     );
   }
@@ -150,7 +148,7 @@ class AdminPage extends StatelessWidget {
       if (file == null) return false;
       File fileData = File(file.files.first.path!);
       final yourString = await fileData.readAsString();
-      var d = new FirstOccurrenceSettingsDetector(
+      var d = const FirstOccurrenceSettingsDetector(
         eols: ['\r\n', '\n'],
         textDelimiters: ['"', "'"],
       );
@@ -207,10 +205,10 @@ class SignupDialog extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _SignupDialogDialogState createState() => _SignupDialogDialogState();
+  SignupDialogDialogState createState() => SignupDialogDialogState();
 }
 
-class _SignupDialogDialogState extends State<SignupDialog> {
+class SignupDialogDialogState extends State<SignupDialog> {
   late String email;
   late String password;
 
@@ -218,7 +216,7 @@ class _SignupDialogDialogState extends State<SignupDialog> {
   Widget build(BuildContext context) {
     return SimpleDialog(
       title: Text(S.current.addNewTicker),
-      contentPadding: EdgeInsets.all(12.0),
+      contentPadding: const EdgeInsets.all(12.0),
       children: <Widget>[
         EuropeTextFormField(
           hint: S.current.email,
@@ -244,16 +242,17 @@ class _SignupDialogDialogState extends State<SignupDialog> {
                 } catch (e) {
                   logger.errorException(e);
                 }
+                if (!mounted) return;
                 Navigator.pop(context);
               },
-              child: Text(S.current.register),
               style: TextButton.styleFrom(backgroundColor: Colors.green),
+              child: Text(S.current.register),
             ),
-            SizedBox(width: 16),
+            const SizedBox(width: 16),
             TextButton(
               onPressed: () => Navigator.pop(context),
-              child: Text(S.current.close),
               style: TextButton.styleFrom(backgroundColor: Colors.red),
+              child: Text(S.current.close),
             ),
           ],
         ),
@@ -268,10 +267,10 @@ class NotificationDialog extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _NotificationDialogState createState() => _NotificationDialogState();
+  NotificationDialogState createState() => NotificationDialogState();
 }
 
-class _NotificationDialogState extends State<NotificationDialog> {
+class NotificationDialogState extends State<NotificationDialog> {
   late String title;
   late String content;
   DateTime dateTime = DateTime.now();
@@ -281,8 +280,8 @@ class _NotificationDialogState extends State<NotificationDialog> {
   @override
   Widget build(BuildContext context) {
     return SimpleDialog(
-      title: Text('Add new notification'),
-      contentPadding: EdgeInsets.all(12.0),
+      title: const Text('Add new notification'),
+      contentPadding: const EdgeInsets.all(12.0),
       children: <Widget>[
         EuropeTextFormField(
           hint: 'Title',
@@ -343,14 +342,14 @@ class _NotificationDialogState extends State<NotificationDialog> {
                 context,
                 AppNotification(title, dateTime, content, important, url),
               ),
-              child: Text('Save'),
               style: TextButton.styleFrom(backgroundColor: Colors.green),
+              child: const Text('Save'),
             ),
-            SizedBox(width: 16),
+            const SizedBox(width: 16),
             TextButton(
               onPressed: () => Navigator.pop(context),
-              child: Text('Close'),
               style: TextButton.styleFrom(backgroundColor: Colors.red),
+              child: const Text('Close'),
             ),
           ],
         ),

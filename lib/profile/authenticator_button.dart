@@ -15,7 +15,7 @@ class AuthenticatorButton extends StatelessWidget {
     return Row(
       children: <Widget>[
         IconButton(
-          icon: Icon(Icons.settings),
+          icon: const Icon(Icons.settings),
           onPressed: () => showLoginDialog(context),
         ),
       ],
@@ -60,9 +60,9 @@ class AuthenticatorButton extends StatelessWidget {
             TextButton(
               child: Text(S.current.login),
               onPressed: () async {
-                final FirebaseAuth _auth = FirebaseAuth.instance;
+                final FirebaseAuth auth0 = FirebaseAuth.instance;
                 try {
-                  final _ = await _auth.signInWithEmailAndPassword(
+                  final _ = await auth0.signInWithEmailAndPassword(
                     email: username,
                     password: password,
                   );
@@ -71,7 +71,7 @@ class AuthenticatorButton extends StatelessWidget {
                     toastLength: Toast.LENGTH_SHORT,
                     gravity: ToastGravity.CENTER,
                     timeInSecForIosWeb: 1,
-                    backgroundColor: Theme.of(context).backgroundColor,
+                    backgroundColor: Theme.of(context).colorScheme.background,
                     fontSize: 16.0,
                   );
                   Navigator.pop(context);
@@ -91,9 +91,9 @@ class AuthenticatorButton extends StatelessWidget {
             TextButton(
               child: Text(S.current.register),
               onPressed: () async {
-                final FirebaseAuth _auth = FirebaseAuth.instance;
+                final FirebaseAuth auth0 = FirebaseAuth.instance;
                 try {
-                  final result = await _auth.createUserWithEmailAndPassword(
+                  final result = await auth0.createUserWithEmailAndPassword(
                     email: username,
                     password: password,
                   );
@@ -103,7 +103,7 @@ class AuthenticatorButton extends StatelessWidget {
                     toastLength: Toast.LENGTH_SHORT,
                     gravity: ToastGravity.CENTER,
                     timeInSecForIosWeb: 1,
-                    backgroundColor: Theme.of(context).backgroundColor,
+                    backgroundColor: Theme.of(context).colorScheme.background,
                     fontSize: 16.0,
                   );
                   Navigator.pop(context);
@@ -125,17 +125,17 @@ class AuthenticatorButton extends StatelessWidget {
             TextButton(
               child: Text(S.current.logout),
               onPressed: () async {
-                final FirebaseAuth _auth = FirebaseAuth.instance;
+                final FirebaseAuth auth = FirebaseAuth.instance;
                 Fluttertoast.showToast(
                   msg: S.current.loggedOut,
                   toastLength: Toast.LENGTH_SHORT,
                   gravity: ToastGravity.CENTER,
                   timeInSecForIosWeb: 1,
-                  backgroundColor: Theme.of(context).backgroundColor,
+                  backgroundColor: Theme.of(context).colorScheme.background,
                   fontSize: 16.0,
                 );
                 try {
-                  await _auth.signOut();
+                  await auth.signOut();
                 } catch (e, s) {
                   logger.errorException(e, s);
                 }

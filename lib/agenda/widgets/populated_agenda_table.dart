@@ -23,10 +23,10 @@ class PopulatedAgendaTable extends StatefulWidget {
   final bool skipWidgetPreload;
 
   @override
-  _PopulatedAgendaTableState createState() => _PopulatedAgendaTableState();
+  PopulatedAgendaTableState createState() => PopulatedAgendaTableState();
 }
 
-class _PopulatedAgendaTableState extends State<PopulatedAgendaTable> {
+class PopulatedAgendaTableState extends State<PopulatedAgendaTable> {
   late Completer<void> _refreshCompleter;
 
   @override
@@ -46,7 +46,8 @@ class _PopulatedAgendaTableState extends State<PopulatedAgendaTable> {
       },
       child: PageView(
         controller: widget.pageController,
-        physics: AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
+        physics: const AlwaysScrollableScrollPhysics(
+            parent: BouncingScrollPhysics()),
         children: <Widget>[
           RefreshIndicator(
             onRefresh: () async {
@@ -55,7 +56,7 @@ class _PopulatedAgendaTableState extends State<PopulatedAgendaTable> {
             },
             child: widget.talks[0] != null
                 ? PopulatedAgendaDayList(widget.talks[0]!, widget.rooms)
-                : EmptyPopulated(),
+                : const EmptyPopulated(),
           ),
           RefreshIndicator(
             onRefresh: () async {
@@ -64,7 +65,7 @@ class _PopulatedAgendaTableState extends State<PopulatedAgendaTable> {
             },
             child: widget.talks[1] != null
                 ? PopulatedAgendaDayList(widget.talks[1]!, widget.rooms)
-                : EmptyPopulated(),
+                : const EmptyPopulated(),
           ),
         ],
       ),
@@ -81,15 +82,16 @@ class EmptyPopulated extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox.expand(
       child: ListView(
-        physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+        physics: const BouncingScrollPhysics(
+            parent: AlwaysScrollableScrollPhysics()),
         children: <Widget>[
           Padding(
             padding: const EdgeInsets.all(20.0),
             child: Image.asset('assets/404.png'),
           ),
-          Center(
+          const Center(
             child: Padding(
-              padding: const EdgeInsets.all(20.0),
+              padding: EdgeInsets.all(20.0),
               child: Text(
                 'Seems like we have a connection problem. Try to restart the app.',
                 textAlign: TextAlign.center,

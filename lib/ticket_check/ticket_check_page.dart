@@ -9,11 +9,13 @@ import 'scan_party_page.dart';
 import 'scan_ticket_page.dart';
 
 class TicketCheckPage extends StatefulWidget {
+  const TicketCheckPage({Key? key}) : super(key: key);
+
   @override
-  _TicketCheckPageState createState() => _TicketCheckPageState();
+  TicketCheckPageState createState() => TicketCheckPageState();
 }
 
-class _TicketCheckPageState extends State<TicketCheckPage> {
+class TicketCheckPageState extends State<TicketCheckPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +32,7 @@ class _TicketCheckPageState extends State<TicketCheckPage> {
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
                   S.current.scanTicket,
-                  style: TextStyle(fontSize: 36),
+                  style: const TextStyle(fontSize: 36),
                 ),
               ),
               onPressed: () async {
@@ -45,10 +47,12 @@ class _TicketCheckPageState extends State<TicketCheckPage> {
                     ),
                   );
                   bloc.close();
-                } catch (e) {}
+                } catch (e) {
+                  Logger().info(e.toString());
+                }
               },
             ),
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
             ElevatedButton(
@@ -56,7 +60,7 @@ class _TicketCheckPageState extends State<TicketCheckPage> {
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
                   S.current.checkManual,
-                  style: TextStyle(fontSize: 36),
+                  style: const TextStyle(fontSize: 36),
                 ),
               ),
               onPressed: () async {
@@ -77,7 +81,7 @@ class _TicketCheckPageState extends State<TicketCheckPage> {
                 }
               },
             ),
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
             ElevatedButton(
@@ -92,13 +96,15 @@ class _TicketCheckPageState extends State<TicketCheckPage> {
                   await Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => ScanPartyPage(),
+                      builder: (context) => const ScanPartyPage(),
                     ),
                   );
-                } catch (e) {}
+                } catch (e) {
+                  Logger().info(e.toString());
+                }
               },
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             ElevatedButton(
@@ -108,7 +114,7 @@ class _TicketCheckPageState extends State<TicketCheckPage> {
                   await Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => UsersListPage(),
+                      builder: (context) => const UsersListPage(),
                     ),
                   );
                 } catch (e, s) {

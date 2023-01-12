@@ -16,10 +16,10 @@ class AgendaPage extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _AgendaPageState createState() => _AgendaPageState();
+  AgendaPageState createState() => AgendaPageState();
 }
 
-class _AgendaPageState extends State<AgendaPage> {
+class AgendaPageState extends State<AgendaPage> {
   late PageController pageController;
   final ValueNotifier<int> currentIndex = ValueNotifier<int>(0);
 
@@ -68,7 +68,7 @@ class _AgendaPageState extends State<AgendaPage> {
                       final compact = layoutHelper.isCompact();
                       return PageView(
                         controller: pageController,
-                        physics: AlwaysScrollableScrollPhysics(
+                        physics: const AlwaysScrollableScrollPhysics(
                             parent: BouncingScrollPhysics()),
                         children: <Widget>[
                           NewPopulatedAgendaDayListContent(
@@ -101,7 +101,7 @@ class _AgendaPageState extends State<AgendaPage> {
                         ],
                       );
                     }
-                    return LoadingAgendaTable();
+                    return const LoadingAgendaTable();
                   },
                 );
               }),

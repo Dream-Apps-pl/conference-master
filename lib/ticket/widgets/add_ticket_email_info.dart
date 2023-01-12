@@ -1,7 +1,7 @@
 import 'package:conferenceapp/common/logger.dart';
 import 'package:conferenceapp/generated/l10n.dart';
 import 'package:flutter/material.dart';
-import 'package:share/share.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class AddTicketEmailInfo extends StatelessWidget {
@@ -29,9 +29,9 @@ class AddTicketEmailInfo extends StatelessWidget {
   }
 
   void sendEmail() async {
-    final email = 'tickets@fluttereurope.dev';
-    final subject = 'Problem with accessing ticket in mobile app';
-    final body =
+    const email = 'tickets@fluttereurope.dev';
+    const subject = 'Problem with accessing ticket in mobile app';
+    const body =
         'Hi! I have problem with adding ticket in my Flutter Europe conference app.';
     final url = Uri.encodeFull('mailto:$email?subject=$subject&body=$body');
     if (await canLaunchUrl(Uri.parse(url))) {

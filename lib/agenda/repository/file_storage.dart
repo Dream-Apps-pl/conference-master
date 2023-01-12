@@ -47,7 +47,7 @@ class FileStorage {
   Future<List<Talk>> loadItems() async {
     final file = await _getLocalFile();
     final string = await file.readAsString();
-    final json = JsonDecoder().convert(string);
+    final json = const JsonDecoder().convert(string);
     final todos = json.map<Talk>((item) => Talk.fromJson(item)).toList();
 
     return todos;

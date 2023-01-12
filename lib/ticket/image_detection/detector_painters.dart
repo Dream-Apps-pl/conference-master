@@ -62,10 +62,10 @@ class TextDetectorPainter extends CustomPainter {
         container.boundingBox.top * scaleY,
         container.boundingBox.right * scaleX,
         container.boundingBox.bottom * scaleY,
-        topLeft: Radius.circular(6.0),
-        topRight: Radius.circular(6.0),
-        bottomLeft: Radius.circular(6.0),
-        bottomRight: Radius.circular(6.0),
+        topLeft: const Radius.circular(6.0),
+        topRight: const Radius.circular(6.0),
+        bottomLeft: const Radius.circular(6.0),
+        bottomRight: const Radius.circular(6.0),
       );
     }
 

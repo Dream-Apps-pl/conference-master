@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:conferenceapp/common/logger.dart';
 import 'package:conferenceapp/config.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
-import 'package:package_info/package_info.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 class ForceUpdate {
   static void onForceUpdate(Function callback) async {
@@ -27,8 +27,7 @@ class ForceUpdate {
     final currentBuildNumber = int.parse(packageInfo.buildNumber);
 
     logger.info(
-        "ForceUpdate. Current: $currentBuildNumber. Required: $requiredBuildNumber. " +
-            "Update?: ${currentBuildNumber < requiredBuildNumber}");
+        "ForceUpdate. Current: $currentBuildNumber. Required: $requiredBuildNumber. " "Update?: ${currentBuildNumber < requiredBuildNumber}");
 
     if (currentBuildNumber < requiredBuildNumber) {
       callback();

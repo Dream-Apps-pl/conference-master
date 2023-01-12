@@ -20,7 +20,7 @@ class TicketClipper extends CustomClipper<Path> {
 
       while (x < size.width) {
         x += increment;
-        path.arcToPoint(Offset(x, y), radius: Radius.circular(1));
+        path.arcToPoint(Offset(x, y), radius: const Radius.circular(1));
         path.lineTo(x + increment / 2, y);
         x += increment / 2;
       }
@@ -37,7 +37,7 @@ class TicketClipper extends CustomClipper<Path> {
     if (clipTop) {
       while (x > 0) {
         x -= increment;
-        path.arcToPoint(Offset(x, y), radius: Radius.circular(1));
+        path.arcToPoint(Offset(x, y), radius: const Radius.circular(1));
         path.lineTo(x - increment / 2, y);
         x -= increment / 2;
       }
@@ -48,7 +48,7 @@ class TicketClipper extends CustomClipper<Path> {
   }
 
   @override
-  bool shouldReclip(CustomClipper old) {
-    return old != this;
+  bool shouldReclip(CustomClipper oldClipper) {
+    return oldClipper != this;
   }
 }

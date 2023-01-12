@@ -13,42 +13,40 @@ class ScanTicketBackground extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
-    return Container(
-      child: Column(
-        children: <Widget>[
-          Expanded(
-            child: Container(
-              color: Colors.black38,
+    return Column(
+      children: <Widget>[
+        Expanded(
+          child: Container(
+            color: Colors.black38,
+          ),
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Flexible(
+              child: Container(
+                color: Colors.black38,
+                height: detectorHeight,
+              ),
             ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Flexible(
-                child: Container(
-                  color: Colors.black38,
-                  height: detectorHeight,
-                ),
-              ),
-              Container(
-                width: width * 0.8,
-                child: ScanTextBorderContainer(),
-              ),
-              Flexible(
-                child: Container(
-                  color: Colors.black38,
-                  height: detectorHeight,
-                ),
-              ),
-            ],
-          ),
-          Expanded(
-            child: Container(
-              color: Colors.black38,
+            SizedBox(
+              width: width * 0.8,
+              child: const ScanTextBorderContainer(),
             ),
+            Flexible(
+              child: Container(
+                color: Colors.black38,
+                height: detectorHeight,
+              ),
+            ),
+          ],
+        ),
+        Expanded(
+          child: Container(
+            color: Colors.black38,
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

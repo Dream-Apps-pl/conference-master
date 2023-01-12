@@ -13,7 +13,7 @@ User _$UserFromJson(Map json) => User(
       (json['favoriteTalksIds'] as List<dynamic>)
           .map((e) => e as String)
           .toList(),
-      json['ticketId'] as String,
+      json['ticketId'] as String?,
     );
 
 const _$UserFieldMap = <String, String>{

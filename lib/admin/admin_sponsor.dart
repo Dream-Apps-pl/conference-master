@@ -14,9 +14,9 @@ class _AdminSponsorState extends State<AdminSponsor> {
   final _formKey = GlobalKey<FormState>();
   SponsorLevel _sponsorLevel = SponsorLevel.bronze;
 
-  TextEditingController _nameController = TextEditingController();
-  TextEditingController _urlController = TextEditingController();
-  TextEditingController _logoController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _urlController = TextEditingController();
+  final TextEditingController _logoController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +44,7 @@ class _AdminSponsorState extends State<AdminSponsor> {
                       });
                     },
                   ),
-                  SizedBox(width: 5),
+                  const SizedBox(width: 5),
                   ChoiceChip(
                     label: Text(SponsorLevel.gold.name),
                     selected: _sponsorLevel == SponsorLevel.gold,
@@ -55,7 +55,7 @@ class _AdminSponsorState extends State<AdminSponsor> {
                       });
                     },
                   ),
-                  SizedBox(width: 5),
+                  const SizedBox(width: 5),
                   ChoiceChip(
                     label: Text(SponsorLevel.platinium.name),
                     selected: _sponsorLevel == SponsorLevel.platinium,
@@ -67,7 +67,7 @@ class _AdminSponsorState extends State<AdminSponsor> {
                       });
                     },
                   ),
-                  SizedBox(width: 5),
+                  const SizedBox(width: 5),
                   ChoiceChip(
                     label: Text(SponsorLevel.silver.name),
                     selected: _sponsorLevel == SponsorLevel.silver,
@@ -129,7 +129,7 @@ class _AdminSponsorState extends State<AdminSponsor> {
 
   void _onSaveSponsor() {
     if (_formKey.currentState!.validate()) {
-      Sponsor _sponsor = Sponsor(
+      Sponsor sponsor = Sponsor(
         _nameController.text,
         _logoController.text,
         _urlController.text,
@@ -137,7 +137,7 @@ class _AdminSponsorState extends State<AdminSponsor> {
       );
 
       FirestoreService()
-          .addSponsor(_sponsor)
+          .addSponsor(sponsor)
           .whenComplete(() => Navigator.pop(context));
     }
   }

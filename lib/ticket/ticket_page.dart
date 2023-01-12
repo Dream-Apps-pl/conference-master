@@ -18,11 +18,13 @@ import 'widgets/ticket_clipper.dart';
 import 'widgets/ticket_page_title.dart';
 
 class TicketPage extends StatefulWidget {
+  const TicketPage({Key? key}) : super(key: key);
+
   @override
-  _TicketPageState createState() => _TicketPageState();
+  TicketPageState createState() => TicketPageState();
 }
 
-class _TicketPageState extends State<TicketPage> {
+class TicketPageState extends State<TicketPage> {
   late TextEditingController orderController;
   late TextEditingController emailController;
   late TextEditingController ticketController;
@@ -53,7 +55,6 @@ class _TicketPageState extends State<TicketPage> {
 
   @override
   Widget build(BuildContext context) {
-    final na = 'N/A';
     return BlocBuilder<TicketBloc, TicketState>(
       builder: (context, state) => Scaffold(
         body: Form(
@@ -62,14 +63,14 @@ class _TicketPageState extends State<TicketPage> {
             children: <Widget>[
               Container(
                 color: Theme.of(context).primaryColor,
-                child: Padding(
-                  padding: const EdgeInsets.all(18.0),
+                child: const Padding(
+                  padding: EdgeInsets.all(18.0),
                   child: TicketPageTitle(),
                 ),
               ),
               if (state is TicketAddedState)
                 AnimatedCrossFade(
-                  duration: Duration(milliseconds: 800),
+                  duration: const Duration(milliseconds: 800),
                   crossFadeState: state is TicketValidatedState
                       ? CrossFadeState.showSecond
                       : CrossFadeState.showFirst,
@@ -105,7 +106,7 @@ class _TicketPageState extends State<TicketPage> {
                 )
               else
                 NoQrCode(onTap: () {}),
-              if (!(state is TicketAddedState))
+              if (state is! TicketAddedState)
                 ToggleButtons(
                   isSelected: [verifyByOrderNumber, verifyByTicketNumber],
                   onPressed: (index) {
@@ -132,7 +133,7 @@ class _TicketPageState extends State<TicketPage> {
                     )
                   ],
                 ),
-              if (verifyByOrderNumber && !(state is TicketAddedState))
+              if (verifyByOrderNumber && state is! TicketAddedState)
                 EuropeTextFormField(
                   hint: S.current.hintOrderNumber,
                   onFieldSubmitted: onSubmit,
@@ -149,7 +150,7 @@ class _TicketPageState extends State<TicketPage> {
                     return null;
                   },
                 ),
-              if (verifyByTicketNumber && !(state is TicketAddedState))
+              if (verifyByTicketNumber && state is! TicketAddedState)
                 EuropeTextFormField(
                   hint: S.current.ticketNumberHint,
                   onFieldSubmitted: onSubmit,
@@ -175,12 +176,12 @@ class _TicketPageState extends State<TicketPage> {
               //   keyboardType: TextInputType.emailAddress,
               // ),
               if (state is TicketErrorState) Text(S.current.weHaveProblem),
-              if (!(state is TicketAddedState))
+              if (state is! TicketAddedState)
                 SaveTicketButton(
                   enabled: formValid,
                   onSave: onSave,
                 ),
-              if (!(state is TicketAddedState)) AddTicketEmailInfo(),
+              if (state is! TicketAddedState) const AddTicketEmailInfo(),
 
               if (state is TicketAddedState && state.ticket.orderId.isNotEmpty)
                 Padding(
@@ -199,17 +200,17 @@ class _TicketPageState extends State<TicketPage> {
                   ),
                 ),
 
-              if (state is TicketAddedState) ConferenceInfo(),
-              if (state is TicketAddedState && !(state is TicketValidatedState))
+              if (state is TicketAddedState) const ConferenceInfo(),
+              if (state is TicketAddedState && state is! TicketValidatedState)
                 TextButton(
                   style: TextButton.styleFrom(
-                      textStyle: TextStyle(color: Colors.red)),
+                      textStyle: const TextStyle(color: Colors.red)),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
                       Text(S.current.removeTicket),
-                      Icon(LineIcons.trash)
+                      const Icon(LineIcons.trash)
                     ],
                   ),
                   onPressed: () {
@@ -282,8 +283,8 @@ class NoQrCode extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(
+      child: const Padding(
+        padding: EdgeInsets.symmetric(
           horizontal: 40.0,
         ),
         child: ScanYourTicketPlaceholder(),
@@ -311,9 +312,9 @@ class QrCode extends StatelessWidget {
           if (snapshot.hasData) {
             final user = snapshot.data;
             final orderId =
-                ticketData.orderId.length > 0 ? ticketData.orderId : '_';
+                ticketData.orderId.isNotEmpty ? ticketData.orderId : '_';
             final ticketId =
-                ticketData.ticketId.length > 0 ? ticketData.ticketId : '_';
+                ticketData.ticketId.isNotEmpty ? ticketData.ticketId : '_';
             final qrData = '${user!.userId} $orderId $ticketId';
             return Container(
               height: 260,
@@ -324,14 +325,15 @@ class QrCode extends StatelessWidget {
                 child: QrImage(
                   data: qrData,
                   embeddedImage: validated
-                      ? AssetImage('assets/checked.png')
-                      : AssetImage(''),
-                  imageSize: Size(100, 100),
+                      ? const AssetImage('assets/checked.png')
+                      : const AssetImage(''),
+                  imageSize: const Size(100, 100),
                 ),
               ),
             );
-          } else
+          } else {
             return Container();
+          }
         });
   }
 }
@@ -342,15 +344,15 @@ class TicketPageWrapper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final imageHeight = 48.0;
+    const imageHeight = 48.0;
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).requestFocus(FocusNode());
       },
       child: SafeArea(
         child: CustomScrollView(
-          physics:
-              AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
+          physics: const AlwaysScrollableScrollPhysics(
+              parent: BouncingScrollPhysics()),
           slivers: <Widget>[
             SliverAppBar(
               expandedHeight: imageHeight,
@@ -358,17 +360,17 @@ class TicketPageWrapper extends StatelessWidget {
               iconTheme: Theme.of(context).iconTheme,
               centerTitle: true,
               title: AnimatedSwitcher(
-                duration: Duration(milliseconds: 500),
+                duration: const Duration(milliseconds: 500),
                 child: Theme.of(context).brightness == Brightness.light
                     ? Image.asset(
                         'assets/flutter_europe.png',
                         height: imageHeight,
-                        key: ValueKey('logo_image_1'),
+                        key: const ValueKey('logo_image_1'),
                       )
                     : Image.asset(
                         'assets/flutter_europe_dark.png',
                         height: imageHeight,
-                        key: ValueKey('logo_image_2'),
+                        key: const ValueKey('logo_image_2'),
                       ),
               ),
               pinned: true,
@@ -379,10 +381,8 @@ class TicketPageWrapper extends StatelessWidget {
                 child: ClipPath(
                   clipper: TicketClipper(true, true),
                   child: TalkCardDecoration(
-                    child: Container(
-                      child: Column(
-                        children: children,
-                      ),
+                    child: Column(
+                      children: children,
                     ),
                   ),
                 ),

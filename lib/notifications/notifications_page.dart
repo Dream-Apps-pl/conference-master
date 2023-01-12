@@ -10,6 +10,8 @@ import 'package:timeago/timeago.dart' as timeago;
 import 'package:url_launcher/url_launcher.dart';
 
 class NotificationsPage extends StatelessWidget {
+  const NotificationsPage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final notificationsRepository =
@@ -21,10 +23,10 @@ class NotificationsPage extends StatelessWidget {
     return StreamBuilder<List<AppNotification>>(
         stream: notificationsRepository.notifications(),
         builder: (context, snapshot) {
-          if (snapshot.hasData && snapshot.data!.length > 0) {
+          if (snapshot.hasData && snapshot.data!.isNotEmpty) {
             final list = snapshot.data;
             return ListView.builder(
-              physics: AlwaysScrollableScrollPhysics(
+              physics: const AlwaysScrollableScrollPhysics(
                   parent: BouncingScrollPhysics()),
               itemCount: list!.length,
               itemBuilder: (context, index) {
@@ -42,7 +44,7 @@ class NotificationsPage extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
                       if (notif.url.isNotEmpty)
-                        Icon(
+                        const Icon(
                           LineIcons.link,
                           size: 14,
                         ),
@@ -67,10 +69,8 @@ class NotificationsPage extends StatelessWidget {
               },
             );
           } else {
-            return Container(
-              child: Center(
-                child: NotificationsEmptyState(),
-              ),
+            return const Center(
+              child: NotificationsEmptyState(),
             );
           }
         });

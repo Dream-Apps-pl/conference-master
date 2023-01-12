@@ -19,11 +19,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:provider/provider.dart';
-import 'package:share/share.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class TalkPage extends StatelessWidget {
-  TalkPage(this.data);
+  const TalkPage(this.data, {Key? key}) : super(key: key);
 
   final Talk data;
 
@@ -31,7 +31,6 @@ class TalkPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        child: Icon(LineIcons.calendarPlus),
         tooltip: 'Add to calendar',
         backgroundColor: Theme.of(context).primaryColor,
         onPressed: data != null
@@ -53,9 +52,11 @@ class TalkPage extends StatelessWidget {
                 }
               }
             : null,
+        child: const Icon(LineIcons.calendarPlus),
       ),
       body: CustomScrollView(
-        physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+        physics: const BouncingScrollPhysics(
+            parent: AlwaysScrollableScrollPhysics()),
         slivers: <Widget>[
           SliverAppBar(
             floating: false,
@@ -73,17 +74,17 @@ class TalkPage extends StatelessWidget {
           ),
           (data != null)
               ? SliverList(
-                  delegate: new SliverChildListDelegate([
+                  delegate: SliverChildListDelegate([
                     TopHeader(talk: data),
                     TalkTitle(talk: data),
                     // TalkRating(talk: talkSnapshot.docs.first.data),
                     if (data.description != null) TalkDetails(talk: data),
                   ]),
                 )
-              : SliverFillRemaining(
+              : const SliverFillRemaining(
                   child: Center(
                     child: Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: EdgeInsets.all(8.0),
                       child: CircularProgressIndicator(),
                     ),
                   ),
@@ -103,10 +104,10 @@ class TalkRating extends StatefulWidget {
   final Talk talk;
 
   @override
-  _TalkRatingState createState() => _TalkRatingState();
+  TalkRatingState createState() => TalkRatingState();
 }
 
-class _TalkRatingState extends State<TalkRating> {
+class TalkRatingState extends State<TalkRating> {
   late RateBloc _rateBloc;
   double rating = 0.0;
 
@@ -134,7 +135,7 @@ class _TalkRatingState extends State<TalkRating> {
           padding: const EdgeInsets.all(16.0),
           child: Column(
             children: <Widget>[
-              Text('Rate the talk'),
+              const Text('Rate the talk'),
               StarRating(
                 onRatingChanged: (r) {
                   _rateBloc.add(RateTalk(widget.talk, r));
@@ -143,9 +144,9 @@ class _TalkRatingState extends State<TalkRating> {
               ),
               _rateBloc.review != null && _rateBloc.review.isNotEmpty
                   ? ReviewText(_rateBloc.review,
-                      onReviewSubmitted: this.onReviewSubmitted)
+                      onReviewSubmitted: onReviewSubmitted)
                   : ReviewButton(
-                      onReviewSubmitted: this.onReviewSubmitted,
+                      onReviewSubmitted: onReviewSubmitted,
                       canReviewDelegate: () =>
                           _rateBloc.canRateTalk(widget.talk),
                     ),
@@ -153,10 +154,11 @@ class _TalkRatingState extends State<TalkRating> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: ElevatedButton(
+                    onPressed: shareToTwitter,
                     child: RichText(
                       text: TextSpan(
                           style: DefaultTextStyle.of(context).style,
-                          children: [
+                          children: const [
                             TextSpan(
                               text: 'Enjoyed the talk? Share it on Twitter! ',
                             ),
@@ -169,7 +171,6 @@ class _TalkRatingState extends State<TalkRating> {
                             )
                           ]),
                     ),
-                    onPressed: shareToTwitter,
                   ),
                 ),
             ],
@@ -189,7 +190,7 @@ class _TalkRatingState extends State<TalkRating> {
     try {
       final twitters = widget.talk.authors
           .map((f) => f.twitter.isNotEmpty == true
-              ? '@' + f.twitter.split('/').last
+              ? '@${f.twitter.split('/').last}'
               : '')
           .join(' ');
       final body =
@@ -200,7 +201,7 @@ class _TalkRatingState extends State<TalkRating> {
       );
     } catch (e, s) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('Ups, we have a problem here.'),
+        content: const Text('Ups, we have a problem here.'),
         behavior: SnackBarBehavior.floating,
         backgroundColor: Theme.of(context).colorScheme.secondary,
       ));
@@ -225,7 +226,7 @@ class TalkTitle extends StatelessWidget {
       child: Text(
         talk.title,
         textAlign: TextAlign.center,
-        style: TextStyle(fontSize: 24),
+        style: const TextStyle(fontSize: 24),
       ),
     );
   }
@@ -246,8 +247,8 @@ class TalkDetails extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          SizedBox(height: 6),
-          Text(
+          const SizedBox(height: 6),
+          const Text(
             'Description',
             textAlign: TextAlign.left,
             style: TextStyle(
@@ -255,13 +256,13 @@ class TalkDetails extends StatelessWidget {
               fontWeight: FontWeight.w600,
             ),
           ),
-          SizedBox(height: 6),
+          const SizedBox(height: 6),
           // ContentfulRichText(talk.descriptionMap).documentToWidgetTree,
-          SizedBox(height: 32),
+          const SizedBox(height: 32),
           Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              Text(
+              const Text(
                 'Speakers',
                 textAlign: TextAlign.left,
                 style: TextStyle(
@@ -269,7 +270,7 @@ class TalkDetails extends StatelessWidget {
                   fontWeight: FontWeight.w600,
                 ),
               ),
-              SizedBox(height: 6),
+              const SizedBox(height: 6),
               for (var author in talk.authors)
                 CustomExpandablePanel(
                   header: author.name,
@@ -277,7 +278,7 @@ class TalkDetails extends StatelessWidget {
                 ),
             ],
           ),
-          SizedBox(height: 56),
+          const SizedBox(height: 56),
         ],
       ),
     );
@@ -303,7 +304,7 @@ class CustomExpandablePanel extends StatelessWidget {
                 Text(
                   header!,
                   textAlign: TextAlign.left,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w600,
                   ),
@@ -326,7 +327,7 @@ class CustomExpandablePanel extends StatelessWidget {
             ExpandableIcon(
               theme: ExpandableThemeData.combine(
                 ExpandableThemeData(
-                  iconColor: Theme.of(context).textTheme.bodyText1!.color,
+                  iconColor: Theme.of(context).textTheme.bodyLarge!.color,
                 ),
                 ExpandableThemeData.defaults,
               ),
@@ -346,7 +347,7 @@ class CustomExpandablePanel extends StatelessWidget {
           ExpandableIcon(
             theme: ExpandableThemeData.combine(
               ExpandableThemeData(
-                iconColor: Theme.of(context).textTheme.bodyText1!.color,
+                iconColor: Theme.of(context).textTheme.bodyLarge!.color,
               ),
               ExpandableThemeData.defaults,
             ),
@@ -378,19 +379,19 @@ class TopHeader extends StatelessWidget {
                 Center(
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Container(
+                    child: SizedBox(
                       width: 120,
                       height: 120,
                       child: Stack(
                         children: <Widget>[
                           DottedBorder(
                             borderType: BorderType.Circle,
-                            dashPattern: [4, 4],
+                            dashPattern: const [4, 4],
                             child: Center(
                               child: CircleAvatar(
                                 radius: 120,
                                 backgroundImage: ExtendedNetworkImageProvider(
-                                  author.avatar + '?fit=fill&w=300&h=300',
+                                  '${author.avatar}?fit=fill&w=300&h=300',
                                   cache: true,
                                 ),
                                 backgroundColor: Theme.of(context).primaryColor,
@@ -430,27 +431,23 @@ class SpeakerNameAndJob extends StatelessWidget {
       children: <Widget>[
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Container(
-            child: Text(
-              author.name,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 22,
-                fontWeight: FontWeight.w600,
-              ),
+          child: Text(
+            author.name,
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              fontSize: 22,
+              fontWeight: FontWeight.w600,
             ),
           ),
         ),
         Padding(
           padding: const EdgeInsets.all(4.0),
-          child: Container(
-            child: Text(
-              author.occupation,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.w400,
-              ),
+          child: Text(
+            author.occupation,
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.w400,
             ),
           ),
         ),
@@ -480,16 +477,16 @@ class TwitterButton extends StatelessWidget {
         iconSize: 32,
         tooltip: 'See Twitter profile',
         color: Colors.blue,
-        padding: EdgeInsets.all(0.0),
+        padding: const EdgeInsets.all(0.0),
         // visualDensity: VisualDensity.compact,
-        icon: Icon(LineIcons.twitter),
+        icon: const Icon(LineIcons.twitter),
       ),
     );
   }
 
   void openTwitter(String url) async {
-    if (await canLaunch(url)) {
-      await launch(url);
+    if (await canLaunchUrl(Uri.parse(url))) {
+      await launchUrl(Uri.parse(url));
     } else {
       logger.warn('Could not launch $url');
     }

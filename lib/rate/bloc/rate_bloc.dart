@@ -1,18 +1,18 @@
 import 'dart:async';
+
 import 'package:bloc/bloc.dart';
-import 'package:conferenceapp/model/talk.dart';
-import 'package:firebase_remote_config/firebase_remote_config.dart';
-import 'package:rxdart/rxdart.dart';
 import 'package:conferenceapp/common/logger.dart';
+import 'package:conferenceapp/model/talk.dart';
 import 'package:conferenceapp/rate/repository/ratings_repository.dart';
+import 'package:rxdart/rxdart.dart';
+
 import './bloc.dart';
 
 class RateBloc extends Bloc<RateEvent, RateState> {
   RateBloc(this._ratingsRepository) : super(InitialRateState());
 
-  late RatingsRepository _ratingsRepository;
+  late final RatingsRepository _ratingsRepository;
 
-  late RemoteConfigSettings _config;
 
   late double _rating;
   double get rating => _rating;
@@ -20,21 +20,18 @@ class RateBloc extends Bloc<RateEvent, RateState> {
   late String _review;
   String get review => _review;
 
-  @override
   RateState get initialState => InitialRateState();
 
-  @override
   Stream<RateState> transformEvents(
       Stream<RateEvent> events, Stream<RateState> Function(RateEvent) next) {
     final nonRateTalkStream = events.where((event) => event is! RateTalk);
     final rateTalkStream = events
         .where((event) => event is RateTalk)
-        .throttleTime(Duration(milliseconds: 500));
+        .throttleTime(const Duration(milliseconds: 500));
 
     return MergeStream([nonRateTalkStream, rateTalkStream]).switchMap(next);
   }
 
-  @override
   Stream<RateState> mapEventToState(
     RateEvent event,
   ) async* {
@@ -87,7 +84,7 @@ class RateBloc extends Bloc<RateEvent, RateState> {
   Future<bool> canRateTalk(Talk talk) async {
 
     // final minutes = _config.getInt("minutes_before_talk_can_be_rated") ?? 5;
-    final canRateTime = talk.endTime.subtract(Duration(minutes: 5));
+    final canRateTime = talk.endTime.subtract(const Duration(minutes: 5));
 
     return DateTime.now().isAfter(canRateTime);
   }

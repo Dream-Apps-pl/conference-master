@@ -8,11 +8,11 @@ class RoomIndicator extends StatelessWidget {
   const RoomIndicator({
     Key? key,
     required this.compact,
-    required this.talk,
+    this.talk,
   }) : super(key: key);
 
   final bool compact;
-  final Talk talk;
+  final Talk? talk;
 
   @override
   Widget build(BuildContext context) {
@@ -20,10 +20,10 @@ class RoomIndicator extends StatelessWidget {
     return Visibility(
       visible: !compact,
       child: _Triangle(
-        talk.room,
-        color: talk.room.id == TalkType.beginner.toString()
+        talk!.room,
+        color: talk?.room.id == TalkType.beginner.toString()
             ? Theme.of(context).primaryColor
-            : Theme.of(context).accentColor,
+            : Theme.of(context).colorScheme.secondary,
       ),
     );
   }
@@ -43,7 +43,7 @@ class _Triangle extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomPaint(
       painter: _ShapesPainter(color),
-      child: Container(
+      child: SizedBox(
         height: 50,
         width: 50,
         child: Center(
@@ -53,7 +53,7 @@ class _Triangle extends StatelessWidget {
               angle: math.pi / 4,
               child: Text(
                 room.name,
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.white,
                   fontSize: 9,
                   fontWeight: FontWeight.w500,

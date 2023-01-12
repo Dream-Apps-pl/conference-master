@@ -10,12 +10,11 @@ import 'package:conferenceapp/utils/languages.dart';
 import 'package:dynamic_themes/dynamic_themes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_bugfender/flutter_bugfender.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:line_icons/line_icons.dart';
-import 'package:package_info/package_info.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
-import 'package:share/share.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -23,11 +22,13 @@ import 'authenticator_button.dart';
 import 'settings_toggle.dart';
 
 class ProfilePage extends StatefulWidget {
+  const ProfilePage({Key? key}) : super(key: key);
+
   @override
-  _ProfilePageState createState() => _ProfilePageState();
+  ProfilePageState createState() => ProfilePageState();
 }
 
-class _ProfilePageState extends State<ProfilePage> {
+class ProfilePageState extends State<ProfilePage> {
   int counter = 0;
   bool authVisible = false;
 
@@ -38,26 +39,27 @@ class _ProfilePageState extends State<ProfilePage> {
     context.read<LanguageCubit>().changeStartLang();
     return Positioned.fill(
       child: ListView(
-        padding: EdgeInsets.only(bottom: 40),
-        physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+        padding: const EdgeInsets.only(bottom: 40),
+        physics: const BouncingScrollPhysics(
+            parent: AlwaysScrollableScrollPhysics()),
         children: <Widget>[
           ListTile(
             title: Text(S.current.language),
           ),
           Row(
             children: [
-              SizedBox(width: 15),
+              const SizedBox(width: 15),
               ChoiceChip(
                 label: Text(S.current.poland),
-                selected: defaultLang == Locale('pl') ? true : false,
+                selected: defaultLang == const Locale('pl') ? true : false,
                 onSelected: (bool selected) {
                   context.read<LanguageCubit>().changeLang(context, 'pl');
                 },
               ),
-              SizedBox(width: 5),
+              const SizedBox(width: 5),
               ChoiceChip(
                 label: Text(S.current.english),
-                selected: defaultLang == Locale('en') ? true : false,
+                selected: defaultLang == const Locale('en') ? true : false,
                 onSelected: (bool selected) {
                   context.read<LanguageCubit>().changeLang(context, 'en');
                 },
@@ -78,15 +80,15 @@ class _ProfilePageState extends State<ProfilePage> {
           ListTile(
             title: Text(S.current.sponsors),
             subtitle: Text(S.current.sponsorsDes),
-            trailing: Icon(LineIcons.angleRight),
-            contentPadding: EdgeInsets.only(left: 16.0, right: 24.0),
+            trailing: const Icon(LineIcons.angleRight),
+            contentPadding: const EdgeInsets.only(left: 16.0, right: 24.0),
             onTap: () {
               logger.info('Sponsors tapped');
               Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) => SponsorsPage(),
-                  settings: RouteSettings(name: 'sponsors'),
+                  settings: const RouteSettings(name: 'sponsors'),
                 ),
               );
             },
@@ -94,15 +96,15 @@ class _ProfilePageState extends State<ProfilePage> {
           ListTile(
             title: Text(S.current.organizers),
             subtitle: Text(S.current.organizersDes),
-            trailing: Icon(LineIcons.angleRight),
-            contentPadding: EdgeInsets.only(left: 16.0, right: 24.0),
+            trailing: const Icon(LineIcons.angleRight),
+            contentPadding: const EdgeInsets.only(left: 16.0, right: 24.0),
             onTap: () {
               logger.info('Organizers tapped');
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => OrganizersPage(),
-                  settings: RouteSettings(name: 'organizers'),
+                  builder: (context) => const OrganizersPage(),
+                  settings: const RouteSettings(name: 'organizers'),
                 ),
               );
             },
@@ -110,11 +112,12 @@ class _ProfilePageState extends State<ProfilePage> {
           ListTile(
             title: Text(S.current.codeOfConduct),
             subtitle: Text(S.current.codeOfConductDes),
-            trailing: Icon(LineIcons.angleRight),
-            contentPadding: EdgeInsets.only(left: 16.0, right: 24.0),
+            trailing: const Icon(LineIcons.angleRight),
+            contentPadding: const EdgeInsets.only(left: 16.0, right: 24.0),
             onTap: () async {
               final text = await getFileData('assets/coc.md');
               logger.info('Coc tapped');
+              if (!mounted) return;
               Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -123,13 +126,11 @@ class _ProfilePageState extends State<ProfilePage> {
                       back: true,
                       search: false,
                     ),
-                    body: Container(
-                      child: Markdown(
-                        data: text,
-                      ),
+                    body: Markdown(
+                      data: text,
                     ),
                   ),
-                  settings: RouteSettings(name: 'organizers'),
+                  settings: const RouteSettings(name: 'organizers'),
                 ),
               );
             },
@@ -137,8 +138,8 @@ class _ProfilePageState extends State<ProfilePage> {
           ListTile(
             title: Text(S.current.sendFeedback),
             subtitle: Text(S.current.sendFeedbackDes),
-            trailing: Icon(LineIcons.angleRight),
-            contentPadding: EdgeInsets.only(left: 16.0, right: 24.0),
+            trailing: const Icon(LineIcons.angleRight),
+            contentPadding: const EdgeInsets.only(left: 16.0, right: 24.0),
             onTap: () async {
               logger.info('Feedback tapped');
               await showDialog(
@@ -172,11 +173,12 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
           ListTile(
             title: Text(S.current.about),
-            trailing: Icon(LineIcons.angleRight),
-            contentPadding: EdgeInsets.only(left: 16.0, right: 24.0),
+            trailing: const Icon(LineIcons.angleRight),
+            contentPadding: const EdgeInsets.only(left: 16.0, right: 24.0),
             onTap: () async {
               final text = await getFileData('assets/about.md');
               logger.info('About tapped');
+              if (!mounted) return;
               Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -185,7 +187,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       title: Text(S.current.aboutApp),
                     ),
                     body: Padding(
-                      padding: EdgeInsets.all(16.0),
+                      padding: const EdgeInsets.all(16.0),
                       child: Column(
                         children: <Widget>[
                           MarkdownBody(
@@ -209,11 +211,12 @@ class _ProfilePageState extends State<ProfilePage> {
           ListTile(
             title: Text(S.current.openSourceLicenses),
             subtitle: Text(S.current.openSourceLicensesDes),
-            trailing: Icon(LineIcons.angleRight),
-            contentPadding: EdgeInsets.only(left: 16.0, right: 24.0),
+            trailing: const Icon(LineIcons.angleRight),
+            contentPadding: const EdgeInsets.only(left: 16.0, right: 24.0),
             onTap: () async {
               final version = await PackageInfo.fromPlatform();
               logger.info('Open source licenses tapped');
+              if (!mounted) return;
               showLicensePage(
                   context: context,
                   applicationIcon: Padding(
@@ -224,7 +227,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                   ),
                   applicationName: S.current.conferenceTitle,
-                  applicationVersion: '${version.version}',
+                  applicationVersion: version.version,
                   applicationLegalese:
                       'Created by Dominik Roszkowski (roszkowski.dev), Maciek Korzeniewski (@korzonkiee), Marcin Szałek (fidev.io) and Robert Odrowąż-Sypniewski for the Flutter Europe conference');
             },
@@ -242,7 +245,7 @@ class _ProfilePageState extends State<ProfilePage> {
           //   ),
           Visibility(
             visible: authVisible,
-            child: AuthenticatorButton(),
+            child: const AuthenticatorButton(),
           ),
           GestureDetector(
             onTap: () {
@@ -253,7 +256,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 });
               }
             },
-            child: VersionInfo(),
+            child: const VersionInfo(),
           )
         ],
       ),
@@ -267,7 +270,7 @@ class _ProfilePageState extends State<ProfilePage> {
   void sendEmail() async {
     final version = await PackageInfo.fromPlatform();
     final platform = Platform.isIOS ? 'iOS' : 'Android';
-    final email = 'piotr@snyiwizje.pl';
+    const email = 'piotr@snyiwizje.pl';
     final subject = S.current.subject;
     final body =
         'Cześć! Chciałem podzielić się swoja opinią na temat tej aplikacji mobilnej.<br><br><br>Wersja Aplikacji: ${version.version}<br>App Id: ${version.packageName}<br>Platforma: $platform';
@@ -284,21 +287,19 @@ class _ProfilePageState extends State<ProfilePage> {
   void changeReminders(bool value) {
     final sharedPrefs = Provider.of<SharedPreferences>(context);
     analytics!.setUserProperty(name: 'reminders', value: '$value');
-    FlutterBugfender.setDeviceString('reminders', '$value');
     sharedPrefs.setBool('reminders', value);
     setState(() {});
   }
 
   void changeBrightness() {
     final target = Theme.of(context).brightness == Brightness.dark ? 0 : 1;
-    print('target $target');
+    Logger().info('target $target');
     final paramValue = target == 0 ? 'light' : 'dark';
     analytics!.logEvent(
       name: 'settings_theme',
       parameters: {'target': paramValue},
     );
     analytics!.setUserProperty(name: 'theme', value: paramValue);
-    FlutterBugfender.setDeviceString('theme', paramValue);
     // DynamicTheme.of(context).setBrightness(target);
     DynamicTheme.of(context)!.setTheme(target);
   }

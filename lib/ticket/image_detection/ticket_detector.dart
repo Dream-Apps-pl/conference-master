@@ -6,8 +6,8 @@ import 'package:google_ml_kit/google_ml_kit.dart';
 
 import 'scanner_utils.dart';
 
-typedef void TextDetected(String number);
-typedef bool CheckCondition(String word);
+typedef TextDetected = void Function(String number);
+typedef CheckCondition = bool Function(String word);
 
 class TicketDetector extends StatefulWidget {
   const TicketDetector({
@@ -24,14 +24,14 @@ class TicketDetector extends StatefulWidget {
   final Widget? overlay;
 
   @override
-  _TicketDetectorState createState() => _TicketDetectorState();
+  TicketDetectorState createState() => TicketDetectorState();
 }
 
-class _TicketDetectorState extends State<TicketDetector> {
+class TicketDetectorState extends State<TicketDetector> {
   // final _recognizer = FirebaseVision.instance.textRecognizer();
   CameraController? _camera;
   bool _isDetecting = false;
-  CameraLensDirection _direction = CameraLensDirection.back;
+  final CameraLensDirection _direction = CameraLensDirection.back;
 
   @override
   void initState() {
@@ -117,11 +117,11 @@ class _TicketDetectorState extends State<TicketDetector> {
 
   bool handleScannerResults(RecognizedText results) {
     try {
-      final _filteredScanRresults =
+      final filteredScanRresults =
           results.blocks.where((b) => textWithinBounds(b)).toList();
 
-      if (_filteredScanRresults.length > 0) {
-        for (var text in _filteredScanRresults) {
+      if (filteredScanRresults.isNotEmpty) {
+        for (var text in filteredScanRresults) {
           for (var line in text.lines) {
             for (var word in line.text.split(' ')) {
               final correct = widget.condition!(word);
@@ -159,7 +159,7 @@ class _TicketDetectorState extends State<TicketDetector> {
                 e.boundingBox.bottom < (imageHalfY + widget.detectorHeight! / 2);
 
         if (result == true) {
-          print('TRUE ${e.text}');
+          Logger().info('TRUE ${e.text}');
           return true;
         }
       }

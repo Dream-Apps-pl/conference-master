@@ -13,7 +13,7 @@ class ImageLicenseText extends StatelessWidget {
         '${S.current.imageCourtesy} https://undraw.co/',
         textAlign: TextAlign.center,
         style: TextStyle(
-          color: Theme.of(context).textTheme.bodyText1!.color!.withOpacity(0.5),
+          color: Theme.of(context).textTheme.bodyLarge!.color!.withOpacity(0.5),
         ),
       ),
     );

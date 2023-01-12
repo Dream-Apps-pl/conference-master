@@ -22,7 +22,7 @@ class LearnFeaturesButton extends StatelessWidget {
             },
           );
         },
-        icon: Icon(LineIcons.questionCircle),
+        icon: const Icon(LineIcons.questionCircle),
       ),
     );
   }

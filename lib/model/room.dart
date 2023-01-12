@@ -9,7 +9,7 @@ class Room extends Equatable {
   final String name;
   final String id;
 
-  Room(this.name, this.id);
+  const Room(this.name, this.id);
   factory Room.fromContentfulType(TalkType type) {
     // todo handle other
     return Room(type == TalkType.beginner ? 'Blue' : 'Orange', '$type');

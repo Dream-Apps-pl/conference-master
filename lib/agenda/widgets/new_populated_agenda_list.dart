@@ -33,26 +33,26 @@ class NewPopulatedAgendaDayListContent extends StatelessWidget {
 
     final listCompact = compact
         ? ListView.builder(
-            padding: EdgeInsets.only(
+            padding: const EdgeInsets.only(
               left: 12.0,
               right: 12.0,
               top: 16.0,
               bottom: 62.0,
             ),
             physics:
-                AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
+                const AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
             itemCount: snapshot.length,
             itemBuilder: (context, index) {
-              Talk? _firstTalk;
-              Talk? _secondTalk;
+              Talk? firstTalk;
+              Talk? secondTalk;
 
-              final _thisHoursTalks = snapshot[index];
+              final thisHoursTalks = snapshot[index];
 
-              _firstTalk = _thisHoursTalks.data;
-              _secondTalk = _thisHoursTalks.data;
+              firstTalk = thisHoursTalks.data;
+              secondTalk = thisHoursTalks.data;
 
               final firstChild = getCompactTalkCards(
-                  _firstTalk, _secondTalk, favoriteTalks, context);
+                  firstTalk, secondTalk, favoriteTalks, context);
 
               return Container(
                 child: firstChild,
@@ -64,25 +64,25 @@ class NewPopulatedAgendaDayListContent extends StatelessWidget {
     final listNormal = compact
         ? Container()
         : ListView.builder(
-            padding: EdgeInsets.only(
+            padding: const EdgeInsets.only(
               left: 12.0,
               right: 12.0,
               top: 16.0,
               bottom: 62.0,
             ),
             physics:
-                AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
+                const AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
             itemCount: snapshot.length,
             itemBuilder: (context, index) {
-              Talk? _firstTalk;
-              Talk? _secondTalk;
+              Talk? firstTalk;
+              Talk? secondTalk;
 
-              final _thisHoursTalks = snapshot[index];
+              final thisHoursTalks = snapshot[index];
 
-              if (_thisHoursTalks.data.type == TalkType.beginner) {
-                _firstTalk = _thisHoursTalks.data;
+              if (thisHoursTalks.data.type == TalkType.beginner) {
+                firstTalk = thisHoursTalks.data;
               } else {
-                _secondTalk = _thisHoursTalks.data;
+                secondTalk = thisHoursTalks.data;
               }
               // _firstTalk = _thisHoursTalks.data;
               // .firstWhere(
@@ -94,7 +94,7 @@ class NewPopulatedAgendaDayListContent extends StatelessWidget {
               // );
 
               final secondChild = getNormalTalkCards(
-                  _firstTalk, favoriteTalks, context, _secondTalk);
+                  firstTalk, favoriteTalks, context, secondTalk);
 
               return Container(
                 child: secondChild,
@@ -103,7 +103,7 @@ class NewPopulatedAgendaDayListContent extends StatelessWidget {
           );
 
     return AnimatedCrossFade(
-      duration: Duration(milliseconds: 400),
+      duration: const Duration(milliseconds: 400),
       crossFadeState:
           compact ? CrossFadeState.showFirst : CrossFadeState.showSecond,
       firstChild: listCompact,
@@ -111,88 +111,88 @@ class NewPopulatedAgendaDayListContent extends StatelessWidget {
     );
   }
 
-  Column getNormalTalkCards(Talk? _firstTalk, List<String> favoriteTalks,
-      BuildContext context, Talk? _secondTalk) {
+  Column getNormalTalkCards(Talk? firstTalk, List<String> favoriteTalks,
+      BuildContext context, Talk? secondTalk) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        if (_firstTalk != null)
+        if (firstTalk != null)
           TalkCard(
-            key: ValueKey(_firstTalk.id),
-            talk: _firstTalk,
-            isFavorite: favoriteTalks.contains(_firstTalk.id),
+            key: ValueKey(firstTalk.id),
+            talk: firstTalk,
+            isFavorite: favoriteTalks.contains(firstTalk.id),
             first: true,
             compact: false,
-            onTap: () => onTap(context, _firstTalk),
+            onTap: () => onTap(context, firstTalk),
           ),
-        if (_secondTalk != null)
+        if (secondTalk != null)
           TalkCard(
-            key: ValueKey(_secondTalk.id),
-            talk: _secondTalk,
-            isFavorite: favoriteTalks.contains(_secondTalk.id),
+            key: ValueKey(secondTalk.id),
+            talk: secondTalk,
+            isFavorite: favoriteTalks.contains(secondTalk.id),
             first: false,
             compact: false,
-            onTap: () => onTap(context, _secondTalk),
+            onTap: () => onTap(context, secondTalk),
           ),
       ],
     );
   }
 
-  Row getCompactTalkCards(Talk _firstTalk, Talk _secondTalk,
+  Row getCompactTalkCards(Talk firstTalk, Talk secondTalk,
       List<String> favoriteTalks, BuildContext context) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        CompactLeftTalkContainer(talk: _firstTalk),
-        if (_firstTalk.type == TalkType.other)
+        CompactLeftTalkContainer(talk: firstTalk),
+        if (firstTalk.type == TalkType.other)
           Expanded(
             child: TalkCard(
-              key: ValueKey(_firstTalk.id),
-              talk: _firstTalk,
-              isFavorite: favoriteTalks.contains(_firstTalk.id),
+              key: ValueKey(firstTalk.id),
+              talk: firstTalk,
+              isFavorite: favoriteTalks.contains(firstTalk.id),
               first: true,
               compact: true,
-              onTap: () => onTap(context, _firstTalk),
+              onTap: () => onTap(context, firstTalk),
             ),
           )
-        else if (_firstTalk.type == TalkType.beginner)
+        else if (firstTalk.type == TalkType.beginner)
           Flexible(
             child: TalkCard(
-              key: ValueKey(_firstTalk.id),
-              talk: _firstTalk,
-              isFavorite: favoriteTalks.contains(_firstTalk.id),
+              key: ValueKey(firstTalk.id),
+              talk: firstTalk,
+              isFavorite: favoriteTalks.contains(firstTalk.id),
               first: true,
               compact: true,
-              onTap: () => onTap(context, _firstTalk),
+              onTap: () => onTap(context, firstTalk),
             ),
           )
         else
           Flexible(child: Container()),
-        if (_firstTalk.type != TalkType.other)
-          SizedBox(
+        if (firstTalk.type != TalkType.other)
+          const SizedBox(
             width: 12,
           ),
-        if (_secondTalk.type == TalkType.advanced)
+        if (secondTalk.type == TalkType.advanced)
           Flexible(
             child: TalkCard(
-              key: ValueKey(_secondTalk.id),
-              talk: _secondTalk,
-              isFavorite: favoriteTalks.contains(_firstTalk.id),
+              key: ValueKey(secondTalk.id),
+              talk: secondTalk,
+              isFavorite: favoriteTalks.contains(firstTalk.id),
               first: false,
               compact: true,
-              onTap: () => onTap(context, _secondTalk),
+              onTap: () => onTap(context, secondTalk),
             ),
           )
-        else if (_firstTalk.type != TalkType.other)
+        else if (firstTalk.type != TalkType.other)
           Flexible(child: Container()),
       ],
     );
   }
 
   void onTap(BuildContext context, Talk talk) {
-    if (talk.type == TalkType.other)
+    if (talk.type == TalkType.other) {
       return;
-    else
+    } else {
       Navigator.push(
         context,
         MaterialPageRoute(
@@ -200,5 +200,6 @@ class NewPopulatedAgendaDayListContent extends StatelessWidget {
           settings: RouteSettings(name: 'agenda/${talk.id}'),
         ),
       );
+    }
   }
 }

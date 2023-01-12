@@ -67,15 +67,17 @@ class AuthRepository {
   Stream<String> get userId => _firebaseAuth.authStateChanges().map((user) {
         if (user != null) {
           return user.uid;
-        } else
+        } else {
           return '';
+        }
       });
 
   Stream<User> get user => _firebaseAuth.authStateChanges().map((user) {
-        if (user != null)
+        if (user != null) {
           return user;
-        else
+        } else {
           return user!;
+        }
       });
 
   Stream<bool> isAdmin() {
@@ -109,7 +111,7 @@ class AuthRepository {
     List<DocumentSnapshot> adminsSnapshot,
   ) {
     try {
-      if (adminsSnapshot.length > 0) {
+      if (adminsSnapshot.isNotEmpty) {
         final isAdmin = adminsSnapshot.firstWhere((f) {
           return f.id == id;
         });
@@ -127,7 +129,7 @@ class AuthRepository {
     List<DocumentSnapshot> ticketersSnapshot,
   ) {
     try {
-      if (ticketersSnapshot.length > 0) {
+      if (ticketersSnapshot.isNotEmpty) {
         final isTicketer = ticketersSnapshot.firstWhere((f) {
           return (f.data() as Map<String, dynamic>)["email"] == user.email;
         });

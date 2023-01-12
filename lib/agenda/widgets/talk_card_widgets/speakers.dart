@@ -25,7 +25,7 @@ class Speakers extends StatelessWidget {
       children: <Widget>[
         for (var speaker in talk.authors)
           _TalkSpeaker(speaker: speaker, compact: compact),
-        if (talk.authors.isEmpty) SizedBox(height: 24)
+        if (talk.authors.isEmpty) const SizedBox(height: 24)
       ],
     );
   }
@@ -56,7 +56,7 @@ class _TalkSpeaker extends StatelessWidget {
                 shape: BoxShape.circle,
                 image: DecorationImage(
                   image: ExtendedNetworkImageProvider(
-                      speaker.avatar + '?fit=fill&w=50&h=50',
+                      '${speaker.avatar}?fit=fill&w=50&h=50',
                       cache: true),
                   fit: BoxFit.cover,
                 ),
@@ -85,7 +85,7 @@ class SpeakersHeightEquivalent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (talk.authors.isEmpty) return SizedBox(height: 22.0);
+    if (talk.authors.isEmpty) return const SizedBox(height: 22.0);
     return SizedBox(
         height: talk.authors.isEmpty ? 22.0 : talk.authors.length * 28.0);
   }

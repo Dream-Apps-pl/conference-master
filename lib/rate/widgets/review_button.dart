@@ -32,7 +32,7 @@ class ReviewButton extends StatelessWidget {
           final review =
               await showWriteReviewModalBottomSheet(context, data: '');
           if (review != null) {
-            this.onReviewSubmitted(review);
+            onReviewSubmitted(review);
           }
         } else {
           showRatingTalkTooEarlyError(context);

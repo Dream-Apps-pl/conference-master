@@ -1,14 +1,15 @@
 import 'package:bloc/bloc.dart';
+import 'package:conferenceapp/common/logger.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LanguageCubit extends Cubit<Locale> {
-  LanguageCubit() : super(Locale('pl'));
+  LanguageCubit() : super(const Locale('pl'));
 
   void changeStartLang() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? langCode = prefs.getString('lang');
-    print(langCode);
+    Logger().info(langCode.toString());
     if (langCode != null) {
       emit(Locale(langCode, 'pl'));
     }

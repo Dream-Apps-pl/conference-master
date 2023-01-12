@@ -22,15 +22,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:line_icons/line_icons.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({Key? key, this.title}) : super(key: key);
+  const HomePage({Key? key, this.title}) : super(key: key);
 
   final String? title;
 
   @override
-  _HomePageState createState() => _HomePageState();
+  HomePageState createState() => HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class HomePageState extends State<HomePage> {
   int _currentIndex = 0;
 
   static const int agenda = 0;
@@ -80,7 +80,7 @@ class _HomePageState extends State<HomePage> {
                     layoutSelector:
                         _currentIndex == agenda || _currentIndex == mySchedule,
                   ),
-                  floatingActionButton: AddTicketButton(),
+                  floatingActionButton: const AddTicketButton(),
                   floatingActionButtonLocation:
                       FloatingActionButtonLocation.centerDocked,
                   bottomNavigationBar:
@@ -91,12 +91,12 @@ class _HomePageState extends State<HomePage> {
                         index: _adminAwareIndex(
                             _currentIndex, isAdmin, isTicketer),
                         children: <Widget>[
-                          AgendaPage(),
-                          MySchedulePage(),
-                          NotificationsPage(),
-                          ProfilePage(),
-                          if (isTicketer) TicketCheckPage(),
-                          if (isAdmin) AdminPage() else Container(),
+                          const AgendaPage(),
+                          const MySchedulePage(),
+                          const NotificationsPage(),
+                          const ProfilePage(),
+                          if (isTicketer) const TicketCheckPage(),
+                          if (isAdmin) const AdminPage() else Container(),
                         ],
                       ),
                       Visibility(
@@ -117,8 +117,8 @@ class _HomePageState extends State<HomePage> {
 
   BottomNavigationBar createBottomNavigation(
       [bool isAdmin = false, bool isTicketer = false]) {
-    final itemHeight = 22.0;
-    final textSize = 12.0;
+    const itemHeight = 22.0;
+    const textSize = 12.0;
 
     return BottomNavigationBar(
       // if admin logs out we can't remain on admin page
@@ -146,34 +146,34 @@ class _HomePageState extends State<HomePage> {
       unselectedFontSize: textSize,
       items: [
         BottomNavigationBarItem(
-          icon: Container(
+          icon: const SizedBox(
             height: itemHeight,
             child: Icon(LineIcons.calendar),
           ),
           label: S.current.agenda,
         ),
         BottomNavigationBarItem(
-          icon: Icon(LineIcons.calendarCheck),
+          icon: const Icon(LineIcons.calendarCheck),
           label: S.current.mySchedule,
         ),
         BottomNavigationBarItem(
-          icon: NotificationIndicator(
+          icon: const NotificationIndicator(
             child: Icon(LineIcons.bell),
           ),
           label: S.current.notifications,
         ),
         BottomNavigationBarItem(
-          icon: Icon(LineIcons.cog),
+          icon: const Icon(LineIcons.cog),
           label: S.current.settings,
         ),
         if (isTicketer == true)
           BottomNavigationBarItem(
-            icon: Icon(LineIcons.alternateTicket),
+            icon: const Icon(LineIcons.alternateTicket),
             label: _currentIndex != ticketer ? 'Bilety' : '',
           ),
         if (isAdmin == true)
           BottomNavigationBarItem(
-            icon: Icon(LineIcons.userShield),
+            icon: const Icon(LineIcons.userShield),
             label: _currentIndex != admin ? S.current.admin : null,
           ),
       ],
@@ -195,6 +195,7 @@ class _HomePageState extends State<HomePage> {
         if (res.type == TalkType.other) {
           return;
         } else {
+          if (!mounted) return;
           await Navigator.push(
             context,
             MaterialPageRoute(
@@ -211,8 +212,8 @@ class _HomePageState extends State<HomePage> {
 
   _buildSearchPage(BuildContext context) {
     return MaterialPageRoute<Talk>(
-      settings: RouteSettings(name: 'search'),
-      builder: (BuildContext context) => SearchResultsPage(),
+      settings: const RouteSettings(name: 'search'),
+      builder: (BuildContext context) => const SearchResultsPage(),
     );
   }
 
@@ -267,7 +268,7 @@ class NotificationIndicator extends StatelessWidget {
                 child: Container(
                   width: 7,
                   height: 7,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     shape: BoxShape.circle,
                     color: Colors.red,
                   ),

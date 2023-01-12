@@ -13,8 +13,8 @@ class FirestoreRatingsRepository implements RatingsRepository {
   final CollectionReference _ratingsCollection;
   final UserRepository _userRepository;
 
-  String _talkRatingKey(String talkId) => talkId + "_rating";
-  String _talkReviewKey(String talkId) => talkId + "_review";
+  String _talkRatingKey(String talkId) => "${talkId}_rating";
+  String _talkReviewKey(String talkId) => "${talkId}_review";
 
   FirestoreRatingsRepository(
       this._sharedPreferences, this._ratingsCollection, this._userRepository);
@@ -128,6 +128,6 @@ class FirestoreRatingsRepository implements RatingsRepository {
 
 extension ListOperations on List<DocumentSnapshot> {
   DocumentSnapshot<Object?>? firstOrDefault() {
-    return this.length > 0 ? this.first : null;
+    return isNotEmpty ? first : null;
   }
 }

@@ -29,12 +29,12 @@ class PopulatedAgendaState extends AgendaState {
                         dates[
                             i]) && //we need talks from the day 't' but also ones starting at 0:00
                 t.startTime.isBefore(dates[i]
-                    .add(Duration(days: 1)))) // up to 0:00 of the next day
+                    .add(const Duration(days: 1)))) // up to 0:00 of the next day
             .toList()
               ..sort((n, m) => n.compareTo(m))
     });
   }
-  final _talks = Map<int, List<Talk>>();
+  final _talks = <int, List<Talk>>{};
   final _rooms = <Room>[];
   Map<int, List<Talk>> get talks => _talks;
   List<Room> get rooms => _rooms;

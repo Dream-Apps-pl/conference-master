@@ -9,11 +9,13 @@ import 'package:line_icons/line_icons.dart';
 import 'tickets_list.dart';
 
 class UsersListPage extends StatefulWidget {
+  const UsersListPage({Key? key}) : super(key: key);
+
   @override
-  _UsersListPageState createState() => _UsersListPageState();
+  UsersListPageState createState() => UsersListPageState();
 }
 
-class _UsersListPageState extends State<UsersListPage> {
+class UsersListPageState extends State<UsersListPage> {
   String filter = '';
 
   @override
@@ -31,12 +33,12 @@ class _UsersListPageState extends State<UsersListPage> {
           },
           decoration: InputDecoration(
             hintText: S.current.searchByOrder,
-            enabledBorder: UnderlineInputBorder(
+            enabledBorder: const UnderlineInputBorder(
               borderSide: BorderSide(
                 color: Colors.white,
               ),
             ),
-            focusedBorder: UnderlineInputBorder(
+            focusedBorder: const UnderlineInputBorder(
               borderSide: BorderSide(
                 color: Colors.white,
                 width: 2,
@@ -46,7 +48,7 @@ class _UsersListPageState extends State<UsersListPage> {
         ),
         actions: <Widget>[
           IconButton(
-            icon: Icon(
+            icon: const Icon(
               LineIcons.search,
               color: Colors.white,
             ),
@@ -66,7 +68,7 @@ class _UsersListPageState extends State<UsersListPage> {
               return StreamBuilder<QuerySnapshot>(
                 stream: tickets,
                 builder: (context, list) {
-                  if (list.hasData)
+                  if (list.hasData) {
                     return Column(
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
@@ -80,8 +82,9 @@ class _UsersListPageState extends State<UsersListPage> {
                         ),
                       ],
                     );
-                  else
-                    return CircularProgressIndicator();
+                  } else {
+                    return const CircularProgressIndicator();
+                  }
                 },
               );
             }),
@@ -90,8 +93,8 @@ class _UsersListPageState extends State<UsersListPage> {
   }
 
   String formatTimestamp(int timestamp) {
-    var format = new DateFormat('d MMM, hh:mm a');
-    var date = new DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
+    var format = DateFormat('d MMM, hh:mm a');
+    var date = DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
     return format.format(date);
   }
 }

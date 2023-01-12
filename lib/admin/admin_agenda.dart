@@ -19,19 +19,19 @@ class AdminAgenda extends StatefulWidget {
 class _AdminAgendaState extends State<AdminAgenda> {
   final _formKey = GlobalKey<FormState>();
   int? _value = 1;
-  TextEditingController _titleController = TextEditingController();
-  TextEditingController _descriptionController = TextEditingController();
+  final TextEditingController _titleController = TextEditingController();
+  final TextEditingController _descriptionController = TextEditingController();
   TalkType? _talkType = TalkType.beginner;
   RoomType? _roomType = RoomType.roomA;
 
   String? startDate;
   String? endDate;
 
-  TextEditingController _nameController = TextEditingController();
-  TextEditingController _longBioController = TextEditingController();
-  TextEditingController _ocupationController = TextEditingController();
-  TextEditingController _twitterController = TextEditingController();
-  TextEditingController _avatarController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _longBioController = TextEditingController();
+  final TextEditingController _ocupationController = TextEditingController();
+  final TextEditingController _twitterController = TextEditingController();
+  final TextEditingController _avatarController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +57,7 @@ class _AdminAgendaState extends State<AdminAgenda> {
                       });
                     },
                   ),
-                  SizedBox(width: 5),
+                  const SizedBox(width: 5),
                   ChoiceChip(
                     label: Text(S.current.dayTwo),
                     selected: _value == 2,
@@ -67,7 +67,7 @@ class _AdminAgendaState extends State<AdminAgenda> {
                       });
                     },
                   ),
-                  SizedBox(width: 5),
+                  const SizedBox(width: 5),
                   ChoiceChip(
                     label: Text(S.current.dayThree),
                     selected: _value == 3,
@@ -156,7 +156,7 @@ class _AdminAgendaState extends State<AdminAgenda> {
                           }),
                         ),
                       ),
-                      SizedBox(width: 10),
+                      const SizedBox(width: 10),
                       Expanded(
                         child: DateTimePicker(
                           type: DateTimePickerType.dateTime,
@@ -183,7 +183,7 @@ class _AdminAgendaState extends State<AdminAgenda> {
                     padding: const EdgeInsets.only(top: 20.0),
                     child: Text(
                       S.current.roomAgenda,
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colors.grey,
                         fontSize: 16,
                       ),
@@ -227,7 +227,7 @@ class _AdminAgendaState extends State<AdminAgenda> {
                     padding: const EdgeInsets.only(top: 20.0),
                     child: Text(
                       S.current.speakers,
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colors.grey,
                         fontSize: 16,
                       ),
@@ -269,7 +269,7 @@ class _AdminAgendaState extends State<AdminAgenda> {
                   ),
                   TextField(
                     controller: _twitterController,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       labelText: 'Facebook',
                     ),
                   ),
@@ -296,11 +296,11 @@ class _AdminAgendaState extends State<AdminAgenda> {
   }
 
   void _onSaveAgenda() {
-    var uuid = Uuid();
+    var uuid = const Uuid();
     if (_formKey.currentState!.validate()) {
-      List<Author> _author = [
+      List<Author> author = [
         Author(
-          '${uuid.v4()}',
+          uuid.v4(),
           _nameController.text,
           _longBioController.text,
           _ocupationController.text,
@@ -308,36 +308,36 @@ class _AdminAgendaState extends State<AdminAgenda> {
           _avatarController.text,
         )
       ];
-      Room _room;
+      Room room;
       if (_roomType == RoomType.roomA) {
-        _room = Room('A', '0');
+        room = const Room('A', '0');
       } else {
-        _room = Room('B', '1');
+        room = const Room('B', '1');
       }
 
-      DayType _dayType;
+      DayType dayType;
       if (_value == 1) {
-        _dayType = DayType.one;
+        dayType = DayType.one;
       }
       if (_value == 2) {
-        _dayType = DayType.two;
+        dayType = DayType.two;
       } else {
-        _dayType = DayType.three;
+        dayType = DayType.three;
       }
 
-      Talk _talk = Talk(
-        '${uuid.v1()}',
+      Talk talk = Talk(
+        uuid.v1(),
         _titleController.text,
-        _author,
+        author,
         _descriptionController.text,
         DateTime.parse(startDate!),
         DateTime.parse(endDate!),
-        _room,
+        room,
         _talkType!,
-        _dayType,
+        dayType,
       );
       FirestoreService()
-          .addTalk(_talk)
+          .addTalk(talk)
           .whenComplete(() => Navigator.pop(context));
     }
   }

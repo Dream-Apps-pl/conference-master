@@ -77,7 +77,7 @@ class TalkCardDecoration extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DecoratedBox(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
           // border: Border.all(color: Colors.black26, width: 2),
           // boxShadow: [
           //   BoxShadow(

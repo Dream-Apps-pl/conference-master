@@ -12,10 +12,10 @@ class ManualTicketPage extends StatefulWidget {
   const ManualTicketPage({Key? key, required this.bloc}) : super(key: key);
 
   @override
-  _ManualTicketPageState createState() => _ManualTicketPageState();
+  ManualTicketPageState createState() => ManualTicketPageState();
 }
 
-class _ManualTicketPageState extends State<ManualTicketPage> {
+class ManualTicketPageState extends State<ManualTicketPage> {
   String value = '';
   String name = '';
 
@@ -26,7 +26,7 @@ class _ManualTicketPageState extends State<ManualTicketPage> {
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
-            title: Text('Ręczne sprawdzanie biletów'),
+            title: const Text('Ręczne sprawdzanie biletów'),
           ),
           body: GestureDetector(
             onTap: () {
@@ -52,14 +52,14 @@ class _ManualTicketPageState extends State<ManualTicketPage> {
                     textCapitalization: TextCapitalization.characters,
                     onFieldSubmitted: (val) {
                       FocusScope.of(context).requestFocus(FocusNode());
-                      if (value.length > 0) onSearch();
+                      if (value.isNotEmpty) onSearch();
                     },
                   ),
                   Text(S.current.validationOrder),
                   Text(S.current.validationNumber),
                   ElevatedButton(
+                    onPressed: value.isNotEmpty ? onSearch : null,
                     child: Text(S.current.search),
-                    onPressed: value.length > 0 ? onSearch : null,
                   ),
                   if (state is TicketScannedState)
                     TicketInfo(
@@ -85,9 +85,10 @@ class _ManualTicketPageState extends State<ManualTicketPage> {
   }
 
   void onSearch() {
-    if (value.length > 9)
+    if (value.length > 9) {
       widget.bloc.add(TicketScanned('_ _ $value'));
-    else
+    } else {
       widget.bloc.add(TicketScanned('_ $value _'));
+    }
   }
 }

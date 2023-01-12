@@ -11,11 +11,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
 class MySchedulePage extends StatefulWidget {
+  const MySchedulePage({Key? key}) : super(key: key);
+
   @override
-  _MySchedulePageState createState() => _MySchedulePageState();
+  MySchedulePageState createState() => MySchedulePageState();
 }
 
-class _MySchedulePageState extends State<MySchedulePage> {
+class MySchedulePageState extends State<MySchedulePage> {
   late PageController pageController;
   final ValueNotifier<int> currentIndex = ValueNotifier<int>(0);
 
@@ -65,11 +67,11 @@ class _MySchedulePageState extends State<MySchedulePage> {
                         .where((element) => fav.contains(element.data.id))
                         .toList();
                     if (data.isEmpty) {
-                      return MyScheduleEmptyState();
+                      return const MyScheduleEmptyState();
                     }
                     return PageView(
                       controller: pageController,
-                      physics: AlwaysScrollableScrollPhysics(
+                      physics: const AlwaysScrollableScrollPhysics(
                           parent: BouncingScrollPhysics()),
                       children: <Widget>[
                         NewPopulatedAgendaDayListContent(
@@ -106,7 +108,7 @@ class _MySchedulePageState extends State<MySchedulePage> {
                     );
                     // return Text("${talkSnapshot.docs.first.data.title}");
                   }
-                  return MyScheduleEmptyState();
+                  return const MyScheduleEmptyState();
                 },
               );
             },
@@ -202,12 +204,12 @@ class MyScheduleEmptyState extends StatelessWidget {
             width: 200,
             fit: BoxFit.contain,
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
+          const Padding(
+            padding: EdgeInsets.all(8.0),
             child: Text('Here you will see your observed talks'),
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
+          const Padding(
+            padding: EdgeInsets.all(8.0),
             child: Text('Add some by tapping ❤️'),
           ),
         ],

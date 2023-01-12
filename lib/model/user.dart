@@ -9,7 +9,7 @@ part 'user.g.dart';
 class User {
   final List<String> favoriteTalksIds;
   final String userId;
-  final String ticketId;
+  final String? ticketId;
 
   User(this.userId, this.favoriteTalksIds, this.ticketId);
 

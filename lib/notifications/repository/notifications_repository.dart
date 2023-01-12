@@ -14,7 +14,7 @@ class FirestoreNotificationsRepository {
   Stream<List<AppNotification>> notifications() {
     return _notificationsCollection.snapshots().map((snapshot) {
       final list = snapshot.docs.map(_getNotifications).toList();
-      list..sort();
+      list.sort();
       return list;
     });
   }

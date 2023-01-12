@@ -1,3 +1,4 @@
+import 'package:conferenceapp/common/logger.dart';
 import 'package:conferenceapp/generated/l10n.dart';
 import 'package:conferenceapp/ticket/widgets/ticket_clipper.dart';
 import 'package:conferenceapp/ticket_check/bloc/bloc.dart';
@@ -10,10 +11,10 @@ class ScanTicketPage extends StatefulWidget {
 
   const ScanTicketPage({Key? key, required this.bloc}) : super(key: key);
   @override
-  _ScanTicketPageState createState() => _ScanTicketPageState();
+  ScanTicketPageState createState() => ScanTicketPageState();
 }
 
-class _ScanTicketPageState extends State<ScanTicketPage> {
+class ScanTicketPageState extends State<ScanTicketPage> {
   bool scanning = true;
 
   @override
@@ -39,7 +40,7 @@ class _ScanTicketPageState extends State<ScanTicketPage> {
                     ),
                   ScanTopInfo(scanning: scanning),
                   if (state is LoadingState)
-                    Center(child: CircularProgressIndicator()),
+                    const Center(child: CircularProgressIndicator()),
                   if (state is TicketScannedState)
                     TicketInfo(
                       bloc: widget.bloc,
@@ -54,7 +55,7 @@ class _ScanTicketPageState extends State<ScanTicketPage> {
   }
 
   Widget _cameraPreviewWidget() {
-    return SizedBox();
+    return const SizedBox();
     // return MobileScanner(
     //     controller: MobileScannerController(
     //         facing: CameraFacing.front, torchEnabled: true),
@@ -85,7 +86,7 @@ class TicketError extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Container(
+            const SizedBox(
               height: 200,
               child: FlareActor(
                 'assets/flare/fail.flr',
@@ -125,10 +126,10 @@ class TicketValidated extends StatelessWidget {
             children: <Widget>[
               Text(
                 S.current.ticketChecked,
-                style: TextStyle(fontWeight: FontWeight.bold),
+                style: const TextStyle(fontWeight: FontWeight.bold),
               ),
-              SizedBox(height: 12),
-              Container(
+              const SizedBox(height: 12),
+              const SizedBox(
                 height: 200,
                 width: 200,
                 child: Center(
@@ -183,56 +184,56 @@ class TicketInfo extends StatelessWidget {
               children: <Widget>[
                 Text(
                   S.current.confirmParticipant,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 18,
                   ),
                 ),
-                SizedBox(height: 12),
+                const SizedBox(height: 12),
                 Text('${S.current.orderNumber}: ${state.ticket.orderId}'),
                 Text('${S.current.ticketNumber}: ${state.ticket.ticketId}'),
                 Text('${S.current.name}: ${state.name}'),
-                SizedBox(height: 12),
+                const SizedBox(height: 12),
                 Text(S.current.technicalData),
                 Text(state.ticketChecked
                     ? S.current.ticketAlreadyChecked
                     : S.current.ticketNotChecked),
                 Text(
                     '${S.current.ticketLeftOrder}: ${state.leftTicketsInOrderCount}/${state.ticketsInOrderCount}'),
-                SizedBox(height: 12),
+                const SizedBox(height: 12),
                 if (state.student)
                   Text(
                     S.current.studentTicket,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 24,
                     ),
                   ),
-                SizedBox(height: 12),
+                const SizedBox(height: 12),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     ElevatedButton(
-                      child: Text(S.current.cancel),
                       style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.red,
-                          textStyle: TextStyle(color: Colors.white)),
+                          textStyle: const TextStyle(color: Colors.white)),
                       onPressed: () {
                         bloc.add(InitEvent());
                       },
+                      child: Text(S.current.cancel),
                     ),
-                    SizedBox(width: 12),
+                    const SizedBox(width: 12),
                     ElevatedButton(
-                      child: Text(S.current.everythingFine),
                       style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.green,
-                          textStyle: TextStyle(color: Colors.white)),
+                          textStyle: const TextStyle(color: Colors.white)),
                       onPressed: () {
                         bloc.add(TickedValidated(
                           state.userId,
                           state.ticket,
                         ));
                       },
+                      child: Text(S.current.everythingFine),
                     ),
                   ],
                 )
@@ -269,8 +270,8 @@ class ScanTopInfo extends StatelessWidget {
             children: <Widget>[
               if (scanning) Text(S.current.qrScanning),
               if (scanning)
-                Padding(
-                  padding: const EdgeInsets.all(2.0),
+                const Padding(
+                  padding: EdgeInsets.all(2.0),
                   child: SizedBox(
                       height: 12,
                       width: 12,
@@ -285,4 +286,4 @@ class ScanTopInfo extends StatelessWidget {
 }
 
 void logError(String code, String message) =>
-    print('Error: $code\nError Message: $message');
+    Logger().info('Error: $code\nError Message: $message');

@@ -9,18 +9,16 @@ import 'package:rxdart/rxdart.dart';
 class UserRepository {
   final AuthRepository _authRepository;
   final FirebaseFirestore _firestore;
-  late User _cachedUser;
 
   UserRepository(this._authRepository, this._firestore) {
-    this.user.listen((user) {
-      print('log id $user');
-      _cachedUser = user;
+    user.listen((user) {
+      Logger().info('log id $user');
     });
   }
 
   Stream<DocumentSnapshot> get _usersSnapshotsStream {
     return _authRepository.userId.asyncExpand((id) {
-      if (id == null) return null;
+      if (id.isEmpty) return null;
 
       return _firestore.doc('users/$id').snapshots();
     });
@@ -55,12 +53,11 @@ class UserRepository {
     String id,
     DocumentSnapshot userSnapshot,
   ) {
-    if (id != userSnapshot.id || id != _cachedUser.userId) {
+    if (id != userSnapshot.id) {
       logger.warn('Wrong auth id of cached user');
     }
     if (userSnapshot.exists) {
       final user = User.fromJson(userSnapshot.data() as Map<String, dynamic>);
-      _cachedUser = user;
       return user;
     } else {
       return User(id, [], '');
